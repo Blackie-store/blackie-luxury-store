@@ -3,149 +3,389 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACKIE — Beyond Luxury</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <title>BLACKIE — Online Shopping Mall</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #050505; --gold: #d4af37; --white: #ffffff; --card: #0d0d0d; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        body { background-color: var(--bg); color: var(--white); overflow-x: hidden; opacity: 0; animation: fadeInPage 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-        @keyframes fadeInPage { to { opacity: 1; } }
-
-        /* Navigation */
-        header { background: rgba(5,5,5,0.9); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid #111; backdrop-filter: blur(15px); }
-        .logo { font-family: 'Cinzel', serif; font-size: 24px; letter-spacing: 5px; color: #fff; text-decoration: none; background: linear-gradient(45deg, #fff, var(--gold), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
-        nav { display: flex; align-items: center; }
-        nav a { color: #bbb; text-decoration: none; margin-left: 25px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; }
-        nav a:hover, nav a.active { color: var(--gold); }
-        .user-tag { border: 1px solid var(--gold); padding: 5px 12px; font-size: 10px; color: var(--gold); margin-left: 20px; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* Slider Hero Section */
-        .hero { height: 100vh; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .slide { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; transition: opacity 1.5s ease-in-out; display: flex; align-items: center; justify-content: center; }
-        .slide.active { opacity: 1; }
-        .slide-bg { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.35; transform: scale(1.1); transition: transform 6s ease; }
-        .slide.active .slide-bg { transform: scale(1); }
-        
-        .hero-content { position: relative; z-index: 10; max-width: 900px; padding: 20px; }
-        .hero-title { font-family: 'Cinzel', serif; font-size: calc(32px + 2vw); letter-spacing: 15px; margin-bottom: 20px; text-transform: uppercase; text-shadow: 0 0 20px rgba(0,0,0,0.8); }
-        .hero-sub { color: var(--gold); font-size: 12px; letter-spacing: 8px; margin-bottom: 40px; text-transform: uppercase; font-weight: 600; }
-        .cta-btn { background: transparent; color: #fff; border: 1px solid var(--gold); padding: 15px 40px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: 0.4s; text-decoration: none; display: inline-block; }
-        .cta-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 30px rgba(212,175,55,0.4); }
-
-        /* Uncommon Search Icon Trigger */
-        .search-trigger { background: transparent; border: 1px solid #222; color: var(--gold); padding: 12px 30px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; margin-top: 25px; transition: 0.3s; }
-        .search-trigger:hover { border-color: var(--gold); background: rgba(212,175,55,0.05); }
-
-        /* Full Screen Luxury Search Overlay */
-        .search-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,5,0.98); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: 0.5s cubic-bezier(0.7,0,0.3,1); }
-        .search-overlay.open { opacity: 1; pointer-events: auto; }
-        .search-input-box { width: 80%; max-width: 700px; border-bottom: 2px solid var(--gold); position: relative; margin-bottom: 30px; }
-        .search-input-box input { width: 100%; background: transparent; border: none; color: #fff; font-size: 28px; font-family: 'Cinzel', serif; padding: 15px 0; text-align: center; letter-spacing: 2px; }
-        .search-input-box input:focus { outline: none; }
-        .close-search { position: absolute; top: 40px; right: 5%; font-size: 14px; color: #888; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; }
-        .close-search:hover { color: #fff; }
-
-        /* Premium Highlights Section */
-        .highlights { padding: 80px 5%; display: flex; justify-content: space-around; gap: 30px; flex-wrap: wrap; background: #080808; border-top: 1px solid #111; }
-        .hl-box { text-align: center; max-width: 300px; padding: 20px; border: 1px solid #111; transition: 0.3s; }
-        .hl-box:hover { border-color: var(--gold); }
-        .hl-box h3 { font-family: 'Cinzel', serif; font-size: 16px; color: var(--gold); margin-bottom: 15px; letter-spacing: 2px; }
-        .hl-box p { font-size: 12px; color: #888; line-height: 1.8; }
-
-        @media(max-width: 768px) {
-            header { padding: 15px 4%; }
-            nav a { margin-left: 15px; font-size: 9px; letter-spacing: 1px; }
-            .user-tag { display: none; }
+        :root {
+            --bg-main: #0a0a0a;
+            --bg-card: #121212;
+            --daraz-orange-replaced-gold: #d4af37; /* Premium Gold */
+            --silver-text: #b0b0b0;
+            --white: #ffffff;
+            --border-color: #222222;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        body { background-color: var(--bg-main); color: var(--white); overflow-x: hidden; }
+
+        /* --- DARAZ TOP HEADER STRIP --- */
+        .top-header { background: #000; padding: 5px 8%; display: flex; justify-content: flex-end; gap: 20px; font-size: 11px; border-bottom: 1px solid var(--border-color); color: var(--silver-text); }
+        .top-header span { cursor: pointer; transition: 0.3s; }
+        .top-header span:hover { color: var(--daraz-orange-replaced-gold); }
+
+        /* --- MAIN DARAZ SEARCH BAR HEADER --- */
+        header { background: #050505; padding: 15px 8%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); }
+        .logo { font-size: 28px; font-weight: 800; letter-spacing: 2px; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 5px; }
+        .logo span { color: var(--daraz-orange-replaced-gold); }
+        
+        .search-container { flex: 1; max-width: 600px; margin: 0 30px; display: flex; position: relative; }
+        .search-box { width: 100%; background: #111; border: 1px solid var(--border-color); padding: 12px 20px; color: #fff; font-size: 13px; outline: none; transition: 0.3s; }
+        .search-box:focus { border-color: var(--daraz-orange-replaced-gold); }
+        .search-btn { background: var(--daraz-orange-replaced-gold); color: #000; border: none; padding: 0 25px; cursor: pointer; font-size: 14px; font-weight: 600; }
+        .search-btn:hover { background: #fff; }
+
+        .cart-icon-btn { position: relative; background: transparent; border: none; color: #fff; font-size: 22px; cursor: pointer; margin-left: 20px; display: flex; align-items: center; gap: 8px; }
+        .cart-icon-btn:hover { color: var(--daraz-orange-replaced-gold); }
+        .cart-count { position: absolute; top: -8px; right: -10px; background: red; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 50%; font-weight: 700; }
+
+        /* --- MAIN HERO LAYOUT (Daraz Categories + Slider) --- */
+        .hero-section { padding: 20px 8%; display: grid; grid-template-columns: 240px 1fr; gap: 20px; }
+        @media(max-width: 992px) { .hero-section { grid-template-columns: 1fr; } }
+
+        /* Daraz Side Categories Menu */
+        .side-categories { background: var(--bg-card); border: 1px solid var(--border-color); padding: 15px 0; display: flex; flex-direction: column; }
+        .cat-item { padding: 10px 20px; font-size: 13px; color: var(--silver-text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; }
+        .cat-item:hover, .cat-item.active { background: #1a1a1a; color: var(--daraz-orange-replaced-gold); padding-left: 25px; }
+
+        /* Daraz Carousel Slider */
+        .slider-container { background: #111; height: 380px; position: relative; overflow: hidden; border: 1px solid var(--border-color); }
+        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; }
+        .slide.active { opacity: 1; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
+        .slide-text { position: absolute; bottom: 40px; left: 40px; z-index: 10; max-width: 500px; }
+        .slide-text h2 { font-size: 36px; font-weight: 700; color: #fff; margin-bottom: 10px; text-transform: uppercase; }
+        .slide-text p { color: var(--daraz-orange-replaced-gold); font-size: 14px; letter-spacing: 1px; }
+
+        /* --- FLASH SALE SECTION (Daraz Style) --- */
+        .section-wrapper { padding: 30px 8%; }
+        .section-title { font-size: 18px; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; color: #fff; display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--daraz-orange-replaced-gold); padding-left: 10px; }
+        .section-title span { font-size: 12px; color: var(--daraz-orange-replaced-gold); background: #222; padding: 4px 10px; font-weight: 400; }
+
+        /* Daraz Product Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .product-card { background: var(--bg-card); border: 1px solid var(--border-color); transition: 0.3s; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-card:hover { transform: translateY(-3px); border-color: var(--daraz-orange-replaced-gold); box-shadow: 0 5px 15px rgba(212,175,55,0.1); }
+        
+        .img-box { width: 100%; height: 200px; overflow: hidden; background: #000; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .product-card:hover .img-box img { transform: scale(1.05); }
+
+        .product-info { padding: 12px; }
+        .p-title { font-size: 13px; color: #fff; margin-bottom: 8px; height: 36px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.4; }
+        .p-price { font-size: 16px; font-weight: 700; color: var(--daraz-orange-replaced-gold); margin-bottom: 5px; }
+        .p-old-price { font-size: 11px; color: #666; text-decoration: line-through; margin-bottom: 12px; }
+        
+        .add-cart-btn { width: 100%; background: transparent; color: #fff; border: 1px solid #333; padding: 8px; font-size: 12px; cursor: pointer; text-transform: uppercase; font-weight: 500; transition: 0.3s; }
+        .add-cart-btn:hover { background: var(--daraz-orange-replaced-gold); color: #000; border-color: var(--daraz-orange-replaced-gold); }
+
+        /* --- MODAL LAYER: SHOPPING CART & CHECKOUT SPLIT --- */
+        .cart-modal { position: fixed; top: 0; right: -100%; width: 100%; max-width: 500px; height: 100vh; background: #080808; z-index: 2000; box-shadow: -5px 0 25px rgba(0,0,0,0.5); transition: 0.4s cubic-bezier(0.7, 0, 0.3, 1); border-left: 1px solid var(--border-color); display: flex; flex-direction: column; }
+        .cart-modal.open { right: 0; }
+        
+        .cart-header { padding: 20px; background: #000; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .cart-header h3 { font-size: 16px; font-weight: 600; color: var(--daraz-orange-replaced-gold); }
+        .close-cart { font-size: 20px; color: #fff; cursor: pointer; }
+
+        .cart-body { flex: 1; overflow-y: auto; padding: 20px; }
+        .cart-item-row { display: flex; gap: 15px; align-items: center; padding: 12px 0; border-bottom: 1px solid #111; }
+        .cart-item-row img { width: 50px; height: 50px; object-fit: cover; }
+        .cart-item-details { flex: 1; }
+        .cart-item-name { font-size: 12px; color: #fff; margin-bottom: 4px; }
+        .cart-item-price { font-size: 13px; color: var(--daraz-orange-replaced-gold); font-weight: 600; }
+        .remove-item { color: #ff5c5c; font-size: 12px; cursor: pointer; background: none; border: none; }
+
+        /* Checkout Inputs Inside Cart Drawer */
+        .checkout-form { margin-top: 25px; border-top: 1px dashed var(--border-color); padding-top: 20px; }
+        .checkout-form h4 { font-size: 13px; color: #fff; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .checkout-form input, .checkout-form textarea { width: 100%; background: #111; border: 1px solid var(--border-color); padding: 10px; color: #fff; font-size: 12px; margin-bottom: 12px; outline: none; }
+        .checkout-form input:focus, .checkout-form textarea:focus { border-color: var(--daraz-orange-replaced-gold); }
+
+        .cart-footer { padding: 20px; background: #000; border-top: 1px solid var(--border-color); }
+        .total-row { display: flex; justify-content: space-between; font-size: 16px; font-weight: 600; margin-bottom: 15px; }
+        .whatsapp-submit-btn { width: 100%; background: var(--daraz-orange-replaced-gold); color: #000; border: none; padding: 14px; font-size: 13px; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center; display: block; }
+        .whatsapp-submit-btn:hover { background: #white; color: #fff; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1500; display: none; }
+        .modal-overlay.open { display: block; }
+
+        /* Footer Strip */
+        footer { background: #000; border-top: 1px solid var(--border-color); padding: 20px; text-align: center; font-size: 12px; color: var(--silver-text); }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="index.html" class="logo">BLACKIE</a>
-        <nav>
-            <a href="index.html" class="active">Home</a>
-            <a href="shop.html">Shop</a>
-            <a href="cart.html">Cart</a>
-            <a href="admin.html">Dashboard</a>
-            <span id="userDisplay" class="user-tag" style="display:none;"></span>
-        </nav>
-    </header>
-
-    <section class="hero" id="heroSlider">
-        <div class="slide active">
-            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070" class="slide-bg">
-            <div class="hero-content">
-                <h1 class="hero-title">THE VOID COLLECTION</h1>
-                <p class="hero-sub">Uncompromising Luxury for the Elite</p>
-                <a href="shop.html" class="cta-btn">Explore Vault</a><br>
-                <button class="search-trigger" onclick="toggleSearch(true)">🔍 Quick Search</button>
-            </div>
-        </div>
-        <div class="slide">
-            <img src="https://images.unsplash.com/photo-1509319117193-57bab727e09d?q=80&w=2070" class="slide-bg">
-            <div class="hero-content">
-                <h1 class="hero-title">TIMELESS OPULENCE</h1>
-                <p class="hero-sub">Crafted Beyond Perfection</p>
-                <a href="shop.html" class="cta-btn">View Masterpieces</a><br>
-                <button class="search-trigger" onclick="toggleSearch(true)">🔍 Quick Search</button>
-            </div>
-        </div>
-    </section>
-
-    <div class="search-overlay" id="searchOverlay">
-        <span class="close-search" onclick="toggleSearch(false)">[ Close ESC ]</span>
-        <div class="search-input-box">
-            <input type="text" id="globalSearch" placeholder="TYPE TO SEARCH..." onkeypress="executeSearch(event)">
-        </div>
-        <p style="font-size:11px; color:#555; letter-spacing:2px;">PRESS ENTER TO DISCOVER THE ARCHIVE</p>
+    <div class="top-header">
+        <span>BLACKIE CARE</span>
+        <span>TRACK MY ORDER</span>
+        <span>CUSTOMER LOGIN</span>
     </div>
 
-    <section class="highlights">
-        <div class="hl-box">
-            <h3>SECURE PACKAGING</h3>
-            <p>Every single masterpiece is dispatched inside our signature armored matte black cases.</p>
+    <header>
+        <a href="index.html" class="logo">BLACK<span>IE</span></a>
+        
+        <div class="search-container">
+            <input type="text" id="mainSearchInput" class="search-box" placeholder="Search in BLACKIE Mall..." oninput="searchStore()">
+            <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
-        <div class="hl-box">
-            <h3>GLOBAL EXPRESS</h3>
-            <p>Insured priority distribution lines to your exact GPS location worldwide.</p>
+
+        <button class="cart-icon-btn" onclick="toggleCartDrawer(true)">
+            <i class="fa-solid fa-basket-shopping"></i>
+            <span class="cart-count" id="globalCartCount">0</span>
+        </button>
+    </header>
+
+    <section class="hero-section">
+        <div class="side-categories">
+            <div class="cat-item active" onclick="filterByCategory('ALL')">All Collections <i class="fa-solid fa-angle-right"></i></div>
+            <div class="cat-item" onclick="filterByCategory('WATCH')">Luxury Watches <i class="fa-solid fa-angle-right"></i></div>
+            <div class="cat-item" onclick="filterByCategory('PERFUME')">Premium Perfumes <i class="fa-solid fa-angle-right"></i></div>
+            <div class="cat-item" onclick="filterByCategory('CLOTHING')">Elite Attire <i class="fa-solid fa-angle-right"></i></div>
+            <div class="cat-item" onclick="filterByCategory('SHOES')">Footwear Vault <i class="fa-solid fa-angle-right"></i></div>
+        </div>
+
+        <div class="slider-container">
+            <div class="slide active">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200">
+                <div class="slide-text">
+                    <h2>THE BLACKIE ARCHIVE</h2>
+                    <p>Experience Daraz Layout with Ultra Luxury Aesthetic Themes.</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1509319117193-57bab727e09d?q=80&w=1200">
+                <div class="slide-text">
+                    <h2>SILVER & GOLD EDITION</h2>
+                    <p>Uncompromising Quality Curated Safely For Elite Clients.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <script>
-        // Check Session User
-        let user = JSON.parse(sessionStorage.getItem('blackie_active_user'));
-        if(user) {
-            let tag = document.getElementById('userDisplay');
-            tag.innerText = "⚜️ " + user.name;
-            tag.style.display = "inline-block";
-        }
+    <section class="section-wrapper">
+        <div class="section-title">
+            FLASH SALE CATALOGUE <span id="countdownSim">ENDS IN 02:45:11</span>
+        </div>
+        
+        <div class="grid" id="darazProductsGrid"></div>
+    </section>
 
-        // Carousel Slider Auto Logic
+    <div class="modal-overlay" id="cartOverlay" onclick="toggleCartDrawer(false)"></div>
+    <div class="cart-modal" id="cartDrawer">
+        <div class="cart-header">
+            <h3>MY SHOPPING BAG</h3>
+            <span class="close-cart" onclick="toggleCartDrawer(false)"><i class="fa-solid fa-xmark"></i></span>
+        </div>
+        
+        <div class="cart-body">
+            <div id="cartItemsContainer"></div>
+
+            <div class="checkout-form">
+                <h4>Secure Order Shipping Data</h4>
+                <input type="text" id="custName" placeholder="Customer Legal Name *">
+                <input type="text" id="custPhone1" placeholder="Primary Contact Number *">
+                <input type="text" id="custPhone2" placeholder="Secondary Phone (Backup) *">
+                <textarea id="custAddr1" rows="2" placeholder="Primary Shipping Address (Home/Office) *"></textarea>
+                <textarea id="custAddr2" rows="2" placeholder="Alternative Shipping Address (Optional)"></textarea>
+            </div>
+        </div>
+
+        <div class="cart-footer">
+            <div class="total-row">
+                <span>SUBTOTAL:</span>
+                <span style="color: var(--daraz-orange-replaced-gold);"><span id="cartSubtotal">0</span> LKR</span>
+            </div>
+            <button class="whatsapp-submit-btn" onclick="sendOrderToWhatsapp()">Proceed & Buy via WhatsApp</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 BLACKIE MÁLL SÍNGHAPÓRE. All Rights Securely Reserved via Netlify Pipelines.</p>
+    </footer>
+
+    <script>
+        // --- BUILT-IN PREMIUM STOCK INVENTORY ---
+        let initialInventory = {
+            products: [
+                {cat: "WATCH", name: "Blackie Chronograph Gold Edition", price: "45000", old: "65000", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=500"},
+                {cat: "PERFUME", name: "Onyx Essence Luxury Perfume", price: "18500", old: "24000", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=500"},
+                {cat: "CLOTHING", name: "Midnight Matte Leather Jacket", price: "32000", old: "45000", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=500"},
+                {cat: "SHOES", name: "Phantom Stealth Sports Sneakers", price: "28000", old: "38000", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=500"},
+                {cat: "WATCH", name: "Silver Nautilus Minimalist Watch", price: "55000", old: "75000", img: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?q=80&w=500"},
+                {cat: "CLOTHING", name: "Classic Tuxedo Premium Vest", price: "19000", old: "26000", img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=500"}
+            ]
+        };
+
+        let storeDb = JSON.parse(localStorage.getItem('blackie_v3_db')) || initialInventory;
+        if(!storeDb.products || storeDb.products.length === 0) { storeDb = initialInventory; }
+        localStorage.setItem('blackie_v3_db', JSON.stringify(storeDb));
+
+        let shoppingCart = JSON.parse(localStorage.getItem('blackie_daraz_cart')) || [];
+        let selectedCategory = "ALL";
+
+        // --- CAROUSEL AUTO ROTATION ---
         let slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
         setInterval(() => {
             slides[currentSlide].classList.remove('active');
             currentSlide = (currentSlide + 1) % slides.length;
             slides[currentSlide].classList.add('active');
-        }, 5000);
+        }, 4000);
 
-        // Uncommon Search Overlay Logic
-        function toggleSearch(status) {
-            let overlay = document.getElementById('searchOverlay');
-            if(status) {
+        // --- RENDERING DISCOVERY GRID ---
+        function renderItems(filterQuery = "") {
+            let grid = document.getElementById('darazProductsGrid');
+            grid.innerHTML = "";
+
+            let targetItems = storeDb.products.filter(p => {
+                let matchesCategory = (selectedCategory === "ALL" || p.cat === selectedCategory);
+                let matchesSearch = p.name.toLowerCase().includes(filterQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            if(targetItems.length === 0) {
+                grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding:40px; color:#555;">No matches inside the vault.</p>`;
+                return;
+            }
+
+            targetItems.forEach((p, index) => {
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <div class="img-box"><img src="${p.img}"></div>
+                        <div class="product-info">
+                            <div class="p-title">${p.name}</div>
+                            <div class="p-price">${parseInt(p.price).toLocaleString()} LKR</div>
+                            <div class="p-old-price">${parseInt(p.old || p.price * 1.3).toLocaleString()} LKR</div>
+                            <button class="add-cart-btn" onclick="addItemToBag('${p.name}', ${p.price}, '${p.img}')">Add To Cart</button>
+                        </div>
+                    </div>`;
+            });
+            updateCartBadges();
+        }
+
+        function filterByCategory(catName) {
+            selectedCategory = catName;
+            // Update Active Class Styles
+            let items = document.querySelectorAll('.cat-item');
+            items.forEach(i => i.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            renderItems();
+        }
+
+        function searchStore() {
+            let val = document.getElementById('mainSearchInput').value;
+            renderItems(val);
+        }
+
+        // --- CART MECHANICS ---
+        function toggleCartDrawer(open) {
+            let drawer = document.getElementById('cartDrawer');
+            let overlay = document.getElementById('cartOverlay');
+            if(open) {
+                drawer.classList.add('open');
                 overlay.classList.add('open');
-                document.getElementById('globalSearch').focus();
+                buildCartRows();
             } else {
+                drawer.classList.remove('open');
                 overlay.classList.remove('open');
             }
         }
-        function executeSearch(e) {
-            if(e.key === 'Enter') {
-                let val = document.getElementById('globalSearch').value;
-                window.location.href = `shop.html?search=${encodeURIComponent(val)}`;
-            }
+
+        function addItemToBag(name, price, img) {
+            shoppingCart.push({name, price, img});
+            localStorage.setItem('blackie_daraz_cart', JSON.stringify(shoppingCart));
+            updateCartBadges();
+            
+            // Auto open cart drawer when item is pushed like modern e-com
+            toggleCartDrawer(true);
         }
+
+        function removeBagItem(index) {
+            shoppingCart.splice(index, 1);
+            localStorage.setItem('blackie_daraz_cart', JSON.stringify(shoppingCart));
+            updateCartBadges();
+            buildCartRows();
+        }
+
+        function updateCartBadges() {
+            document.getElementById('globalCartCount').innerText = shoppingCart.length;
+        }
+
+        function buildCartRows() {
+            let container = document.getElementById('cartItemsContainer');
+            let totalTxt = document.getElementById('cartSubtotal');
+            container.innerHTML = "";
+
+            if(shoppingCart.length === 0) {
+                container.innerHTML = `<p style="text-align:center; padding:30px 0; color:#444; font-size:13px;">Cart is currently empty.</p>`;
+                totalTxt.innerText = "0";
+                return;
+            }
+
+            let grandTotal = 0;
+            shoppingCart.forEach((item, idx) => {
+                grandTotal += parseInt(item.price);
+                container.innerHTML += `
+                    <div class="cart-item-row">
+                        <img src="${item.img}">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${parseInt(item.price).toLocaleString()} LKR</div>
+                        </div>
+                        <button class="remove-item" onclick="removeBagItem(${idx})"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>`;
+            });
+            totalTxt.innerText = grandTotal.toLocaleString();
+        }
+
+        // --- 📲 REDIRECT ORDER EXPORTS TO WHATSAPP AUTOMATION ---
+        function sendOrderToWhatsapp() {
+            let name = document.getElementById('custName').value;
+            let ph1 = document.getElementById('custPhone1').value;
+            let ph2 = document.getElementById('custPhone2').value;
+            let ad1 = document.getElementById('custAddr1').value;
+            let ad2 = document.getElementById('custAddr2').value;
+
+            if(shoppingCart.length === 0) { alert("Your cart is empty!"); return; }
+            if(!name || !ph1 || !ad1) { alert("Please complete required Name, Primary Phone, and Address 1 fields."); return; }
+
+            let total = shoppingCart.reduce((sum, item) => sum + parseInt(item.price), 0);
+            let itemsSummary = shoppingCart.map((item, i) => `${i+1}. ${item.name} (${parseInt(item.price).toLocaleString()} LKR)`).join('\n');
+
+            // Formatted Message Layout
+            let templateText = 
+                `🖤 *BLACKIE ONLINE MALL ORDER REPORT* 🖤\n` +
+                `=============================\n\n` +
+                `*CLIENT PROFILE DATA:*\n` +
+                `- Name: ${name}\n` +
+                `- Phone 01: ${ph1}\n` +
+                `- Phone 02: ${ph2 ? ph2 : 'N/A'}\n\n` +
+                `*DELIVERY LOGISTICS:*\n` +
+                `- Address 1: ${ad1}\n` +
+                `- Address 2: ${ad2 ? ad2 : 'None supplied'}\n\n` +
+                `*ACQUIRED INVENTORY ITEMS:*\n` +
+                `${itemsSummary}\n\n` +
+                `*GRAND TOTAL PRICE:* ${total.toLocaleString()} LKR\n\n` +
+                `=============================\n` +
+                `Please process and dispatch my order safely. Thank you!`;
+
+            let urlEncodedString = encodeURIComponent(templateText);
+            
+            // 🚨 𝑶𝒀𝑨𝑮𝑬 𝑾𝑯𝑨𝑻𝑺𝑨𝑷𝑷 𝑵𝑼𝑴𝑩𝑬𝑹 𝑬𝑲𝑨 𝑴𝑬𝑻𝑯𝑨𝑵𝑨𝑻𝑨 𝑫𝑨𝑨𝑵𝑵𝑨 (Change 94771234567 to yours)
+            let sellerWhatsappNum = "94741155984";
+
+            window.open(`https://api.whatsapp.com/send?phone=${sellerWhatsappNum}&text=${urlEncodedString}`, '_blank');
+            
+            // Clean cart after execution
+            shoppingCart = [];
+            localStorage.setItem('blackie_daraz_cart', JSON.stringify(shoppingCart));
+            updateCartBadges();
+            toggleCartDrawer(false);
+            alert("Order bundled! Transferring to WhatsApp service desk now.");
+        }
+
+        // Initialize display
+        renderItems();
     </script>
 </body>
 </html>
