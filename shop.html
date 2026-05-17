@@ -10,41 +10,32 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
         body { background-color: var(--bg); color: var(--white); padding-top: 120px; opacity: 0; animation: fadeIn 1s ease forwards; }
         @keyframes fadeIn { to { opacity: 1; } }
-
-        header { background: rgba(10,10,10,0.95); padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid #1a1a1a; }
-        .logo { font-family: 'Cinzel', serif; font-size: 26px; letter-spacing: 4px; color: #fff; text-decoration: none; }
+        header { background: rgba(10,10,10,0.95); padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid #1a1a1a; backdrop-filter: blur(10px); }
+        .logo { font-family: 'Cinzel', serif; font-size: 26px; letter-spacing: 4px; color: #fff; text-decoration: none; background: linear-gradient(45deg, #fff, #d4af37, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         nav a { color: #aaa; text-decoration: none; margin-left: 30px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
         nav a:hover, nav a.active { color: var(--gold); }
-
-        /* Search and Filter System */
         .controls-section { max-width: 1200px; margin: 0 auto 40px; padding: 0 20px; display: flex; flex-direction: column; gap: 20px; }
         .search-bar { width: 100%; background: var(--card-bg); border: 1px solid #222; padding: 15px 25px; color: #fff; font-size: 14px; letter-spacing: 1px; transition: 0.3s; }
         .search-bar:focus { border-color: var(--gold); outline: none; }
-        
         .categories-tabs { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; }
         .tab-btn { background: var(--card-bg); color: #fff; border: 1px solid #222; padding: 10px 25px; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s; }
         .tab-btn:hover, .tab-btn.active { border-color: var(--gold); color: var(--gold); }
-
-        /* Products Grid */
         .catalog { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 35px; }
         .card { background: var(--card-bg); border: 1px solid #1a1a1a; transition: 0.4s; }
-        .card:hover { transform: translateY(-5px); border-color: var(--gold); }
+        .card:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 10px 20px rgba(212,175,55,0.1); }
         .img-box { width: 100%; height: 350px; overflow: hidden; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: grayscale(30%); }
         .card:hover .img-box img { filter: grayscale(0%); transform: scale(1.05); }
-        
         .info { padding: 20px; text-align: center; }
         .cat { font-size: 10px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
         .name { font-size: 15px; margin-bottom: 10px; font-weight: 400; }
         .price { font-size: 14px; color: #ccc; font-weight: 600; margin-bottom: 15px; }
-        
         .buy-btn { background: transparent; color: #fff; border: 1px solid var(--gold); width: 100%; padding: 12px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
         .buy-btn:hover { background: var(--gold); color: #000; }
     </style>
 </head>
 <body>
-
     <header>
         <a href="index.html" class="logo">BLACKIE</a>
         <nav>
@@ -54,19 +45,24 @@
             <a href="admin.html">Dashboard</a>
         </nav>
     </header>
-
     <div class="controls-section">
-        <input type="text" class="search-bar" id="searchBox" placeholder="Search luxury collections (e.g., Watch, Shirt)..." oninput="filterItems()">
-        <div class="categories-tabs" id="tabsBox">
-            </div>
+        <input type="text" class="search-bar" id="searchBox" placeholder="Search luxury collections (e.g., Watch, Perfume)..." oninput="filterItems()">
+        <div class="categories-tabs" id="tabsBox"></div>
     </div>
-
     <section class="catalog">
         <div class="grid" id="shopGrid"></div>
     </section>
-
     <script>
-        let db = JSON.parse(localStorage.getItem('blackie_v3_db')) || { products: [] };
+        let defaultDb = {
+            banner: { media: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070", title: "THE LUXURY EXPERIENCE", subtitle: "Elegance in Every Detail" },
+            products: [
+                {cat: "WATCH", name: "Classic Onyx Chronograph", price: "45000", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600"},
+                {cat: "PERFUME", name: "Noir Luxury Fragrance", price: "18500", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=600"},
+                {cat: "SUITS", name: "Premium Velvet Tuxedo", price: "89000", img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=600"}
+            ]
+        };
+        let db = JSON.parse(localStorage.getItem('blackie_v3_db')) || defaultDb;
+        if(!db.products || db.products.length === 0) { db.products = defaultDb.products; }
         let activeCategory = "ALL";
 
         function renderTabs() {
@@ -75,28 +71,17 @@
             tabsBox.innerHTML = categories.map(c => `<button class="tab-btn ${activeCategory===c?'active':''}" onclick="setCategory('${c}')">${c}</button>`).join('');
         }
 
-        function setCategory(cat) {
-            activeCategory = cat;
-            renderTabs();
-            filterItems();
-        }
+        function setCategory(cat) { activeCategory = cat; renderTabs(); filterItems(); }
 
         function filterItems() {
             let query = document.getElementById('searchBox').value.toLowerCase();
             let grid = document.getElementById('shopGrid');
             grid.innerHTML = "";
-
             let filtered = db.products.filter(p => {
                 let matchesSearch = p.name.toLowerCase().includes(query) || p.cat.toLowerCase().includes(query);
                 let matchesCat = activeCategory === "ALL" || p.cat.toUpperCase() === activeCategory;
                 return matchesSearch && matchesCat;
             });
-
-            if(filtered.length === 0) {
-                grid.innerHTML = "<p style='grid-column: 1/-1; text-align:center; color:#666;'>No items found in this collection.</p>";
-                return;
-            }
-
             filtered.forEach(p => {
                 grid.innerHTML += `
                     <div class="card">
@@ -104,7 +89,7 @@
                         <div class="info">
                             <div class="cat">${p.cat}</div>
                             <div class="name">${p.name}</div>
-                            <div class="price">${p.price} LKR</div>
+                            <div class="price">${parseInt(p.price).toLocaleString()} LKR</div>
                             <button class="buy-btn" onclick="addToCart('${p.name}', ${p.price}, '${p.img}')">Add To Cart</button>
                         </div>
                     </div>`;

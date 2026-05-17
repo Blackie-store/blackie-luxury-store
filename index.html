@@ -8,29 +8,23 @@
     <style>
         :root { --bg: #0a0a0a; --gold: #d4af37; --white: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        body { background-color: var(--bg); color: var(--white); overflow-x: hidden; opacity: 0; animation: fadeIn 1.5s ease forward; animation-fill-mode: forwards; }
-        
+        body { background-color: var(--bg); color: var(--white); overflow-x: hidden; opacity: 0; animation: fadeIn 1.5s ease forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: scale(1.02); } to { opacity: 1; transform: scale(1); } }
-
-        header { background: rgba(10,10,10,0.95); padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid #1a1a1a; }
-        .logo { font-family: 'Cinzel', serif; font-size: 26px; letter-spacing: 4px; color: #fff; text-decoration: none; }
+        header { background: rgba(10,10,10,0.95); padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid #1a1a1a; backdrop-filter: blur(10px); }
+        .logo { font-family: 'Cinzel', serif; font-size: 26px; letter-spacing: 4px; color: #fff; text-decoration: none; background: linear-gradient(45deg, #fff, #d4af37, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         nav a { color: #aaa; text-decoration: none; margin-left: 30px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; }
         nav a:hover, nav a.active { color: var(--gold); }
-
         .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; background: #000; }
         .hero-bg { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; transform: scale(1.1); animation: zoomOut 8s infinite alternate; }
         @keyframes zoomOut { from { transform: scale(1.1); } to { transform: scale(1); } }
-        
         .hero-content { position: relative; z-index: 10; max-width: 800px; }
         .hero-title { font-family: 'Cinzel', serif; font-size: 65px; letter-spacing: 12px; margin-bottom: 20px; text-transform: uppercase; }
         .hero-sub { color: var(--gold); font-size: 14px; letter-spacing: 6px; margin-bottom: 40px; text-transform: uppercase; }
-        
         .cta-btn { background: transparent; color: #fff; border: 1px solid #fff; padding: 18px 45px; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: 0.5s; text-decoration: none; }
         .cta-btn:hover { background: #fff; color: #000; box-shadow: 0 0 30px rgba(255,255,255,0.3); }
     </style>
 </head>
 <body>
-
     <header>
         <a href="index.html" class="logo">BLACKIE</a>
         <nav>
@@ -40,21 +34,24 @@
             <a href="admin.html">Dashboard</a>
         </nav>
     </header>
-
     <section class="hero">
-        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070" id="mainBanner" class="hero-bg">
+        <img src="" id="mainBanner" class="hero-bg">
         <div class="hero-content">
             <h1 class="hero-title" id="mainTitle">THE LUXURY EXPERIENCE</h1>
             <p class="hero-sub" id="mainSub">Elegance in Every Detail</p>
             <a href="shop.html" class="cta-btn">Enter The Shop</a>
         </div>
     </section>
-
     <script>
-        // Load Realtime Data from Dashboard
         let storeDb = JSON.parse(localStorage.getItem('blackie_v3_db')) || {
-            banner: { media: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070", title: "THE LUXURY EXPERIENCE", subtitle: "Elegance in Every Detail" }
+            banner: { media: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070", title: "THE LUXURY EXPERIENCE", subtitle: "Elegance in Every Detail" },
+            products: [
+                {cat: "WATCH", name: "Classic Onyx Chronograph", price: "45000", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600"},
+                {cat: "PERFUME", name: "Noir Luxury Fragrance", price: "18500", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=600"},
+                {cat: "SUITS", name: "Premium Velvet Tuxedo", price: "89000", img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=600"}
+            ]
         };
+        localStorage.setItem('blackie_v3_db', JSON.stringify(storeDb));
         document.getElementById('mainBanner').src = storeDb.banner.media;
         document.getElementById('mainTitle').innerText = storeDb.banner.title;
         document.getElementById('mainSub').innerText = storeDb.banner.subtitle;
