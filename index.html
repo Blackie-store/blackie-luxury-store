@@ -3,389 +3,683 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACKIE — Online Shopping Mall</title>
+    <title>BLACKIE — Elegant Shopping Mall & Gift Customizer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
     <style>
+        /* --- DYNAMIC CUSTOMIZABLE THEME SYSTEM --- */
         :root {
-            --bg-main: #0a0a0a;
-            --bg-card: #121212;
-            --daraz-orange-replaced-gold: #d4af37; /* Premium Gold */
-            --silver-text: #b0b0b0;
-            --white: #ffffff;
-            --border-color: #222222;
+            --bg-main: #f9f9f9;
+            --bg-card: #ffffff;
+            --text-color: #111111;
+            --gold: #d4af37;
+            --silver: #e0e0e0;
+            --border: #ececec;
+            --black: #000000;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--white); overflow-x: hidden; }
+        body { background-color: var(--bg-main); color: var(--text-color); overflow-x: hidden; transition: 0.3s; }
 
-        /* --- DARAZ TOP HEADER STRIP --- */
-        .top-header { background: #000; padding: 5px 8%; display: flex; justify-content: flex-end; gap: 20px; font-size: 11px; border-bottom: 1px solid var(--border-color); color: var(--silver-text); }
+        /* Navigation Strip */
+        .top-header { background: var(--black); padding: 6px 8%; display: flex; justify-content: flex-end; gap: 20px; font-size: 11px; color: #888; }
         .top-header span { cursor: pointer; transition: 0.3s; }
-        .top-header span:hover { color: var(--daraz-orange-replaced-gold); }
+        .top-header span:hover { color: var(--gold); }
 
-        /* --- MAIN DARAZ SEARCH BAR HEADER --- */
-        header { background: #050505; padding: 15px 8%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); }
-        .logo { font-size: 28px; font-weight: 800; letter-spacing: 2px; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 5px; }
-        .logo span { color: var(--daraz-orange-replaced-gold); }
+        header { background: #ffffff; padding: 15px 8%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
+        .logo { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 700; color: var(--black); text-decoration: none; letter-spacing: 2px; }
+        .logo span { color: var(--gold); }
         
-        .search-container { flex: 1; max-width: 600px; margin: 0 30px; display: flex; position: relative; }
-        .search-box { width: 100%; background: #111; border: 1px solid var(--border-color); padding: 12px 20px; color: #fff; font-size: 13px; outline: none; transition: 0.3s; }
-        .search-box:focus { border-color: var(--daraz-orange-replaced-gold); }
-        .search-btn { background: var(--daraz-orange-replaced-gold); color: #000; border: none; padding: 0 25px; cursor: pointer; font-size: 14px; font-weight: 600; }
-        .search-btn:hover { background: #fff; }
+        .search-container { flex: 1; max-width: 500px; margin: 0 20px; display: flex; }
+        .search-box { width: 100%; background: #f5f5f5; border: 1px solid var(--border); padding: 12px 20px; color: #000; font-size: 13px; outline: none; }
+        .search-box:focus { border-color: var(--gold); background: #fff; }
+        .search-btn { background: var(--black); color: #fff; border: none; padding: 0 22px; cursor: pointer; }
+        .search-btn:hover { background: var(--gold); color: #000; }
 
-        .cart-icon-btn { position: relative; background: transparent; border: none; color: #fff; font-size: 22px; cursor: pointer; margin-left: 20px; display: flex; align-items: center; gap: 8px; }
-        .cart-icon-btn:hover { color: var(--daraz-orange-replaced-gold); }
-        .cart-count { position: absolute; top: -8px; right: -10px; background: red; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 50%; font-weight: 700; }
+        nav { display: flex; gap: 20px; align-items: center; }
+        nav button { background: none; border: none; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; color: var(--text-color); transition: 0.3s; }
+        nav button:hover, nav button.active { color: var(--gold); }
 
-        /* --- MAIN HERO LAYOUT (Daraz Categories + Slider) --- */
-        .hero-section { padding: 20px 8%; display: grid; grid-template-columns: 240px 1fr; gap: 20px; }
-        @media(max-width: 992px) { .hero-section { grid-template-columns: 1fr; } }
+        .cart-icon-btn { position: relative; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-color); }
+        .cart-count { position: absolute; top: -10px; right: -12px; background: var(--black); color: var(--gold); font-size: 10px; padding: 2px 6px; border-radius: 50%; font-weight: 700; }
 
-        /* Daraz Side Categories Menu */
-        .side-categories { background: var(--bg-card); border: 1px solid var(--border-color); padding: 15px 0; display: flex; flex-direction: column; }
-        .cat-item { padding: 10px 20px; font-size: 13px; color: var(--silver-text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; }
-        .cat-item:hover, .cat-item.active { background: #1a1a1a; color: var(--daraz-orange-replaced-gold); padding-left: 25px; }
+        /* Pages View System */
+        .page-view { display: none; padding: 30px 8%; }
+        .page-view.active { display: block; }
 
-        /* Daraz Carousel Slider */
-        .slider-container { background: #111; height: 380px; position: relative; overflow: hidden; border: 1px solid var(--border-color); }
-        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; }
-        .slide.active { opacity: 1; }
-        .slide img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-        .slide-text { position: absolute; bottom: 40px; left: 40px; z-index: 10; max-width: 500px; }
-        .slide-text h2 { font-size: 36px; font-weight: 700; color: #fff; margin-bottom: 10px; text-transform: uppercase; }
-        .slide-text p { color: var(--daraz-orange-replaced-gold); font-size: 14px; letter-spacing: 1px; }
+        /* --- HOME VIEW LAYOUT --- */
+        .home-grid { display: grid; grid-template-columns: 240px 1fr; gap: 25px; margin-bottom: 40px; }
+        @media(max-width: 992px) { .home-grid { grid-template-columns: 1fr; } }
 
-        /* --- FLASH SALE SECTION (Daraz Style) --- */
-        .section-wrapper { padding: 30px 8%; }
-        .section-title { font-size: 18px; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; color: #fff; display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--daraz-orange-replaced-gold); padding-left: 10px; }
-        .section-title span { font-size: 12px; color: var(--daraz-orange-replaced-gold); background: #222; padding: 4px 10px; font-weight: 400; }
+        .side-menu { background: var(--bg-card); border: 1px solid var(--border); padding: 15px 0; border-radius: 4px; }
+        .menu-item { padding: 12px 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
+        .menu-item:hover { background: #fcfcfc; color: var(--gold); padding-left: 25px; }
+
+        .slider-box { height: 360px; background: #000; position: relative; overflow: hidden; border-radius: 4px; }
+        .slider-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .slider-text { position: absolute; bottom: 40px; left: 40px; color: #fff; max-width: 500px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .slider-text h2 { font-family: 'Cinzel', serif; font-size: 32px; margin-bottom: 10px; }
+
+        .section-title { font-size: 18px; font-weight: 700; text-transform: uppercase; margin-bottom: 25px; padding-left: 10px; border-left: 4px solid var(--gold); letter-spacing: 1px; }
 
         /* Daraz Product Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-        .product-card { background: var(--bg-card); border: 1px solid var(--border-color); transition: 0.3s; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
-        .product-card:hover { transform: translateY(-3px); border-color: var(--daraz-orange-replaced-gold); box-shadow: 0 5px 15px rgba(212,175,55,0.1); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
+        .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-color: var(--gold); }
         
-        .img-box { width: 100%; height: 200px; overflow: hidden; background: #000; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .product-card:hover .img-box img { transform: scale(1.05); }
+        .img-container { width: 100%; height: 220px; background: #fff; overflow: hidden; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .product-card:hover .img-container img { transform: scale(1.04); }
 
-        .product-info { padding: 12px; }
-        .p-title { font-size: 13px; color: #fff; margin-bottom: 8px; height: 36px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.4; }
-        .p-price { font-size: 16px; font-weight: 700; color: var(--daraz-orange-replaced-gold); margin-bottom: 5px; }
-        .p-old-price { font-size: 11px; color: #666; text-decoration: line-through; margin-bottom: 12px; }
+        .info-panel { padding: 15px; }
+        .p-name { font-size: 13px; font-weight: 500; margin-bottom: 8px; height: 36px; overflow: hidden; line-height: 1.4; color: #333; }
+        .p-desc { font-size: 11px; color: #777; margin-bottom: 10px; height: 32px; overflow: hidden; }
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+        .p-price { font-size: 15px; font-weight: 700; color: var(--black); }
+
+        .buy-btn { width: 100%; background: var(--black); color: #fff; border: none; padding: 10px; font-size: 11px; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: 0.3s; margin-top: 10px; border-radius: 2px; }
+        .buy-btn:hover { background: var(--gold); color: #000; }
+
+        /* --- GIFT CUSTOMIZER VIEW --- */
+        .gift-layout { display: grid; grid-template-columns: 1fr 400px; gap: 40px; }
+        @media(max-width: 900px) { .gift-layout { grid-template-columns: 1fr; } }
         
-        .add-cart-btn { width: 100%; background: transparent; color: #fff; border: 1px solid #333; padding: 8px; font-size: 12px; cursor: pointer; text-transform: uppercase; font-weight: 500; transition: 0.3s; }
-        .add-cart-btn:hover { background: var(--daraz-orange-replaced-gold); color: #000; border-color: var(--daraz-orange-replaced-gold); }
+        .setup-panel { background: #fff; border: 1px solid var(--border); padding: 30px; border-radius: 4px; }
+        .size-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 15px 0 25px; }
+        .size-btn { background: #f5f5f5; border: 1px solid var(--border); padding: 15px 5px; text-align: center; cursor: pointer; border-radius: 4px; transition: 0.3s; }
+        .size-btn.selected { background: var(--black); color: var(--gold); border-color: var(--black); font-weight: 700; }
+        .size-btn h4 { font-size: 16px; margin-bottom: 4px; }
+        .size-btn small { font-size: 9px; display: block; color: #666; }
+        .size-btn.selected small { color: #aaa; }
 
-        /* --- MODAL LAYER: SHOPPING CART & CHECKOUT SPLIT --- */
-        .cart-modal { position: fixed; top: 0; right: -100%; width: 100%; max-width: 500px; height: 100vh; background: #080808; z-index: 2000; box-shadow: -5px 0 25px rgba(0,0,0,0.5); transition: 0.4s cubic-bezier(0.7, 0, 0.3, 1); border-left: 1px solid var(--border-color); display: flex; flex-direction: column; }
-        .cart-modal.open { right: 0; }
+        /* Live Box Animation Matrix */
+        .box-animation-matrix { background: #111; border-radius: 8px; height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; border: 4px solid var(--gold); }
+        .virtual-box { font-size: 70px; color: var(--gold); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; z-index: 10; }
+        .virtual-box.bounce { transform: scale(1.3) rotate(5deg); }
         
-        .cart-header { padding: 20px; background: #000; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
-        .cart-header h3 { font-size: 16px; font-weight: 600; color: var(--daraz-orange-replaced-gold); }
-        .close-cart { font-size: 20px; color: #fff; cursor: pointer; }
+        /* Particle fly-in effect */
+        .flying-item { position: absolute; width: 30px; height: 30px; object-fit: cover; border-radius: 50%; border: 2px solid var(--gold); z-index: 5; animation: flyIntoBox 0.8s ease-in forwards; }
+        @keyframes flyIntoBox {
+            0% { transform: translate(200px, -150px) scale(1.5); opacity: 1; }
+            100% { transform: translate(0, 0) scale(0.1); opacity: 0; }
+        }
 
-        .cart-body { flex: 1; overflow-y: auto; padding: 20px; }
-        .cart-item-row { display: flex; gap: 15px; align-items: center; padding: 12px 0; border-bottom: 1px solid #111; }
-        .cart-item-row img { width: 50px; height: 50px; object-fit: cover; }
-        .cart-item-details { flex: 1; }
-        .cart-item-name { font-size: 12px; color: #fff; margin-bottom: 4px; }
-        .cart-item-price { font-size: 13px; color: var(--daraz-orange-replaced-gold); font-weight: 600; }
-        .remove-item { color: #ff5c5c; font-size: 12px; cursor: pointer; background: none; border: none; }
+        .box-status-tag { margin-top: 15px; color: #fff; font-size: 14px; font-weight: 500; letter-spacing: 1px; z-index: 10; text-transform: uppercase; }
+        .gift-items-summary { margin-top: 20px; width: 80%; max-height: 100px; overflow-y: auto; color: #888; font-size: 11px; text-align: center; }
 
-        /* Checkout Inputs Inside Cart Drawer */
-        .checkout-form { margin-top: 25px; border-top: 1px dashed var(--border-color); padding-top: 20px; }
-        .checkout-form h4 { font-size: 13px; color: #fff; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
-        .checkout-form input, .checkout-form textarea { width: 100%; background: #111; border: 1px solid var(--border-color); padding: 10px; color: #fff; font-size: 12px; margin-bottom: 12px; outline: none; }
-        .checkout-form input:focus, .checkout-form textarea:focus { border-color: var(--daraz-orange-replaced-gold); }
+        /* --- ADMIN CONTROLLER VIEW (GOD MODE) --- */
+        .admin-grid { display: grid; grid-template-columns: 350px 1fr; gap: 30px; }
+        @media(max-width: 900px) { .admin-grid { grid-template-columns: 1fr; } }
+        .admin-sidebar { background: #fff; border: 1px solid var(--border); padding: 25px; border-radius: 4px; height: fit-content; }
+        .admin-sidebar h4 { margin-bottom: 15px; font-size: 14px; color: var(--gold); text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+        .admin-sidebar input, .admin-sidebar select, .admin-sidebar textarea { width: 100%; padding: 10px; background: #f9f9f9; border: 1px solid var(--border); margin-bottom: 12px; font-size: 12px; outline: none; }
+        .admin-sidebar input:focus { border-color: var(--gold); }
+        .admin-btn { width: 100%; background: var(--black); color: #fff; border: none; padding: 12px; font-size: 12px; font-weight: 600; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; margin-bottom: 15px; }
+        .admin-btn:hover { background: var(--gold); color: #000; }
 
-        .cart-footer { padding: 20px; background: #000; border-top: 1px solid var(--border-color); }
-        .total-row { display: flex; justify-content: space-between; font-size: 16px; font-weight: 600; margin-bottom: 15px; }
-        .whatsapp-submit-btn { width: 100%; background: var(--daraz-orange-replaced-gold); color: #000; border: none; padding: 14px; font-size: 13px; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center; display: block; }
-        .whatsapp-submit-btn:hover { background: #white; color: #fff; }
+        .inventory-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--border); }
+        .inventory-table th, .inventory-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 12px; }
+        .inventory-table th { background: #f5f5f5; text-transform: uppercase; font-size: 11px; }
+        .del-row-btn { background: #ff5c5c; color: #fff; border: none; padding: 4px 10px; cursor: pointer; border-radius: 2px; }
 
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1500; display: none; }
-        .modal-overlay.open { display: block; }
-
+        /* --- CART SIDE EXPANSION DRAWER --- */
+        .cart-drawer { position: fixed; top: 0; right: -100%; width: 100%; max-width: 460px; height: 100vh; background: #ffffff; z-index: 2000; box-shadow: -10px 0 30px rgba(0,0,0,0.05); transition: 0.4s cubic-bezier(0.7,0,0.3,1); display: flex; flex-direction: column; border-left: 1px solid var(--border); }
+        .cart-drawer.open { right: 0; }
+        .drawer-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .drawer-header h3 { font-family: 'Cinzel', serif; font-size: 16px; color: var(--black); }
+        .drawer-body { flex: 1; overflow-y: auto; padding: 20px; }
+        .drawer-footer { padding: 20px; border-top: 1px solid var(--border); background: #fafafa; }
+        
+        .drawer-item { display: flex; gap: 15px; align-items: center; padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
+        .drawer-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 2px; }
+        
         /* Footer Strip */
-        footer { background: #000; border-top: 1px solid var(--border-color); padding: 20px; text-align: center; font-size: 12px; color: var(--silver-text); }
+        footer { background: #ffffff; border-top: 1px solid var(--border); text-align: center; padding: 25px; font-size: 12px; color: #777; margin-top: 5px; }
     </style>
 </head>
 <body>
 
     <div class="top-header">
-        <span>BLACKIE CARE</span>
-        <span>TRACK MY ORDER</span>
-        <span>CUSTOMER LOGIN</span>
+        <span>BLACKIE CARE HUB</span>
+        <span>EXECUTIVE LOGISTICS</span>
+        <span onclick="navigateToPage('adminView')">⚙️ GOD-MODE DASHBOARD</span>
     </div>
 
     <header>
-        <a href="index.html" class="logo">BLACK<span>IE</span></a>
+        <a href="#" class="logo" onclick="navigateToPage('homeView')">BLACK<span>IE</span></a>
         
         <div class="search-container">
-            <input type="text" id="mainSearchInput" class="search-box" placeholder="Search in BLACKIE Mall..." oninput="searchStore()">
+            <input type="text" id="storeSearchBar" class="search-box" placeholder="Search anything in the custom architecture..." oninput="triggerLiveSearch()">
             <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
 
-        <button class="cart-icon-btn" onclick="toggleCartDrawer(true)">
-            <i class="fa-solid fa-basket-shopping"></i>
-            <span class="cart-count" id="globalCartCount">0</span>
+        <nav>
+            <button class="nav-link active" id="btn-homeView" onclick="navigateToPage('homeView')">Home</button>
+            <button class="nav-link" id="btn-categoryView" onclick="filterByCategoryPage('ALL')">Collections</button>
+            <button class="nav-link" id="btn-giftView" style="color:var(--gold); font-weight:700;" onclick="navigateToPage('giftView')">🎁 Create Gift Collection</button>
+        </nav>
+
+        <button class="cart-icon-btn" onclick="toggleDrawer(true)">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="cart-count" id="badgeCount">0</span>
         </button>
     </header>
 
-    <section class="hero-section">
-        <div class="side-categories">
-            <div class="cat-item active" onclick="filterByCategory('ALL')">All Collections <i class="fa-solid fa-angle-right"></i></div>
-            <div class="cat-item" onclick="filterByCategory('WATCH')">Luxury Watches <i class="fa-solid fa-angle-right"></i></div>
-            <div class="cat-item" onclick="filterByCategory('PERFUME')">Premium Perfumes <i class="fa-solid fa-angle-right"></i></div>
-            <div class="cat-item" onclick="filterByCategory('CLOTHING')">Elite Attire <i class="fa-solid fa-angle-right"></i></div>
-            <div class="cat-item" onclick="filterByCategory('SHOES')">Footwear Vault <i class="fa-solid fa-angle-right"></i></div>
-        </div>
-
-        <div class="slider-container">
-            <div class="slide active">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200">
-                <div class="slide-text">
-                    <h2>THE BLACKIE ARCHIVE</h2>
-                    <p>Experience Daraz Layout with Ultra Luxury Aesthetic Themes.</p>
-                </div>
+    <main class="page-view active" id="homeView">
+        <div class="home-grid">
+            <div class="side-menu">
+                <div class="menu-item" onclick="filterByCategoryPage('WATCH')">Luxury Watches <i class="fa-solid fa-chevron-right"></i></div>
+                <div class="menu-item" onclick="filterByCategoryPage('PERFUME')">Premium Perfumes <i class="fa-solid fa-chevron-right"></i></div>
+                <div class="menu-item" onclick="filterByCategoryPage('CLOTHING')">Elite Attire <i class="fa-solid fa-chevron-right"></i></div>
+                <div class="menu-item" onclick="filterByCategoryPage('GIFT')">Curated Gifts <i class="fa-solid fa-chevron-right"></i></div>
             </div>
-            <div class="slide">
-                <img src="https://images.unsplash.com/photo-1509319117193-57bab727e09d?q=80&w=1200">
-                <div class="slide-text">
-                    <h2>SILVER & GOLD EDITION</h2>
-                    <p>Uncompromising Quality Curated Safely For Elite Clients.</p>
+            <div class="slider-box">
+                <img id="domHeroBanner" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1400">
+                <div class="slider-text">
+                    <h2 id="domHeroTitle">ELEGANCE DEFINED</h2>
+                    <p id="domHeroSub">Premium White Theme Architecture with Gold Highlights.</p>
                 </div>
             </div>
         </div>
-    </section>
 
-    <section class="section-wrapper">
-        <div class="section-title">
-            FLASH SALE CATALOGUE <span id="countdownSim">ENDS IN 02:45:11</span>
-        </div>
+        <div class="section-title">FEATURED VAULT ARTIFACTS</div>
+        <div class="grid" id="homeDisplayGrid"></div>
+    </main>
+
+    <main class="page-view" id="categoryView">
+        <div class="section-title" id="currentCategoryTitle">COLLECTIONS CATALOGUE</div>
+        <div class="grid" id="categoryDisplayGrid"></div>
+    </main>
+
+    <main class="page-view" id="giftView">
+        <div class="section-title">Sweet Luxury Blackie Box Builder</div>
         
-        <div class="grid" id="darazProductsGrid"></div>
-    </section>
+        <div class="gift-layout">
+            <div class="setup-panel">
+                <h3>1. Choose Your Gift Box Size</h3>
+                <div class="size-grid">
+                    <div class="size-btn selected" id="sz-XS" onclick="selectBoxSize('XS', 2)"><h4>XS</h4><small>Max 2 Items</small></div>
+                    <div class="size-btn" id="sz-S" onclick="selectBoxSize('S', 4)"><h4>S</h4><small>Max 4 Items</small></div>
+                    <div class="size-btn" id="sz-M" onclick="selectBoxSize('M', 6)"><h4>M</h4><small>Max 6 Items</small></div>
+                    <div class="size-btn" id="sz-L" onclick="selectBoxSize('L', 9)"><h4>L</h4><small>Max 9 Items</small></div>
+                    <div class="size-btn" id="sz-XL" onclick="selectBoxSize('XL', 12)"><h4>XL</h4><small>Max 12 Items</small></div>
+                </div>
 
-    <div class="modal-overlay" id="cartOverlay" onclick="toggleCartDrawer(false)"></div>
-    <div class="cart-modal" id="cartDrawer">
-        <div class="cart-header">
-            <h3>MY SHOPPING BAG</h3>
-            <span class="close-cart" onclick="toggleCartDrawer(false)"><i class="fa-solid fa-xmark"></i></span>
-        </div>
-        
-        <div class="cart-body">
-            <div id="cartItemsContainer"></div>
+                <h3 style="margin-bottom:15px;">2. Load Box Inventory Matrix</h3>
+                <button class="admin-btn" style="background:var(--gold); color:#000;" onclick="activateGiftItemCollection()">
+                    <i class="fa-solid fa-plus-circle"></i> Collect Your Items From Store
+                </button>
+                
+                <p style="font-size:12px; color:#666; line-height:1.6;">
+                    *Note: After clicking "Collect Items", you can choose any item from the store. If you are inside the gift creation phase, items will be dynamically routed into your animated box container instead of the standard cart.
+                </p>
+            </div>
 
-            <div class="checkout-form">
-                <h4>Secure Order Shipping Data</h4>
-                <input type="text" id="custName" placeholder="Customer Legal Name *">
-                <input type="text" id="custPhone1" placeholder="Primary Contact Number *">
-                <input type="text" id="custPhone2" placeholder="Secondary Phone (Backup) *">
-                <textarea id="custAddr1" rows="2" placeholder="Primary Shipping Address (Home/Office) *"></textarea>
-                <textarea id="custAddr2" rows="2" placeholder="Alternative Shipping Address (Optional)"></textarea>
+            <div class="box-animation-matrix" id="animationContainer">
+                <div class="virtual-box" id="animatedBox"><i class="fa-solid fa-box-tissue"></i></div>
+                <div class="box-status-tag" id="boxStatusText">BOX SIZE: XS (0 / 2 FULL)</div>
+                <div class="gift-items-summary" id="giftBoxSummaryList">No items packed inside yet.</div>
             </div>
         </div>
+    </main>
 
-        <div class="cart-footer">
-            <div class="total-row">
-                <span>SUBTOTAL:</span>
-                <span style="color: var(--daraz-orange-replaced-gold);"><span id="cartSubtotal">0</span> LKR</span>
+    <main class="page-view" id="adminView">
+        <div class="section-title">BLACKIE GOD-MODE ARCHITECTURE INTERFACE</div>
+        
+        <div class="admin-grid">
+            <div class="admin-sidebar">
+                <h4>🎨 General Branding Variables</h4>
+                <label>Website Primary Theme Base</label>
+                <select id="admThemeSelect" onchange="applyAdminThemeConfig()">
+                    <option value="WHITE">Premium Pristine White (Current)</option>
+                    <option value="BLACK">The Absolute Void Black</option>
+                </select>
+                <label>Main Showcase Advertisement Banner</label>
+                <input type="text" id="admBannerUrl" placeholder="Image URL">
+                <input type="text" id="admBannerTitle" placeholder="Title Text">
+                <input type="text" id="admBannerSub" placeholder="Subtitle Text">
+                <button class="admin-btn" onclick="saveGlobalBranding()">Update Global Layout</button>
+
+                <h4>📦 Injection Portal (Add New Items)</h4>
+                <select id="admProdCat">
+                    <option value="WATCH">Luxury Watches</option>
+                    <option value="PERFUME">Premium Perfumes</option>
+                    <option value="CLOTHING">Elite Attire</option>
+                    <option value="GIFT">Pre-made Gifts</option>
+                </select>
+                <input type="text" id="admProdName" placeholder="Artifact/Product Title *">
+                <input type="text" id="admProdPrice" placeholder="Price (Numbers Only, e.g. 25000) *">
+                <input type="text" id="admProdImg" placeholder="Image Assets Link/URL *">
+                <textarea id="admProdDesc" rows="2" placeholder="Brief Luxury Description *"></textarea>
+                <button class="admin-btn" style="background:var(--gold); color:#000;" onclick="injectProduct()">Publish To Live Vault</button>
             </div>
-            <button class="whatsapp-submit-btn" onclick="sendOrderToWhatsapp()">Proceed & Buy via WhatsApp</button>
+
+            <div style="overflow-x:auto;">
+                <h3 style="margin-bottom:15px; font-size:14px; letter-spacing:1px;">LIVE SYSTEM CENTRAL INVENTORY STOCK CONTROL</h3>
+                <table class="inventory-table">
+                    <thead>
+                        <tr><th>Category</th><th>Item Details</th><th>Price Assets</th><th>Management Control</th></tr>
+                    </thead>
+                    <tbody id="adminInventoryTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <div class="cart-drawer" id="cartExpansionDrawer">
+        <div class="drawer-header">
+            <h3>SHOPPING REPORT LIST</h3>
+            <span style="cursor:pointer;" onclick="toggleDrawer(false)"><i class="fa-solid fa-xmark"></i></span>
+        </div>
+        <div class="drawer-body">
+            <div id="drawerItemsList"></div>
+            
+            <div class="checkout-form" style="margin-top:20px; border-top:1px dashed #ddd; padding-top:20px;">
+                <h4 style="font-size:12px; margin-bottom:12px; text-transform:uppercase;">Secure Logistics Verification</h4>
+                <input type="text" id="chkName" placeholder="Client Full Name *">
+                <input type="text" id="chkPhone1" placeholder="Primary Cellular Line *">
+                <input type="text" id="chkPhone2" placeholder="Secondary Emergency Line *">
+                <textarea id="chkAddr1" rows="2" placeholder="Primary Destination Address *"></textarea>
+                <textarea id="chkAddr2" rows="2" placeholder="Secondary Backup Address *"></textarea>
+            </div>
+        </div>
+        <div class="drawer-footer">
+            <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:15px; font-size:15px;">
+                <span>GRAND TOTAL:</span>
+                <span style="color:var(--gold);"><span id="drawerGrandTotalText">0</span> LKR</span>
+            </div>
+            <button class="admin-btn" style="margin:0;" onclick="dispatchWhatsAppOrder()">Secure Orders Checkout via WhatsApp</button>
         </div>
     </div>
 
     <footer>
-        <p>© 2026 BLACKIE MÁLL SÍNGHAPÓRE. All Rights Securely Reserved via Netlify Pipelines.</p>
+        <p>© 2026 BLACKIE VAULT INTERNATIONAL. Optimized via God-Mode Controls.</p>
     </footer>
 
     <script>
-        // --- BUILT-IN PREMIUM STOCK INVENTORY ---
-        let initialInventory = {
+        // Default Storage Data Matrix
+        let baseStock = {
+            branding: {
+                theme: "WHITE",
+                banner: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1400",
+                title: "ELEGANCE DEFINED",
+                sub: "Premium White Theme Architecture with Gold Highlights."
+            },
             products: [
-                {cat: "WATCH", name: "Blackie Chronograph Gold Edition", price: "45000", old: "65000", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=500"},
-                {cat: "PERFUME", name: "Onyx Essence Luxury Perfume", price: "18500", old: "24000", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=500"},
-                {cat: "CLOTHING", name: "Midnight Matte Leather Jacket", price: "32000", old: "45000", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=500"},
-                {cat: "SHOES", name: "Phantom Stealth Sports Sneakers", price: "28000", old: "38000", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=500"},
-                {cat: "WATCH", name: "Silver Nautilus Minimalist Watch", price: "55000", old: "75000", img: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?q=80&w=500"},
-                {cat: "CLOTHING", name: "Classic Tuxedo Premium Vest", price: "19000", old: "26000", img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=500"}
+                {cat: "WATCH", name: "Blackie Chronograph Gold Edition", price: "45000", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=500", desc: "Solid mechanical components with calibrated gold weights."},
+                {cat: "PERFUME", name: "Onyx Essence Luxury Perfume", price: "18500", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=500", desc: "Infused with imported deep vanilla and organic dark sandalwood traces."},
+                {cat: "CLOTHING", name: "Midnight Matte Leather Jacket", price: "32000", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=500", desc: "Hand-stitched premium hide treated for sleek water-resistant sheen."},
+                {cat: "SHOES", name: "Phantom Stealth Sports Sneakers", price: "28000", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=500", desc: "Ultra-responsive athletic cushions reinforced with protective carbon shields."}
             ]
         };
 
-        let storeDb = JSON.parse(localStorage.getItem('blackie_v3_db')) || initialInventory;
-        if(!storeDb.products || storeDb.products.length === 0) { storeDb = initialInventory; }
-        localStorage.setItem('blackie_v3_db', JSON.stringify(storeDb));
+        let db = JSON.parse(localStorage.getItem('blackie_god_db')) || baseStock;
+        localStorage.setItem('blackie_god_db', JSON.stringify(db));
 
-        let shoppingCart = JSON.parse(localStorage.getItem('blackie_daraz_cart')) || [];
-        let selectedCategory = "ALL";
+        let standardCart = JSON.parse(localStorage.getItem('blackie_std_cart')) || [];
+        
+        // Gift Customization Modes State Variables
+        let giftModeActive = false;
+        let selectedBoxSizeName = "XS";
+        let maxAllowedGiftItems = 2;
+        let packedGiftItems = [];
 
-        // --- CAROUSEL AUTO ROTATION ---
-        let slides = document.querySelectorAll('.slide');
-        let currentSlide = 0;
-        setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 4000);
+        // Dynamic Router Control
+        function navigateToPage(pageId) {
+            document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            let navBtn = document.getElementById('btn-' + pageId);
+            if(navBtn) navBtn.classList.add('active');
+            window.scrollTo(0,0);
+        }
 
-        // --- RENDERING DISCOVERY GRID ---
-        function renderItems(filterQuery = "") {
-            let grid = document.getElementById('darazProductsGrid');
-            grid.innerHTML = "";
-
-            let targetItems = storeDb.products.filter(p => {
-                let matchesCategory = (selectedCategory === "ALL" || p.cat === selectedCategory);
-                let matchesSearch = p.name.toLowerCase().includes(filterQuery.toLowerCase());
-                return matchesCategory && matchesSearch;
-            });
-
-            if(targetItems.length === 0) {
-                grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding:40px; color:#555;">No matches inside the vault.</p>`;
-                return;
+        // Live Application Initialization System
+        function initializeCoreEngine() {
+            // Apply theme configuration
+            let root = document.documentElement;
+            if(db.branding.theme === "BLACK") {
+                root.style.setProperty('--bg-main', '#0a0a0a');
+                root.style.setProperty('--bg-card', '#121212');
+                root.style.setProperty('--text-color', '#ffffff');
+                root.style.setProperty('--border', '#222');
+                root.style.setProperty('--black', '#ffffff');
+            } else {
+                root.style.setProperty('--bg-main', '#f9f9f9');
+                root.style.setProperty('--bg-card', '#ffffff');
+                root.style.setProperty('--text-color', '#111111');
+                root.style.setProperty('--border', '#ececec');
+                root.style.setProperty('--black', '#000000');
             }
 
-            targetItems.forEach((p, index) => {
+            // Sync Banner Elements
+            document.getElementById('domHeroBanner').src = db.branding.banner;
+            document.getElementById('domHeroTitle').innerText = db.branding.title;
+            document.getElementById('domHeroSub').innerText = db.branding.sub;
+
+            renderHomeGrid();
+            renderInventoryTable();
+            updateGlobalCartElements();
+        }
+
+        // Render standard product catalog arrays
+        function renderHomeGrid(query = "") {
+            let grid = document.getElementById('homeDisplayGrid');
+            grid.innerHTML = "";
+            let items = db.products.filter(p => p.name.toLowerCase().includes(query.toLowerCase()));
+
+            items.forEach((p, idx) => {
                 grid.innerHTML += `
                     <div class="product-card">
-                        <div class="img-box"><img src="${p.img}"></div>
-                        <div class="product-info">
-                            <div class="p-title">${p.name}</div>
-                            <div class="p-price">${parseInt(p.price).toLocaleString()} LKR</div>
-                            <div class="p-old-price">${parseInt(p.old || p.price * 1.3).toLocaleString()} LKR</div>
-                            <button class="add-cart-btn" onclick="addItemToBag('${p.name}', ${p.price}, '${p.img}')">Add To Cart</button>
+                        <div class="img-container"><img src="${p.img}"></div>
+                        <div class="info-panel">
+                            <div class="p-name">${p.name}</div>
+                            <div class="p-desc">${p.desc || 'No description asset supplied.'}</div>
+                            <div class="price-row">
+                                <span class="p-price">${parseInt(p.price).toLocaleString()} LKR</span>
+                            </div>
+                            <button class="buy-btn" onclick="routeAcquisitionRequest('${p.name}', ${p.price}, '${p.img}')">
+                                ${giftModeActive ? '📥 Pack Into Gift Box' : 'Add To Cart'}
+                            </button>
                         </div>
                     </div>`;
             });
-            updateCartBadges();
         }
 
-        function filterByCategory(catName) {
-            selectedCategory = catName;
-            // Update Active Class Styles
-            let items = document.querySelectorAll('.cat-item');
-            items.forEach(i => i.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            renderItems();
-        }
+        // Render separate standalone dynamic category page views
+        function filterByCategoryPage(categoryName) {
+            navigateToPage('categoryView');
+            let titleBox = document.getElementById('currentCategoryTitle');
+            let grid = document.getElementById('categoryDisplayGrid');
+            grid.innerHTML = "";
 
-        function searchStore() {
-            let val = document.getElementById('mainSearchInput').value;
-            renderItems(val);
-        }
-
-        // --- CART MECHANICS ---
-        function toggleCartDrawer(open) {
-            let drawer = document.getElementById('cartDrawer');
-            let overlay = document.getElementById('cartOverlay');
-            if(open) {
-                drawer.classList.add('open');
-                overlay.classList.add('open');
-                buildCartRows();
-            } else {
-                drawer.classList.remove('open');
-                overlay.classList.remove('open');
-            }
-        }
-
-        function addItemToBag(name, price, img) {
-            shoppingCart.push({name, price, img});
-            localStorage.setItem('blackie_daraz_cart', JSON.stringify(shoppingCart));
-            updateCartBadges();
+            titleBox.innerText = categoryName === "ALL" ? "COMPLETE VAULT COLLECTIONS" : `${categoryName} COLLECTION PIPELINE`;
             
-            // Auto open cart drawer when item is pushed like modern e-com
-            toggleCartDrawer(true);
-        }
-
-        function removeBagItem(index) {
-            shoppingCart.splice(index, 1);
-            localStorage.setItem('blackie_daraz_cart', JSON.stringify(shoppingCart));
-            updateCartBadges();
-            buildCartRows();
-        }
-
-        function updateCartBadges() {
-            document.getElementById('globalCartCount').innerText = shoppingCart.length;
-        }
-
-        function buildCartRows() {
-            let container = document.getElementById('cartItemsContainer');
-            let totalTxt = document.getElementById('cartSubtotal');
-            container.innerHTML = "";
-
-            if(shoppingCart.length === 0) {
-                container.innerHTML = `<p style="text-align:center; padding:30px 0; color:#444; font-size:13px;">Cart is currently empty.</p>`;
-                totalTxt.innerText = "0";
+            let filtered = db.products.filter(p => categoryName === "ALL" || p.cat === categoryName);
+            if(filtered.length === 0) {
+                grid.innerHTML = `<p style="grid-column:1/-1; padding:40px; text-align:center; color:#888;">No stock available inside this asset sector.</p>`;
                 return;
             }
 
-            let grandTotal = 0;
-            shoppingCart.forEach((item, idx) => {
-                grandTotal += parseInt(item.price);
-                container.innerHTML += `
-                    <div class="cart-item-row">
-                        <img src="${item.img}">
-                        <div class="cart-item-details">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-price">${parseInt(item.price).toLocaleString()} LKR</div>
+            filtered.forEach(p => {
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <div class="img-container"><img src="${p.img}"></div>
+                        <div class="info-panel">
+                            <div class="p-name">${p.name}</div>
+                            <div class="p-desc">${p.desc || ''}</div>
+                            <div class="price-row"><span class="p-price">${parseInt(p.price).toLocaleString()} LKR</span></div>
+                            <button class="buy-btn" onclick="routeAcquisitionRequest('${p.name}', ${p.price}, '${p.img}')">
+                                ${giftModeActive ? '📥 Pack Into Gift Box' : 'Add To Cart'}
+                            </button>
                         </div>
-                        <button class="remove-item" onclick="removeBagItem(${idx})"><i class="fa-solid fa-trash-can"></i></button>
                     </div>`;
             });
-            totalTxt.innerText = grandTotal.toLocaleString();
         }
 
-        // --- 📲 REDIRECT ORDER EXPORTS TO WHATSAPP AUTOMATION ---
-        function sendOrderToWhatsapp() {
-            let name = document.getElementById('custName').value;
-            let ph1 = document.getElementById('custPhone1').value;
-            let ph2 = document.getElementById('custPhone2').value;
-            let ad1 = document.getElementById('custAddr1').value;
-            let ad2 = document.getElementById('custAddr2').value;
-
-            if(shoppingCart.length === 0) { alert("Your cart is empty!"); return; }
-            if(!name || !ph1 || !ad1) { alert("Please complete required Name, Primary Phone, and Address 1 fields."); return; }
-
-            let total = shoppingCart.reduce((sum, item) => sum + parseInt(item.price), 0);
-            let itemsSummary = shoppingCart.map((item, i) => `${i+1}. ${item.name} (${parseInt(item.price).toLocaleString()} LKR)`).join('\n');
-
-            // Formatted Message Layout
-            let templateText = 
-                `🖤 *BLACKIE ONLINE MALL ORDER REPORT* 🖤\n` +
-                `=============================\n\n` +
-                `*CLIENT PROFILE DATA:*\n` +
-                `- Name: ${name}\n` +
-                `- Phone 01: ${ph1}\n` +
-                `- Phone 02: ${ph2 ? ph2 : 'N/A'}\n\n` +
-                `*DELIVERY LOGISTICS:*\n` +
-                `- Address 1: ${ad1}\n` +
-                `- Address 2: ${ad2 ? ad2 : 'None supplied'}\n\n` +
-                `*ACQUIRED INVENTORY ITEMS:*\n` +
-                `${itemsSummary}\n\n` +
-                `*GRAND TOTAL PRICE:* ${total.toLocaleString()} LKR\n\n` +
-                `=============================\n` +
-                `Please process and dispatch my order safely. Thank you!`;
-
-            let urlEncodedString = encodeURIComponent(templateText);
-            
-            // 🚨 𝑶𝒀𝑨𝑮𝑬 𝑾𝑯𝑨𝑻𝑺𝑨𝑷𝑷 𝑵𝑼𝑴𝑩𝑬𝑹 𝑬𝑲𝑨 𝑴𝑬𝑻𝑯𝑨𝑵𝑨𝑻𝑨 𝑫𝑨𝑨𝑵𝑵𝑨 (Change 94771234567 to yours)
-            let sellerWhatsappNum = "94741155984";
-
-            window.open(`https://api.whatsapp.com/send?phone=${sellerWhatsappNum}&text=${urlEncodedString}`, '_blank');
-            
-            // Clean cart after execution
-            shoppingCart = [];
-            localStorage.setItem('blackie_daraz_cart', JSON.stringify(shoppingCart));
-            updateCartBadges();
-            toggleCartDrawer(false);
-            alert("Order bundled! Transferring to WhatsApp service desk now.");
+        function triggerLiveSearch() {
+            let val = document.getElementById('storeSearchBar').value;
+            if(document.getElementById('homeView').classList.contains('active')) {
+                renderHomeGrid(val);
+            } else {
+                filterByCategoryPage('ALL');
+                renderHomeGrid(val);
+            }
         }
 
-        // Initialize display
-        renderItems();
+        // Universal handler determining standard cart load vs box insertion matrix mapping
+        function routeAcquisitionRequest(name, price, img) {
+            if(!giftModeActive) {
+                // Add to standard regular cart array
+                standardCart.push({name, price, img, type:"REGULAR"});
+                localStorage.setItem('blackie_std_cart', JSON.stringify(standardCart));
+                updateGlobalCartElements();
+                alert(`${name} securely attached to shopping lines.`);
+            } else {
+                // Pack into the customized container setup
+                if(packedGiftItems.length >= maxAllowedGiftItems) {
+                    alert(`Box capacity error! Size ${selectedBoxSizeName} only handles a limit of ${maxAllowedGiftItems} unique items.`);
+                    return;
+                }
+                
+                // Fire Visual Drop Particle Animation
+                executeVisualPackingAnimation(img);
+
+                packedGiftItems.push({name, price, img});
+                updateGiftBoxMatrixDisplay();
+            }
+        }
+
+        // Dynamic Animation Particle Injection Logic
+        function executeVisualPackingAnimation(imgSrc) {
+            let container = document.getElementById('animationContainer');
+            let imgParticle = document.createElement('img');
+            imgParticle.src = imgSrc;
+            imgParticle.className = "flying-item";
+            container.appendChild(imgParticle);
+
+            let mainBox = document.getElementById('animatedBox');
+            mainBox.classList.add('bounce');
+
+            setTimeout(() => {
+                imgParticle.remove();
+                mainBox.classList.remove('bounce');
+            }, 800);
+        }
+
+        // Gift Size Configuration Selector
+        function selectBoxSize(sizeName, maxLimit) {
+            selectedBoxSizeName = sizeName;
+            maxAllowedGiftItems = maxLimit;
+            
+            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+            document.getElementById('sz-' + sizeName).classList.add('selected');
+            
+            updateGiftBoxMatrixDisplay();
+        }
+
+        function activateGiftItemCollection() {
+            giftModeActive = true;
+            alert("✨ GIFT ENGINE PIPELINE ENGAGED! Now routing you to vault grid. Select items to see them fly into your custom black box container.");
+            navigateToPage('homeView');
+        }
+
+        function updateGiftBoxMatrixDisplay() {
+            document.getElementById('boxStatusText').innerText = `BOX SIZE: ${selectedBoxSizeName} (${packedGiftItems.length} / ${maxAllowedGiftItems} FULL)`;
+            let list = document.getElementById('giftBoxSummaryList');
+            if(packedGiftItems.length === 0) {
+                list.innerText = "No items packed inside yet.";
+            } else {
+                list.innerText = "Packed Payload: " + packedGiftItems.map(i => i.name).join(' + ');
+            }
+        }
+
+        // --- CART OVERLAY DRAWER MANAGEMENT ---
+        function toggleDrawer(open) {
+            let d = document.getElementById('cartExpansionDrawer');
+            if(open) {
+                d.classList.add('open');
+                buildDrawerRows();
+            } else {
+                d.classList.remove('open');
+            }
+        }
+
+        function updateGlobalCartElements() {
+            let totalCount = standardCart.length + (packedGiftItems.length > 0 ? 1 : 0);
+            document.getElementById('badgeCount').innerText = totalCount;
+        }
+
+        function buildDrawerRows() {
+            let container = document.getElementById('drawerItemsList');
+            let totBox = document.getElementById('drawerGrandTotalText');
+            container.innerHTML = "";
+            let netSum = 0;
+
+            // Load regular objects inside cart list
+            standardCart.forEach((item, idx) => {
+                netSum += parseInt(item.price);
+                container.innerHTML += `
+                    <div class="drawer-item">
+                        <img src="${item.img}">
+                        <div style="flex:1;">
+                            <div style="font-size:12px; font-weight:600;">${item.name}</div>
+                            <small style="color:var(--gold);">Standard Acquisition</small>
+                        </div>
+                        <div style="font-size:12px; font-weight:700;">${parseInt(item.price).toLocaleString()} LKR</div>
+                        <button class="del-row-btn" style="padding:2px 6px;" onclick="removeRegularCartItem(${idx})">x</button>
+                    </div>`;
+            });
+
+            // Injection load of custom custom luxury packaging if defined
+            if(packedGiftItems.length > 0) {
+                let boxPrice = 3500; // Premium Box Charge Asset
+                let boxItemsSum = packedGiftItems.reduce((s, i) => s + parseInt(i.price), 0);
+                let customBoxTotal = boxPrice + boxItemsSum;
+                netSum += customBoxTotal;
+
+                container.innerHTML += `
+                    <div class="drawer-item" style="border: 1px solid var(--gold); padding:10px; background:#fffdf5;">
+                        <div style="font-size:24px; color:var(--gold);"><i class="fa-solid fa-gift"></i></div>
+                        <div style="flex:1; margin-left:10px;">
+                            <div style="font-size:12px; font-weight:700; color:#000;">SWEET LUXURY CUSTOM BOX (${selectedBoxSizeName})</div>
+                            <small style="color:#666; font-size:10px;">Contains: ${packedGiftItems.length} custom modules</small>
+                        </div>
+                        <div style="font-size:12px; font-weight:700; color:var(--gold);">${customBoxTotal.toLocaleString()} LKR</div>
+                        <button class="del-row-btn" style="padding:2px 6px;" onclick="wipeCustomGiftContainer()">x</button>
+                    </div>`;
+            }
+            totBox.innerText = netSum.toLocaleString();
+        }
+
+        function removeRegularCartItem(idx) {
+            standardCart.splice(idx,1);
+            localStorage.setItem('blackie_std_cart', JSON.stringify(standardCart));
+            updateGlobalCartElements();
+            buildDrawerRows();
+        }
+
+        function wipeCustomGiftContainer() {
+            packedGiftItems = [];
+            giftModeActive = false;
+            updateGiftBoxMatrixDisplay();
+            updateGlobalCartElements();
+            buildDrawerRows();
+        }
+
+        // --- EXPORT PACKAGES SHIPPED OUT STRAIGHT TO WHATSAPP DESK ---
+        function dispatchWhatsAppOrder() {
+            let name = document.getElementById('chkName').value;
+            let p1 = document.getElementById('chkPhone1').value;
+            let p2 = document.getElementById('chkPhone2').value;
+            let a1 = document.getElementById('chkAddr1').value;
+            let a2 = document.getElementById('chkAddr2').value;
+
+            if(standardCart.length === 0 && packedGiftItems.length === 0) { alert("Acquisition log empty."); return; }
+            if(!name || !p1 || !a1) { alert("Name, Contact, and Address 1 items are critically core variables."); return; }
+
+            let regularString = standardCart.map((item, i) => `  ${i+1}. ${item.name} (${parseInt(item.price).toLocaleString()} LKR)`).join('\n');
+            let giftString = packedGiftItems.map((item, i) => `  - Inside Module: ${item.name}`).join('\n');
+            
+            let total = standardCart.reduce((s,i) => s + parseInt(i.price), 0);
+            if(packedGiftItems.length > 0) {
+                total += 3500 + packedGiftItems.reduce((s,i) => s + parseInt(i.price), 0);
+            }
+
+            let msg = `⚜️ *BLACKIE CENTRAL COMMAND MATRIX ORDER* ⚜️\n\n` +
+                      `*CLIENT MASTER DATA:*\n- Name: ${name}\n- Main Line: ${p1}\n- Alt Line: ${p2 || 'N/A'}\n\n` +
+                      `*LOGISTICS ROUTING:*\n- Address 1: ${a1}\n- Address 2: ${a2 || 'N/A'}\n\n` +
+                      `*STANDARD ARTIFACT PAYLOADS:*\n${regularString || '  None'}\n\n`;
+
+            if(packedGiftItems.length > 0) {
+                msg += `*🎁 SWEET LUXURY GIFT CONTAINER BUNDLE (${selectedBoxSizeName}):*\n` +
+                       `${giftString}\n- Secure Box Integration Costing included.\n\n`;
+            }
+
+            msg += `*NET CALCULATED PAYLOAD VALUE:* ${total.toLocaleString()} LKR\n\n` +
+                   `===============================`;
+
+            let link = `https://api.whatsapp.com/send?phone=94771234567&text=${encodeURIComponent(msg)}`;
+            window.open(link, '_blank');
+
+            // Wipe out temporary logs safely
+            standardCart = [];
+            packedGiftItems = [];
+            giftModeActive = false;
+            localStorage.setItem('blackie_std_cart', JSON.stringify(standardCart));
+            updateGiftBoxMatrixDisplay();
+            updateGlobalCartElements();
+            toggleDrawer(false);
+        }
+
+        // --- GOD-MODE DASHBOARD EXECUTION MANAGEMENT ENGINE ---
+        function renderInventoryTable() {
+            let tbody = document.getElementById('adminInventoryTableBody');
+            tbody.innerHTML = "";
+            db.products.forEach((p, index) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="color:var(--gold); font-weight:600;">${p.cat}</td>
+                        <td>
+                            <div style="font-weight:600;">${p.name}</div>
+                            <small style="color:#777; display:block; max-width:300px; overflow:hidden;">${p.desc || ''}</small>
+                        </td>
+                        <td><b>${parseInt(p.price).toLocaleString()} LKR</b></td>
+                        <td><button class="del-row-btn" onclick="purgeProduct(${index})">Purge Asset</button></td>
+                    </tr>`;
+            });
+        }
+
+        function injectProduct() {
+            let cat = document.getElementById('admProdCat').value;
+            let name = document.getElementById('admProdName').value;
+            let price = document.getElementById('admProdPrice').value;
+            let img = document.getElementById('admProdImg').value;
+            let desc = document.getElementById('admProdDesc').value;
+
+            if(!name || !price || !img || !desc) { alert("Core components require valid strings."); return; }
+
+            db.products.push({cat, name, price, img, desc});
+            localStorage.setItem('blackie_god_db', JSON.stringify(db));
+            
+            initializeCoreEngine();
+            alert("New inventory variable safely updated and deployed to pipeline.");
+            
+            document.getElementById('admProdName').value = "";
+            document.getElementById('admProdPrice').value = "";
+            document.getElementById('admProdImg').value = "";
+            document.getElementById('admProdDesc').value = "";
+        }
+
+        function purgeProduct(index) {
+            db.products.splice(index, 1);
+            localStorage.setItem('blackie_god_db', JSON.stringify(db));
+            initializeCoreEngine();
+        }
+
+        function saveGlobalBranding() {
+            let theme = document.getElementById('admThemeSelect').value;
+            let banner = document.getElementById('admBannerUrl').value;
+            let title = document.getElementById('admBannerTitle').value;
+            let sub = document.getElementById('admBannerSub').value;
+
+            if(theme) db.branding.theme = theme;
+            if(banner) db.branding.banner = banner;
+            if(title) db.branding.title = title;
+            if(sub) db.branding.sub = sub;
+
+            localStorage.setItem('blackie_god_db', JSON.stringify(db));
+            initializeCoreEngine();
+            alert("Global system core definitions compiled and updated live.");
+        }
+
+        function applyAdminThemeConfig() {
+            // Live preview response hook inside admin select inputs
+        }
+
+        // Initialize execution on runtime loop load
+        initializeCoreEngine();
     </script>
 </body>
 </html>
