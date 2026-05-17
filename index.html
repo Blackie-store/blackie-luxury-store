@@ -36,7 +36,7 @@
         .top-header span:hover { color: var(--gold); }
 
         header { background: rgba(255, 255, 255, 0.92); padding: 18px 8%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); transition: 0.4s; }
-        .logo { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 700; color: var(--black); text-decoration: none; letter-spacing: 3px; }
+        .logo { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 700; color: var(--black); text-decoration: none; letter-spacing: 3px; flex-shrink: 0; }
         .logo span { color: var(--gold); }
         
         .search-container { flex: 1; max-width: 480px; margin: 0 30px; display: flex; position: relative; }
@@ -50,7 +50,7 @@
         nav button:hover::after, nav button.active::after { width: 100%; }
         nav button:hover, nav button.active { color: var(--gold); }
 
-        .cart-icon-btn { position: relative; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-color); transition: 0.3s; }
+        .cart-icon-btn { position: relative; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-color); transition: 0.3s; flex-shrink: 0; }
         .cart-icon-btn:hover { color: var(--gold); transform: scale(1.05); }
         .cart-count { position: absolute; top: -10px; right: -12px; background: var(--black); color: var(--gold); font-size: 10px; padding: 2px 7px; border-radius: 50%; font-weight: 700; }
 
@@ -60,7 +60,6 @@
 
         /* --- 🏠 HOME PAGE VIEW --- */
         .home-grid { display: grid; grid-template-columns: 240px 1fr; gap: 30px; margin-bottom: 50px; }
-        @media(max-width: 992px) { .home-grid { grid-template-columns: 1fr; } }
 
         .side-menu { background: var(--bg-card); border: 1px solid var(--border); padding: 20px 0; border-radius: 8px; box-shadow: var(--shadow-sm); height: fit-content; }
         .menu-item { padding: 14px 24px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s ease; color: #555; }
@@ -96,9 +95,8 @@
         .buy-btn { width: 100%; background: var(--black); color: #fff; border: 1px solid var(--black); padding: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: 0.3s; border-radius: 4px; letter-spacing: 1px; }
         .buy-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); box-shadow: 0 5px 15px rgba(212,175,55,0.2); }
 
-        /* --- 🎁 3D CARTOON LUXURY GIFT BOX CONFIGURATOR --- */
+        /* --- 🎁 3D REAL CARTOON LUXURY GIFT BOX CONFIGURATOR --- */
         .gift-layout { display: grid; grid-template-columns: 1fr 440px; gap: 40px; }
-        @media(max-width: 900px) { .gift-layout { grid-template-columns: 1fr; } }
         
         .setup-panel { background: #fff; border: 1px solid var(--border); padding: 35px; border-radius: 8px; box-shadow: var(--shadow-sm); }
         .setup-panel h3 { font-family: 'Cinzel', serif; font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 15px; color: #222; }
@@ -109,33 +107,33 @@
         .size-btn small { font-size: 9px; display: block; color: #777; }
         .size-btn.selected small { color: #ccc; }
 
-        /* 📦 3D Cartoon Realistic Matrix Container */
-        .box-animation-matrix { background: radial-gradient(circle, #222222 0%, #0a0a0a 100%); border-radius: 16px; height: 420px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; border: 2px solid #333; box-shadow: var(--shadow-lg); perspective: 1000px; }
+        /* 📦 Real Matte 3D-Effect Cartoon Gift Box */
+        .box-animation-matrix { background: radial-gradient(circle, #252525 0%, #080808 100%); border-radius: 16px; height: 420px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; border: 2px solid #333; box-shadow: var(--shadow-lg); perspective: 1200px; }
         
-        /* 3D Styled Cartoon Box Component Structure */
-        .cartoon-box-wrapper { position: relative; width: 160px; height: 160px; transform-style: preserve-3d; transition: transform 0.5s ease; margin-bottom: 10px; cursor: pointer; }
+        /* Realistic 3D Depth Styled Cartoon Wrapper */
+        .cartoon-box-wrapper { position: relative; width: 170px; height: 160px; transform-style: preserve-3d; transition: transform 0.5s ease; margin-bottom: 15px; }
         
-        /* The Lid (Top Portion) */
-        .box-lid { position: absolute; width: 170px; height: 35px; background: #1a1a1a; border: 4px solid var(--gold); border-radius: 8px; top: -20px; left: -5px; z-index: 5; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-origin: bottom right; box-shadow: inset 0 4px 0 rgba(255,255,255,0.1), 0 8px 15px rgba(0,0,0,0.4); }
-        .cartoon-box-wrapper.lid-open .box-lid { transform: translateY(-45px) rotateZ(35deg) rotateX(-20px); }
+        /* The Realistic 3D Cartoon Lid with Rim Effect */
+        .box-lid { position: absolute; width: 182px; height: 42px; background: #1f1f1f; border: 4px solid var(--gold); border-radius: 8px 8px 4px 4px; top: -22px; left: -6px; z-index: 5; transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-origin: bottom right; box-shadow: 0 10px 20px rgba(0,0,0,0.6), inset 0 3px 0 rgba(255,255,255,0.15); }
+        .cartoon-box-wrapper.lid-open .box-lid { transform: translateY(-55px) rotateZ(40deg) rotateX(-15px) scale(0.95); }
 
-        /* The Base Body */
-        .box-body { position: absolute; width: 160px; height: 130px; background: #151515; border: 5px solid #282828; border-radius: 12px; bottom: 0; box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 -10px 0 rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        /* Realistic 3D Depth Base Body */
+        .box-body { position: absolute; width: 170px; height: 135px; background: #121212; border: 5px solid #222; border-radius: 0 0 16px 16px; bottom: 0; box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 -12px 0 rgba(0,0,0,0.7), inset 0 0 20px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; overflow: hidden; }
         
-        /* Gold Ribbon Belts - Cartoon Aesthetic */
-        .box-body::before { content: ''; position: absolute; width: 30px; height: 100%; background: var(--gold); box-shadow: 0 0 10px rgba(212,175,55,0.3); }
-        .box-body::after { content: ''; position: absolute; height: 30px; width: 100%; background: var(--gold); box-shadow: 0 0 10px rgba(212,175,55,0.3); }
+        /* Real Thick Cartoon Ribbon Cross Sections */
+        .box-body::before { content: ''; position: absolute; width: 34px; height: 100%; background: linear-gradient(90deg, #b89326 0%, var(--gold) 50%, #b89326 100%); box-shadow: 0 0 12px rgba(212,175,55,0.4); }
+        .box-body::after { content: ''; position: absolute; height: 34px; width: 100%; background: linear-gradient(180deg, #b89326 0%, var(--gold) 50%, #b89326 100%); box-shadow: 0 0 12px rgba(212,175,55,0.4); }
 
-        /* 🧵 Gold Embroidered Text Label Banner Asset */
-        .embroidered-label { position: absolute; background: #0c0c0c; border: 2px dashed var(--gold); padding: 4px 12px; border-radius: 4px; z-index: 6; color: var(--gold); font-family: 'Cinzel', serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-shadow: 0 0 4px rgba(212,175,55,0.6); box-shadow: 0 4px 10px rgba(0,0,0,0.4); text-transform: uppercase; }
+        /* Smooth 3D Matte Front Label Shadow Effect */
+        .embroidered-label { position: absolute; background: #080808; border: 2px solid var(--gold); padding: 5px 16px; border-radius: 6px; z-index: 6; color: var(--gold); font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); box-shadow: 0 6px 15px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.1); text-transform: uppercase; transform: translateZ(10px); top: 55px; }
 
         /* Immersive Animations Matrix */
-        .cartoon-box-wrapper.bounce-shake { animation: cartoonShake 0.6s cubic-bezier(.36,.07,.19,.97) both; }
+        .cartoon-box-wrapper.bounce-shake { animation: cartoonShake 0.65s cubic-bezier(.36,.07,.19,.97) both; }
         @keyframes cartoonShake {
-            10%, 90% { transform: translate3d(-2px, 0, 0) scale(1.05) rotate(-3deg); }
-            20%, 80% { transform: translate3d(4px, -5px, 0) scale(1.1) rotate(4deg); }
-            30%, 50%, 70% { transform: translate3d(-6px, 2px, 0) scale(0.95) rotate(-5deg); }
-            40%, 60% { transform: translate3d(6px, -8px, 0) scale(1.15) rotate(6deg); }
+            10%, 90% { transform: translate3d(-3px, 0, 0) scale(1.04) rotate(-4deg); }
+            20%, 80% { transform: translate3d(5px, -6px, 0) scale(1.08) rotate(5deg); }
+            30%, 50%, 70% { transform: translate3d(-7px, 3px, 0) scale(0.96) rotate(-6deg); }
+            40%, 60% { transform: translate3d(7px, -9px, 0) scale(1.12) rotate(7deg); }
         }
 
         .flying-item { position: fixed; width: 75px; height: 75px; object-fit: cover; border-radius: 12px; border: 3px solid var(--gold); z-index: 9999; pointer-events: none; transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
@@ -144,7 +142,6 @@
 
         /* --- 🔒 ADMIN COMMAND GATEWAY --- */
         .admin-grid { display: grid; grid-template-columns: 360px 1fr; gap: 40px; }
-        @media(max-width: 900px) { .admin-grid { grid-template-columns: 1fr; } }
         .admin-sidebar { background: #fff; border: 1px solid var(--border); padding: 30px; border-radius: 8px; box-shadow: var(--shadow-sm); }
         .admin-sidebar h4 { font-family: 'Cinzel', serif; margin-bottom: 20px; font-size: 13px; color: #111; text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 8px; letter-spacing: 1px; }
         .admin-sidebar label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: #666; display: block; margin-bottom: 6px; }
@@ -183,6 +180,57 @@
         @keyframes slideToast { to { transform: translateX(0); } }
 
         footer { background: rgba(255,255,255,0.9); border-top: 1px solid var(--border); text-align: center; padding: 30px; font-size: 12px; color: #777; margin-top: 20px; letter-spacing: 0.5px; }
+
+        /* =========================================================================
+           📱 UNIVERSAL DEVICE RESPONSIVENESS ARCHITECTURE (iOS/Android Fluid Layouts)
+           ========================================================================= */
+        @media(max-width: 992px) {
+            .home-grid { grid-template-columns: 1fr; gap: 20px; }
+            .slider-box { height: 320px; }
+            .slider-text h2 { font-size: 26px; }
+            .gift-layout { grid-template-columns: 1fr; gap: 25px; }
+            .admin-grid { grid-template-columns: 1fr; gap: 25px; }
+        }
+
+        @media(max-width: 768px) {
+            header { padding: 14px 4%; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+            .logo { font-size: 24px; order: 1; }
+            .cart-icon-btn { order: 2; }
+            .search-container { order: 3; min-width: 100%; margin: 5px 0 0 0; max-width: 100%; }
+            nav { order: 4; width: 100%; justify-content: space-around; background: #fff; padding: 10px 0; border-radius: 30px; margin-top: 5px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
+            nav button { font-size: 10px; letter-spacing: 1px; }
+            
+            .top-header { padding: 8px 4%; justify-content: center; gap: 15px; font-size: 10px; flex-wrap: wrap; }
+            .page-view { padding: 25px 4%; }
+            .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+            .product-card { border-radius: 12px; }
+            .img-container { height: 170px; }
+            .info-panel { padding: 12px; }
+            .p-name { font-size: 12px; height: 34px; margin-bottom: 4px; }
+            .p-desc { font-size: 11px; height: 32px; margin-bottom: 8px; }
+            .price-row { padding-top: 8px; margin-top: 4px; margin-bottom: 8px; }
+            .p-price { font-size: 14px; }
+            .buy-btn { padding: 10px; font-size: 10px; border-radius: 6px; }
+            
+            .side-menu { display: flex; overflow-x: auto; padding: 10px; gap: 10px; background: transparent; border: none; box-shadow: none; width: 100%; scrollbar-width: none; }
+            .side-menu::-webkit-scrollbar { display: none; }
+            .menu-item { padding: 10px 18px; font-size: 12px; background: #fff; border: 1px solid var(--border); border-radius: 20px; white-space: nowrap; flex-shrink: 0; box-shadow: var(--shadow-sm); }
+            .menu-item i { display: none; }
+            .menu-item:hover { padding-left: 18px; background: var(--black); color: var(--gold); }
+            
+            .size-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .cart-drawer { max-width: 100%; width: 100%; }
+        }
+
+        @media(max-width: 480px) {
+            .grid { grid-template-columns: 1fr; }
+            .img-container { height: 260px; }
+            .slider-box { height: 240px; }
+            .slider-text h2 { font-size: 20px; }
+            .slider-text p { font-size: 11px; }
+            .size-grid { grid-template-columns: repeat(2, 1fr); }
+            .box-animation-matrix { height: 360px; }
+        }
     </style>
 </head>
 <body>
@@ -206,7 +254,7 @@
         <nav>
             <button class="nav-link active" id="btn-homeView" onclick="navigateToPage('homeView')">Home</button>
             <button class="nav-link" id="btn-categoryView" onclick="filterByCategoryPage('ALL')">Collections</button>
-            <button class="nav-link" id="btn-giftView" style="color:var(--gold); font-weight:700;" onclick="navigateToPage('giftView')">🎁 Create Gift Box</button>
+            <button class="nav-link" id="btn-giftView" style="color:var(--gold); font-weight:700;" onclick="navigateToPage('giftView')">🎁 Gift Box</button>
         </nav>
 
         <button class="cart-icon-btn" onclick="toggleDrawer(true)">
@@ -386,7 +434,6 @@
         let maxAllowedGiftItems = 2;
         let packedGiftItems = [];
         
-        // Memory variables to trace coordinate locations for automatic UI return routing
         let lastSelectedPageId = 'homeView';
         let lastScrollCoordinateY = 0;
 
@@ -514,7 +561,6 @@
             });
         }
 
-        // Immersive Acquisition Request Router System with Auto-Return Memory Functionality
         function routeAcquisitionRequest(name, price, img, elementId, sourcePageId) {
             if(!giftModeActive) {
                 standardCart.push({name, price, img});
@@ -527,7 +573,6 @@
                     return;
                 }
                 
-                // Save current position state context before transitioning viewport layer
                 lastSelectedPageId = sourcePageId;
                 lastScrollCoordinateY = window.scrollY;
 
@@ -547,12 +592,9 @@
                     let boxWrapper = document.getElementById('cartoonBox3D');
                     let dest = boxWrapper.getBoundingClientRect();
 
-                    // Step-by-Step Immersive Animation Sequence Engine
                     setTimeout(() => {
-                        // 1. Pop Open the Lid gently right before item impacts base body
                         boxWrapper.classList.add('lid-open');
                         
-                        // 2. Flight transition path configuration toward 3D Box inner space
                         flyImg.style.top = (dest.top + window.scrollY + 40) + "px";
                         flyImg.style.left = (dest.left + 40) + "px";
                         flyImg.style.width = "40px";
@@ -561,21 +603,19 @@
                         
                         setTimeout(() => {
                             flyImg.remove();
-                            // 3. Close Lid and trigger the structural Cartoon 3D shake bounce mechanics
                             boxWrapper.classList.remove('lid-open');
                             boxWrapper.classList.add('bounce-shake');
                             
                             setTimeout(() => {
                                 boxWrapper.classList.remove('bounce-shake');
                                 
-                                // 🚀 4. IMMERSIVE MEMORY AUTO-RETURN CORE
                                 setTimeout(() => {
                                     navigateToPage(lastSelectedPageId);
                                     window.scrollTo({
                                         top: lastScrollCoordinateY,
                                         behavior: 'smooth'
                                     });
-                                    showPremiumToast(`${name} Packed Successfully Inside Box.`);
+                                    showPremiumToast(`${name} Packed Inside Box.`);
                                 }, 600);
 
                             }, 600);
@@ -601,7 +641,9 @@
             giftModeActive = true;
             showPremiumToast("Gift Mode Active! Select items.");
             navigateToPage('homeView');
-            window.scrollTo({top: 400, behavior: 'smooth'});
+            
+            let targetScroll = window.innerWidth <= 768 ? 200 : 400;
+            window.scrollTo({top: targetScroll, behavior: 'smooth'});
         }
 
         function updateGiftBoxMatrixDisplay() {
@@ -697,7 +739,9 @@
             }
 
             msg += `*TOTAL AMOUNT:* ${total.toLocaleString()} LKR\n\n===============================`;
-            window.open(`https://api.whatsapp.com/send?phone=94771234567&text=${encodeURIComponent(msg)}`, '_blank');
+            
+            // 🚀 REDIRECTING TO YOUR OFFICIAL WHATSAPP NUMBER
+            window.open(`https://api.whatsapp.com/send?phone=94741155984&text=${encodeURIComponent(msg)}`, '_blank');
 
             standardCart = []; packedGiftItems = []; giftModeActive = false;
             localStorage.setItem('blackie_std_cart', JSON.stringify(standardCart));
