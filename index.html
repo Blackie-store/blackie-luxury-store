@@ -3,28 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACKIE — Luxury Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <title>BLACKIE — Beyond Luxury</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #0a0a0a; --gold: #d4af37; --white: #ffffff; }
+        :root { --bg: #050505; --gold: #d4af37; --white: #ffffff; --card: #0d0d0d; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        body { background-color: var(--bg); color: var(--white); overflow-x: hidden; opacity: 0; animation: fadeIn 1.5s ease forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(1.02); } to { opacity: 1; transform: scale(1); } }
-        header { background: rgba(10,10,10,0.95); padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid #1a1a1a; backdrop-filter: blur(10px); }
-        .logo { font-family: 'Cinzel', serif; font-size: 26px; letter-spacing: 4px; color: #fff; text-decoration: none; background: linear-gradient(45deg, #fff, #d4af37, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        nav a { color: #aaa; text-decoration: none; margin-left: 30px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; }
+        body { background-color: var(--bg); color: var(--white); overflow-x: hidden; opacity: 0; animation: fadeInPage 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        @keyframes fadeInPage { to { opacity: 1; } }
+
+        /* Navigation */
+        header { background: rgba(5,5,5,0.9); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid #111; backdrop-filter: blur(15px); }
+        .logo { font-family: 'Cinzel', serif; font-size: 24px; letter-spacing: 5px; color: #fff; text-decoration: none; background: linear-gradient(45deg, #fff, var(--gold), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+        nav { display: flex; align-items: center; }
+        nav a { color: #bbb; text-decoration: none; margin-left: 25px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; }
         nav a:hover, nav a.active { color: var(--gold); }
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; background: #000; }
-        .hero-bg { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; transform: scale(1.1); animation: zoomOut 8s infinite alternate; }
-        @keyframes zoomOut { from { transform: scale(1.1); } to { transform: scale(1); } }
-        .hero-content { position: relative; z-index: 10; max-width: 800px; }
-        .hero-title { font-family: 'Cinzel', serif; font-size: 65px; letter-spacing: 12px; margin-bottom: 20px; text-transform: uppercase; }
-        .hero-sub { color: var(--gold); font-size: 14px; letter-spacing: 6px; margin-bottom: 40px; text-transform: uppercase; }
-        .cta-btn { background: transparent; color: #fff; border: 1px solid #fff; padding: 18px 45px; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: 0.5s; text-decoration: none; }
-        .cta-btn:hover { background: #fff; color: #000; box-shadow: 0 0 30px rgba(255,255,255,0.3); }
+        .user-tag { border: 1px solid var(--gold); padding: 5px 12px; font-size: 10px; color: var(--gold); margin-left: 20px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Slider Hero Section */
+        .hero { height: 100vh; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .slide { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; transition: opacity 1.5s ease-in-out; display: flex; align-items: center; justify-content: center; }
+        .slide.active { opacity: 1; }
+        .slide-bg { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.35; transform: scale(1.1); transition: transform 6s ease; }
+        .slide.active .slide-bg { transform: scale(1); }
+        
+        .hero-content { position: relative; z-index: 10; max-width: 900px; padding: 20px; }
+        .hero-title { font-family: 'Cinzel', serif; font-size: calc(32px + 2vw); letter-spacing: 15px; margin-bottom: 20px; text-transform: uppercase; text-shadow: 0 0 20px rgba(0,0,0,0.8); }
+        .hero-sub { color: var(--gold); font-size: 12px; letter-spacing: 8px; margin-bottom: 40px; text-transform: uppercase; font-weight: 600; }
+        .cta-btn { background: transparent; color: #fff; border: 1px solid var(--gold); padding: 15px 40px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: 0.4s; text-decoration: none; display: inline-block; }
+        .cta-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 30px rgba(212,175,55,0.4); }
+
+        /* Uncommon Search Icon Trigger */
+        .search-trigger { background: transparent; border: 1px solid #222; color: var(--gold); padding: 12px 30px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; margin-top: 25px; transition: 0.3s; }
+        .search-trigger:hover { border-color: var(--gold); background: rgba(212,175,55,0.05); }
+
+        /* Full Screen Luxury Search Overlay */
+        .search-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,5,0.98); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: 0.5s cubic-bezier(0.7,0,0.3,1); }
+        .search-overlay.open { opacity: 1; pointer-events: auto; }
+        .search-input-box { width: 80%; max-width: 700px; border-bottom: 2px solid var(--gold); position: relative; margin-bottom: 30px; }
+        .search-input-box input { width: 100%; background: transparent; border: none; color: #fff; font-size: 28px; font-family: 'Cinzel', serif; padding: 15px 0; text-align: center; letter-spacing: 2px; }
+        .search-input-box input:focus { outline: none; }
+        .close-search { position: absolute; top: 40px; right: 5%; font-size: 14px; color: #888; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; }
+        .close-search:hover { color: #fff; }
+
+        /* Premium Highlights Section */
+        .highlights { padding: 80px 5%; display: flex; justify-content: space-around; gap: 30px; flex-wrap: wrap; background: #080808; border-top: 1px solid #111; }
+        .hl-box { text-align: center; max-width: 300px; padding: 20px; border: 1px solid #111; transition: 0.3s; }
+        .hl-box:hover { border-color: var(--gold); }
+        .hl-box h3 { font-family: 'Cinzel', serif; font-size: 16px; color: var(--gold); margin-bottom: 15px; letter-spacing: 2px; }
+        .hl-box p { font-size: 12px; color: #888; line-height: 1.8; }
+
+        @media(max-width: 768px) {
+            header { padding: 15px 4%; }
+            nav a { margin-left: 15px; font-size: 9px; letter-spacing: 1px; }
+            .user-tag { display: none; }
+        }
     </style>
 </head>
 <body>
+
     <header>
         <a href="index.html" class="logo">BLACKIE</a>
         <nav>
@@ -32,29 +68,84 @@
             <a href="shop.html">Shop</a>
             <a href="cart.html">Cart</a>
             <a href="admin.html">Dashboard</a>
+            <span id="userDisplay" class="user-tag" style="display:none;"></span>
         </nav>
     </header>
-    <section class="hero">
-        <img src="" id="mainBanner" class="hero-bg">
-        <div class="hero-content">
-            <h1 class="hero-title" id="mainTitle">THE LUXURY EXPERIENCE</h1>
-            <p class="hero-sub" id="mainSub">Elegance in Every Detail</p>
-            <a href="shop.html" class="cta-btn">Enter The Shop</a>
+
+    <section class="hero" id="heroSlider">
+        <div class="slide active">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070" class="slide-bg">
+            <div class="hero-content">
+                <h1 class="hero-title">THE VOID COLLECTION</h1>
+                <p class="hero-sub">Uncompromising Luxury for the Elite</p>
+                <a href="shop.html" class="cta-btn">Explore Vault</a><br>
+                <button class="search-trigger" onclick="toggleSearch(true)">🔍 Quick Search</button>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1509319117193-57bab727e09d?q=80&w=2070" class="slide-bg">
+            <div class="hero-content">
+                <h1 class="hero-title">TIMELESS OPULENCE</h1>
+                <p class="hero-sub">Crafted Beyond Perfection</p>
+                <a href="shop.html" class="cta-btn">View Masterpieces</a><br>
+                <button class="search-trigger" onclick="toggleSearch(true)">🔍 Quick Search</button>
+            </div>
         </div>
     </section>
+
+    <div class="search-overlay" id="searchOverlay">
+        <span class="close-search" onclick="toggleSearch(false)">[ Close ESC ]</span>
+        <div class="search-input-box">
+            <input type="text" id="globalSearch" placeholder="TYPE TO SEARCH..." onkeypress="executeSearch(event)">
+        </div>
+        <p style="font-size:11px; color:#555; letter-spacing:2px;">PRESS ENTER TO DISCOVER THE ARCHIVE</p>
+    </div>
+
+    <section class="highlights">
+        <div class="hl-box">
+            <h3>SECURE PACKAGING</h3>
+            <p>Every single masterpiece is dispatched inside our signature armored matte black cases.</p>
+        </div>
+        <div class="hl-box">
+            <h3>GLOBAL EXPRESS</h3>
+            <p>Insured priority distribution lines to your exact GPS location worldwide.</p>
+        </div>
+    </section>
+
     <script>
-        let storeDb = JSON.parse(localStorage.getItem('blackie_v3_db')) || {
-            banner: { media: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070", title: "THE LUXURY EXPERIENCE", subtitle: "Elegance in Every Detail" },
-            products: [
-                {cat: "WATCH", name: "Classic Onyx Chronograph", price: "45000", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600"},
-                {cat: "PERFUME", name: "Noir Luxury Fragrance", price: "18500", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=600"},
-                {cat: "SUITS", name: "Premium Velvet Tuxedo", price: "89000", img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=600"}
-            ]
-        };
-        localStorage.setItem('blackie_v3_db', JSON.stringify(storeDb));
-        document.getElementById('mainBanner').src = storeDb.banner.media;
-        document.getElementById('mainTitle').innerText = storeDb.banner.title;
-        document.getElementById('mainSub').innerText = storeDb.banner.subtitle;
+        // Check Session User
+        let user = JSON.parse(sessionStorage.getItem('blackie_active_user'));
+        if(user) {
+            let tag = document.getElementById('userDisplay');
+            tag.innerText = "⚜️ " + user.name;
+            tag.style.display = "inline-block";
+        }
+
+        // Carousel Slider Auto Logic
+        let slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000);
+
+        // Uncommon Search Overlay Logic
+        function toggleSearch(status) {
+            let overlay = document.getElementById('searchOverlay');
+            if(status) {
+                overlay.classList.add('open');
+                document.getElementById('globalSearch').focus();
+            } else {
+                overlay.classList.remove('open');
+            }
+        }
+        function executeSearch(e) {
+            if(e.key === 'Enter') {
+                let val = document.getElementById('globalSearch').value;
+                window.location.href = `shop.html?search=${encodeURIComponent(val)}`;
+            }
+        }
     </script>
 </body>
 </html>

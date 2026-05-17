@@ -3,39 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACKIE — Shop Catalog</title>
+    <title>BLACKIE — Vault Catalog</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #0a0a0a; --card-bg: #121212; --gold: #d4af37; --white: #ffffff; }
+        :root { --bg: #050505; --card: #0d0d0d; --gold: #d4af37; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        body { background-color: var(--bg); color: var(--white); padding-top: 120px; opacity: 0; animation: fadeIn 1s ease forwards; }
-        @keyframes fadeIn { to { opacity: 1; } }
-        header { background: rgba(10,10,10,0.95); padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid #1a1a1a; backdrop-filter: blur(10px); }
-        .logo { font-family: 'Cinzel', serif; font-size: 26px; letter-spacing: 4px; color: #fff; text-decoration: none; background: linear-gradient(45deg, #fff, #d4af37, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        nav a { color: #aaa; text-decoration: none; margin-left: 30px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+        body { background-color: var(--bg); color: #fff; padding-top: 120px; }
+        
+        header { background: rgba(5,5,5,0.9); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid #111; backdrop-filter: blur(15px); }
+        .logo { font-family: 'Cinzel', serif; font-size: 24px; letter-spacing: 5px; color: #fff; text-decoration: none; }
+        nav a { color: #bbb; text-decoration: none; margin-left: 25px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
         nav a:hover, nav a.active { color: var(--gold); }
-        .controls-section { max-width: 1200px; margin: 0 auto 40px; padding: 0 20px; display: flex; flex-direction: column; gap: 20px; }
-        .search-bar { width: 100%; background: var(--card-bg); border: 1px solid #222; padding: 15px 25px; color: #fff; font-size: 14px; letter-spacing: 1px; transition: 0.3s; }
-        .search-bar:focus { border-color: var(--gold); outline: none; }
-        .categories-tabs { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; }
-        .tab-btn { background: var(--card-bg); color: #fff; border: 1px solid #222; padding: 10px 25px; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s; }
-        .tab-btn:hover, .tab-btn.active { border-color: var(--gold); color: var(--gold); }
-        .catalog { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 35px; }
-        .card { background: var(--card-bg); border: 1px solid #1a1a1a; transition: 0.4s; }
-        .card:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 10px 20px rgba(212,175,55,0.1); }
-        .img-box { width: 100%; height: 350px; overflow: hidden; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: grayscale(30%); }
-        .card:hover .img-box img { filter: grayscale(0%); transform: scale(1.05); }
+
+        /* Split Design: Auth Box and Store */
+        .shop-container { max-width: 1300px; margin: 0 auto; padding: 0 20px 60px; display: grid; grid-template-columns: 320px 1fr; gap: 40px; }
+        @media(max-width: 900px) { .shop-container { grid-template-columns: 1fr; } }
+
+        .auth-panel { background: var(--card); border: 1px solid #1a1a1a; padding: 25px; height: fit-content; position: sticky; top: 120px; }
+        .auth-panel h3 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 14px; margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; }
+        .auth-panel input { width: 100%; background: #000; border: 1px solid #222; padding: 10px; color: #fff; font-size: 12px; margin-bottom: 12px; }
+        .auth-panel input:focus { border-color: var(--gold); outline: none; }
+        
+        .btn { background: var(--gold); color: #000; border: none; width: 100%; padding: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; font-size: 11px; margin-bottom: 10px; }
+        .btn-sec { background: transparent; color: #fff; border: 1px solid #333; }
+
+        .products-section { display: flex; flex-direction: column; gap: 30px; }
+        .search-row { width: 100%; display: flex; gap: 15px; }
+        .search-box { flex: 1; background: var(--card); border: 1px solid #1a1a1a; padding: 15px; color: #fff; font-size: 13px; letter-spacing: 1px; }
+        .search-box:focus { outline: none; border-color: var(--gold); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
+        .card { background: var(--card); border: 1px solid #111; transition: 0.4s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--gold); }
+        .img-box { width: 100%; height: 320px; overflow: hidden; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(40%); transition: 0.5s; }
+        .card:hover .img-box img { filter: grayscale(0%); transform: scale(1.03); }
         .info { padding: 20px; text-align: center; }
-        .cat { font-size: 10px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
-        .name { font-size: 15px; margin-bottom: 10px; font-weight: 400; }
-        .price { font-size: 14px; color: #ccc; font-weight: 600; margin-bottom: 15px; }
-        .buy-btn { background: transparent; color: #fff; border: 1px solid var(--gold); width: 100%; padding: 12px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
-        .buy-btn:hover { background: var(--gold); color: #000; }
+        .name { font-size: 14px; margin-bottom: 8px; letter-spacing: 1px; }
+        .price { color: var(--gold); font-size: 14px; font-weight: 600; margin-bottom: 15px; }
     </style>
 </head>
 <body>
+
     <header>
         <a href="index.html" class="logo">BLACKIE</a>
         <nav>
@@ -45,66 +54,131 @@
             <a href="admin.html">Dashboard</a>
         </nav>
     </header>
-    <div class="controls-section">
-        <input type="text" class="search-bar" id="searchBox" placeholder="Search luxury collections (e.g., Watch, Perfume)..." oninput="filterItems()">
-        <div class="categories-tabs" id="tabsBox"></div>
-    </div>
-    <section class="catalog">
-        <div class="grid" id="shopGrid"></div>
-    </section>
-    <script>
-        let defaultDb = {
-            banner: { media: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070", title: "THE LUXURY EXPERIENCE", subtitle: "Elegance in Every Detail" },
-            products: [
-                {cat: "WATCH", name: "Classic Onyx Chronograph", price: "45000", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600"},
-                {cat: "PERFUME", name: "Noir Luxury Fragrance", price: "18500", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=600"},
-                {cat: "SUITS", name: "Premium Velvet Tuxedo", price: "89000", img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=600"}
-            ]
-        };
-        let db = JSON.parse(localStorage.getItem('blackie_v3_db')) || defaultDb;
-        if(!db.products || db.products.length === 0) { db.products = defaultDb.products; }
-        let activeCategory = "ALL";
 
-        function renderTabs() {
-            let tabsBox = document.getElementById('tabsBox');
-            let categories = ["ALL", ...new Set(db.products.map(p => p.cat.toUpperCase()))];
-            tabsBox.innerHTML = categories.map(c => `<button class="tab-btn ${activeCategory===c?'active':''}" onclick="setCategory('${c}')">${c}</button>`).join('');
+    <div class="shop-container">
+        <div class="auth-panel" id="authPanel">
+            </div>
+
+        <div class="products-section">
+            <div class="search-row">
+                <input type="text" id="shopSearch" class="search-box" placeholder="Filter through the vault..." oninput="renderCatalog()">
+            </div>
+            <div class="grid" id="catalogGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        // Setup initial databases
+        let db = JSON.parse(localStorage.getItem('blackie_v3_db')) || { products: [] };
+        let usersDb = JSON.parse(localStorage.getItem('blackie_users_db')) || [];
+        let activeUser = JSON.parse(sessionStorage.getItem('blackie_active_user')) || null;
+
+        // URL search hook
+        let urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.has('search')) {
+            document.getElementById('shopSearch').value = urlParams.get('search');
         }
 
-        function setCategory(cat) { activeCategory = cat; renderTabs(); filterItems(); }
+        function drawAuth() {
+            let container = document.getElementById('authPanel');
+            if(activeUser) {
+                container.innerHTML = `
+                    <h3>⚜️ VERIFIED CLIENT</h3>
+                    <p style="font-size:13px; color:var(--gold); margin-bottom:5px;">${activeUser.name}</p>
+                    <p style="font-size:11px; color:#666; margin-bottom:20px;">${activeUser.email}</p>
+                    <button class="btn btn-sec" onclick="logout()">Terminate Session</button>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div id="loginForm">
+                        <h3>⚜️ VAULT ACCESS</h3>
+                        <input type="email" id="logEmail" placeholder="Client Email">
+                        <input type="password" id="logPass" placeholder="Secret Key">
+                        <button class="btn" onclick="login()">Enter Identity</button>
+                        <p style="font-size:11px; text-align:center; color:#555; cursor:pointer;" onclick="toggleAuthForm(false)">Create New Account</p>
+                    </div>
+                    <div id="registerForm" style="display:none;">
+                        <h3>⚜️ REGISTRATION</h3>
+                        <input type="text" id="regName" placeholder="Full Legal Name">
+                        <input type="email" id="regEmail" placeholder="Active Email Address">
+                        <input type="text" id="regPhone" placeholder="Primary Contact Number">
+                        <input type="password" id="regPass" placeholder="Strong Password">
+                        <button class="btn" onclick="register()">Generate Profile</button>
+                        <p style="font-size:11px; text-align:center; color:#555; cursor:pointer;" onclick="toggleAuthForm(true)">Return to Login</p>
+                    </div>
+                `;
+            }
+        }
 
-        function filterItems() {
-            let query = document.getElementById('searchBox').value.toLowerCase();
-            let grid = document.getElementById('shopGrid');
+        function toggleAuthForm(showLogin) {
+            document.getElementById('loginForm').style.display = showLogin ? 'block' : 'none';
+            document.getElementById('registerForm').style.display = showLogin ? 'none' : 'block';
+        }
+
+        function register() {
+            let name = document.getElementById('regName').value;
+            let email = document.getElementById('regEmail').value;
+            let phone = document.getElementById('regPhone').value;
+            let pass = document.getElementById('regPass').value;
+
+            if(!name || !email || !phone || !pass) { alert("All fields are mandatory."); return; }
+            if(pass.length < 6) { alert("Password must be highly secure (min 6 characters)."); return; }
+
+            usersDb.push({name, email, phone, pass});
+            localStorage.setItem('blackie_users_db', JSON.stringify(usersDb));
+            alert("Account secured successfully! You can now log in.");
+            toggleAuthForm(true);
+        }
+
+        function login() {
+            let email = document.getElementById('logEmail').value;
+            let pass = document.getElementById('logPass').value;
+            let found = usersDb.find(u => u.email === email && u.pass === pass);
+
+            if(found) {
+                sessionStorage.setItem('blackie_active_user', JSON.stringify(found));
+                activeUser = found;
+                drawAuth();
+                location.reload();
+            } else {
+                alert("Invalid client credentials.");
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('blackie_active_user');
+            location.reload();
+        }
+
+        function renderCatalog() {
+            let q = document.getElementById('shopSearch').value.toLowerCase();
+            let grid = document.getElementById('catalogGrid');
             grid.innerHTML = "";
-            let filtered = db.products.filter(p => {
-                let matchesSearch = p.name.toLowerCase().includes(query) || p.cat.toLowerCase().includes(query);
-                let matchesCat = activeCategory === "ALL" || p.cat.toUpperCase() === activeCategory;
-                return matchesSearch && matchesCat;
-            });
-            filtered.forEach(p => {
+
+            let items = db.products.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q));
+            items.forEach(p => {
                 grid.innerHTML += `
                     <div class="card">
                         <div class="img-box"><img src="${p.img}"></div>
                         <div class="info">
-                            <div class="cat">${p.cat}</div>
                             <div class="name">${p.name}</div>
                             <div class="price">${parseInt(p.price).toLocaleString()} LKR</div>
-                            <button class="buy-btn" onclick="addToCart('${p.name}', ${p.price}, '${p.img}')">Add To Cart</button>
+                            <button class="btn" onclick="addToCart('${p.name}', ${p.price}, '${p.img}')">Acquire Item</button>
                         </div>
                     </div>`;
             });
         }
 
         function addToCart(name, price, img) {
+            if(!activeUser) { alert("Access Denied! You must log in or sign up to acquire products."); return; }
             let cart = JSON.parse(localStorage.getItem('blackie_cart')) || [];
             cart.push({name, price, img});
             localStorage.setItem('blackie_cart', JSON.stringify(cart));
-            alert(`${name} added to luxury cart!`);
+            alert(`${name} moved to bag.`);
         }
 
-        renderTabs();
-        filterItems();
+        drawAuth();
+        renderCatalog();
     </script>
 </body>
 </html>

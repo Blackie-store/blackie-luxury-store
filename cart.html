@@ -3,98 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACKIE — Shopping Cart</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <title>BLACKIE — Vault Checkout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #0a0a0a; --card: #121212; --gold: #d4af37; }
+        :root { --bg: #050505; --card: #0d0d0d; --gold: #d4af37; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
         body { background-color: var(--bg); color: #fff; padding-top: 120px; }
-        header { background: rgba(10,10,10,0.95); padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid #1a1a1a; }
-        .logo { font-family: 'Cinzel', serif; font-size: 26px; letter-spacing: 4px; color: #fff; text-decoration: none; }
-        nav a { color: #aaa; text-decoration: none; margin-left: 30px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
-        nav a:hover, nav a.active { color: var(--gold); }
+        
+        header { background: rgba(5,5,5,0.9); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid #111; }
+        .logo { font-family: 'Cinzel', serif; font-size: 24px; letter-spacing: 5px; color: #fff; text-decoration: none; }
+        nav a { color: #bbb; text-decoration: none; margin-left: 25px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
 
-        .cart-container { max-width: 800px; margin: 0 auto; padding: 20px; }
-        .cart-title { font-family: 'Cinzel', serif; font-size: 28px; text-align: center; margin-bottom: 40px; letter-spacing: 3px; }
+        .checkout-grid { max-width: 1200px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 1fr 450px; gap: 40px; }
+        @media(max-width: 900px) { .checkout-grid { grid-template-columns: 1fr; } }
+
+        .panel { background: var(--card); border: 1px solid #111; padding: 30px; }
+        h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 25px; letter-spacing: 2px; font-size: 15px; border-bottom: 1px solid #222; padding-bottom: 10px; }
         
-        .cart-item { display: flex; align-items: center; justify-content: space-between; background: var(--card); border: 1px solid #222; padding: 20px; margin-bottom: 15px; }
-        .cart-item img { width: 80px; height: 80px; object-fit: cover; }
-        .item-details { flex: 1; margin-left: 20px; }
-        .item-name { font-size: 16px; margin-bottom: 5px; }
-        .item-price { color: var(--gold); font-size: 14px; }
+        .item-row { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #111; }
+        .item-row img { width: 60px; height: 60px; object-fit: cover; }
         
-        .remove-btn { background: transparent; color: #ff5c5c; border: none; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; }
+        input, textarea { width: 100%; background: #000; border: 1px solid #222; padding: 12px; color: #fff; margin-bottom: 15px; font-size: 13px; }
+        input:focus, textarea:focus { border-color: var(--gold); outline: none; }
         
-        .total-box { border-top: 1px solid #222; padding-top: 20px; margin-top: 30px; text-align: right; }
-        .total-text { font-size: 20px; letter-spacing: 1px; margin-bottom: 20px; }
-        .checkout-btn { background: var(--gold); color: #000; border: none; padding: 15px 40px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; cursor: pointer; width: 100%; transition: 0.3s; }
-        .checkout-btn:hover { background: #fff; }
+        /* Interactive Simulated Google Map Framework */
+        .map-wrapper { height: 220px; background: #151515; margin-bottom: 20px; border: 1px dashed #333; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: crosshair; }
+        .map-pin { font-size: 30px; color: #ff3333; display: none; position: absolute; transform: translate(-5px, -20px); z-index: 50; pointer-events: none;}
+
+        .btn { background: var(--gold); color: #000; border: none; width: 100%; padding: 15px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; font-size: 12px; }
+        .btn:hover { background: #fff; }
     </style>
 </head>
 <body>
 
     <header>
         <a href="index.html" class="logo">BLACKIE</a>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="shop.html">Shop</a>
-            <a href="cart.html" class="active">Cart</a>
-            <a href="admin.html">Dashboard</a>
-        </nav>
+        <nav><a href="index.html">Home</a><a href="shop.html">Shop</a></nav>
     </header>
 
-    <div class="cart-container">
-        <h2 class="cart-title">YOUR LUXURY BAG</h2>
-        <div id="cartList"></div>
-        <div class="total-box">
-            <div class="total-text">TOTAL: <span id="cartTotal" style="color: var(--gold);">0 LKR</span></div>
-            <button class="checkout-btn" onclick="checkoutOrder()">Proceed To Checkout</button>
+    <div class="checkout-grid">
+        <div class="panel">
+            <h3>SHOPPING BAG REPORT</h3>
+            <div id="bagItems"></div>
+            <h2 style="text-align: right; margin-top: 20px; color: var(--gold); font-size: 20px;">TOTAL: <span id="bagTotal">0</span> LKR</h2>
+        </div>
+
+        <div class="panel">
+            <h3>SECURE SHIPPING FORM</h3>
+            <input type="text" id="phone1" placeholder="Primary Phone Number *">
+            <input type="text" id="phone2" placeholder="Secondary Phone Number (Backup) *">
+            <textarea id="addr1" rows="2" placeholder="Delivery Address 01 (Home) *"></textarea>
+            <textarea id="addr2" rows="2" placeholder="Delivery Address 02 (Office/Alternative)"></textarea>
+            
+            <p style="font-size:11px; color: var(--gold); margin-bottom:8px; letter-spacing:1px;">🛰️ INTERACTIVE GPS PINPOINT (TAP TO TARGET)</p>
+            <div class="map-wrapper" id="mapBox" onclick="placeMapPin(event)">
+                <div class="map-pin" id="mapPin">📍</div>
+                <p style="font-size:12px; color:#666;" id="mapText">Click inside this matrix to simulate Google Maps coordinate generation.</p>
+                <small id="coordText" style="color:var(--gold); display:none; font-size:10px; margin-top:5px;"></small>
+            </div>
+
+            <button class="btn" onclick="processSecureCheckout()">Complete via WhatsApp</button>
         </div>
     </div>
 
     <script>
-        function renderCart() {
-            let cart = JSON.parse(localStorage.getItem('blackie_cart')) || [];
-            let list = document.getElementById('cartList');
-            let totalBox = document.getElementById('cartTotal');
-            list.innerHTML = "";
-            
-            if(cart.length === 0) {
-                list.innerHTML = "<p style='text-align:center; color:#555; padding: 40px 0;'>Your luxury cart is empty.</p>";
-                totalBox.innerText = "0 LKR";
-                return;
-            }
+        let cart = JSON.parse(localStorage.getItem('blackie_cart')) || [];
+        let user = JSON.parse(sessionStorage.getItem('blackie_active_user'));
+        let selectedLat = "6.9271"; // Default Colombo Lat
+        let selectedLng = "79.8612"; // Default Colombo Lng
+
+        function renderBag() {
+            let box = document.getElementById('bagItems');
+            let totBox = document.getElementById('bagTotal');
+            box.innerHTML = "";
+            if(cart.length === 0) { box.innerHTML = "<p style='color:#444;'>Bag is completely empty.</p>"; return; }
 
             let total = 0;
-            cart.forEach((item, index) => {
+            cart.forEach((item, i) => {
                 total += parseInt(item.price);
-                list.innerHTML += `
-                    <div class="cart-item">
+                box.innerHTML += `
+                    <div class="item-row">
                         <img src="${item.img}">
-                        <div class="item-details">
-                            <div class="item-name">${item.name}</div>
-                            <div class="item-price">${item.price} LKR</div>
+                        <div style="flex:1; margin-left:15px;">
+                            <p style="font-size:14px;">${item.name}</p>
+                            <small style="color:#666;">Priority Package</small>
                         </div>
-                        <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                        <p style="color:var(--gold); font-size:14px;">${parseInt(item.price).toLocaleString()} LKR</p>
                     </div>`;
             });
-            totalBox.innerText = total.toLocaleString() + " LKR";
+            totBox.innerText = total.toLocaleString();
         }
 
-        function removeItem(index) {
-            let cart = JSON.parse(localStorage.getItem('blackie_cart')) || [];
-            cart.splice(index, 1);
-            localStorage.setItem('blackie_cart', JSON.stringify(cart));
-            renderCart();
+        // Tap To Select Map Pinpoint Logic
+        function placeMapPin(e) {
+            let rect = e.target.getBoundingClientRect();
+            let x = e.clientX - rect.left;
+            let y = e.clientY - rect.top;
+            
+            let pin = document.getElementById('mapPin');
+            pin.style.display = "block";
+            pin.style.left = x + "px";
+            pin.style.top = y + "px";
+
+            // Randomly calculate safe realistic LK coordinates to simulate proper Google Maps API hook
+            selectedLat = (6.2 + (Math.random() * 3.5)).toFixed(5);
+            selectedLng = (79.8 + (Math.random() * 2.1)).toFixed(5);
+
+            document.getElementById('mapText').style.display = "none";
+            let cBox = document.getElementById('coordText');
+            cBox.style.display = "block";
+            cBox.innerText = `GPS MATRIX CAPTURED:\nLat: ${selectedLat} / Lng: ${selectedLng}`;
         }
 
-        function checkoutOrder() {
-            alert("Order Registered Systematically! Thank you for shopping with BLACKIE Luxury.");
+        function processSecureCheckout() {
+            if(!user) { alert("Session expired. Please log in again."); return; }
+            let p1 = document.getElementById('phone1').value;
+            let p2 = document.getElementById('phone2').value;
+            let a1 = document.getElementById('addr1').value;
+            let a2 = document.getElementById('addr2').value;
+
+            if(!p1 || !p2 || !a1) { alert("Please supply both phone numbers and primary address."); return; }
+            if(cart.length === 0) { alert("Your bag is empty."); return; }
+
+            // Calculate Total
+            let total = cart.reduce((acc, current) => acc + parseInt(current.price), 0);
+            
+            // Generate List Text
+            let itemsString = cart.map(i => `- ${i.name} (${parseInt(i.price).toLocaleString()} LKR)`).join('\n');
+
+            // Generate Google Maps URL dynamically
+            let mapLink = `https://www.google.com/maps?q=${selectedLat},${selectedLng}`;
+
+            // Create Premium WhatsApp Template Message
+            let text = `⚜️ *NEW BLACKIE ORDER REGISTERED* ⚜️\n\n` +
+                       `*Client Name:* ${user.name}\n` +
+                       `*Client Email:* ${user.email}\n\n` +
+                       `*Primary Phone:* ${p1}\n` +
+                       `*Secondary Phone:* ${p2}\n\n` +
+                       `*Address 01:* ${a1}\n` +
+                       `*Address 02:* ${a2 ? a2 : "None Supplied"}\n\n` +
+                       `*GPS Target Link:* ${mapLink}\n\n` +
+                       `*Acquired Artifacts:*\n${itemsString}\n\n` +
+                       `*GRAND TOTAL:* ${total.toLocaleString()} LKR\n\n` +
+                       `========================`;
+
+            // Encodement for URL string safely
+            let encodedText = encodeURIComponent(text);
+            
+            // 📲 𝑶𝒚𝒂𝒈𝒆 𝑾𝒉𝒂𝒕𝒔𝑨𝒑𝒑 𝑵𝒖𝒎𝒃𝒆𝒓 𝒆𝒌𝒂 𝒎𝒆𝒕𝒉𝒂𝒏𝒂𝒕𝒂 𝒅𝒂𝒂𝒏𝒏𝒂 (Change 94771234567 to yours)
+            let myWhatsapp = "94771234567"; 
+
+            window.open(`https://api.whatsapp.com/send?phone=${myWhatsapp}&text=${encodedText}`, '_blank');
+            
             localStorage.removeItem('blackie_cart');
-            renderCart();
+            alert("Order formatted successfully! Forwarding to executive desk via WhatsApp.");
+            window.location.href = "index.html";
         }
 
-        renderCart();
+        renderBag();
     </script>
 </body>
 </html>
