@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKIE — System Controller</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #050505; --panel: #111; --gold: #d4af37; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        body { background-color: var(--bg); color: #fff; padding-top: 120px; }
+        header { background: #000; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; border-bottom: 1px solid #222; }
+        .logo { font-family: 'Cinzel', serif; font-size: 26px; letter-spacing: 4px; color: #fff; text-decoration: none; }
+        nav a { color: #aaa; text-decoration: none; margin-left: 30px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+        nav a.active { color: var(--gold); }
+
+        .dashboard { max-width: 1100px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        @media(max-width: 768px) { .dashboard { grid-template-columns: 1fr; } }
+        
+        .box { background: var(--panel); border: 1px solid #222; padding: 30px; }
+        h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 25px; letter-spacing: 1px; font-size: 18px; text-transform: uppercase; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        
+        input { width: 100%; background: #000; border: 1px solid #333; padding: 12px; color: #fff; margin-bottom: 15px; font-size: 13px; }
+        input:focus { border-color: var(--gold); outline: none; }
+        
+        .btn { background: var(--gold); color: #000; border: none; width: 100%; padding: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; font-size: 11px; }
+        .btn:hover { background: #fff; }
+
+        .items-list { grid-column: 1 / -1; background: var(--panel); border: 1px solid #222; padding: 30px; }
+        .list-table { width: 100%; border-collapse: collapse; margin-top: 20px; text-align: left; }
+        .list-table th, .list-table td { padding: 12px; border-bottom: 1px solid #222; font-size: 13px; }
+        .list-table th { color: var(--gold); text-transform: uppercase; font-size: 11px; letter-spacing: 1px; }
+        .del-btn { background: #721c24; color: #f8d7da; border: none; padding: 5px 12px; cursor: pointer; font-size: 11px; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">BLACKIE</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="cart.html">Cart</a>
+            <a href="admin.html" class="active">Dashboard</a>
+        </nav>
+    </header>
+
+    <div class="dashboard">
+        <div class="box">
+            <h3>Banner Controller</h3>
+            <input type="text" id="bm" placeholder="Banner Image URL">
+            <input type="text" id="bt" placeholder="Main Title Text">
+            <input type="text" id="bs" placeholder="Subtitle Text">
+            <button class="btn" onclick="saveBanner()">Update Home Banner</button>
+        </div>
+
+        <div class="box">
+            <h3>Add New Product</h3>
+            <input type="text" id="pc" placeholder="Category (e.g., Gents, Ladies, Watch)">
+            <input type="text" id="pn" placeholder="Product Name">
+            <input type="text" id="pp" placeholder="Price (Numbers only, e.g., 4500)">
+            <input type="text" id="pi" placeholder="Image URL (or images/file.jpg)">
+            <button class="btn" onclick="saveProduct()">Publish Product</button>
+        </div>
+
+        <div class="items-list">
+            <h3>Live Store Products Management</h3>
+            <table class="list-table">
+                <thead>
+                    <tr><th>Category</th><th>Product Name</th><th>Price (LKR)</th><th>Action</th></tr>
+                </thead>
+                <tbody id="adminTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let storeDb = JSON.parse(localStorage.getItem('blackie_v3_db')) || {
+            banner: { media: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070", title: "THE LUXURY EXPERIENCE", subtitle: "Elegance in Every Detail" },
+            products: []
+        };
+
+        function updateLiveView() {
+            localStorage.setItem('blackie_v3_db', JSON.stringify(storeDb));
+            let tbody = document.getElementById('adminTableBody');
+            tbody.innerHTML = "";
+            storeDb.products.forEach((p, i) => {
+                tbody.innerHTML += `<tr><td>${p.cat}</td><td>${p.name}</td><td>${p.price} LKR</td><td><button class="del-btn" onclick="delProduct(${i})">Delete</button></td></tr>`;
+            });
+        }
+
+        function saveBanner() {
+            let m = document.getElementById('bm').value;
+            let t = document.getElementById('bt').value;
+            let s = document.getElementById('bs').value;
+            if(m) storeDb.banner.media = m;
+            if(t) storeDb.banner.title = t;
+            if(s) storeDb.banner.subtitle = s;
+            updateLiveView();
+            alert("Home Banner Synchronized! Sync via terminal to go global.");
+        }
+
+        function saveProduct() {
+            let cat = document.getElementById('pc').value;
+            let name = document.getElementById('pn').value;
+            let price = document.getElementById('pp').value;
+            let img = document.getElementById('pi').value;
+
+            if(!cat || !name || !price || !img) { alert("Fill all inputs!"); return; }
+
+            storeDb.products.push({cat, name, price, img});
+            updateLiveView();
+            
+            document.getElementById('pc').value = "";
+            document.getElementById('pn').value = "";
+            document.getElementById('pp').value = "";
+            document.getElementById('pi').value = "";
+        }
+
+        function delProduct(i) {
+            storeDb.products.splice(i, 1);
+            updateLiveView();
+        }
+
+        updateLiveView();
+    </script>
+</body>
+</html>
