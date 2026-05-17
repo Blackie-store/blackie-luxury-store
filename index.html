@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKIE — Luxury Dynamic Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #121212;
+            --text-gold: #d4af37;
+            --text-silver: #e5e5e5;
+            --text-pure: #ffffff;
+            --text-muted: #888888;
+            --border-color: #222222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-pure);
+            overflow-x: hidden;
+        }
+
+        /* Luxury Header */
+        header {
+            background-color: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--text-pure);
+            text-decoration: none;
+            background: linear-gradient(45deg, #fff, #d4af37, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav a {
+            color: var(--text-silver);
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--text-gold);
+        }
+
+        /* Hero Banner Section */
+        .hero {
+            height: 85vh;
+            margin-top: 75px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .hero-media {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: 55px;
+            letter-spacing: 8px;
+            margin-bottom: 15px;
+            color: var(--text-pure);
+            text-transform: uppercase;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            letter-spacing: 4px;
+            color: var(--text-gold);
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .luxury-btn {
+            background: transparent;
+            color: var(--text-pure);
+            border: 1px solid var(--text-pure);
+            padding: 15px 40px;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.4s ease;
+        }
+
+        .luxury-btn:hover {
+            background-color: var(--text-pure);
+            color: var(--bg-primary);
+            box-shadow: 0 0 20px rgba(255,255,255,0.4);
+        }
+
+        /* Catalog Section */
+        .catalog-container {
+            padding: 60px 5%;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            text-align: center;
+            font-size: 32px;
+            letter-spacing: 4px;
+            margin-bottom: 50px;
+            color: var(--text-pure);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1px;
+            background: var(--text-gold);
+            margin: 15px auto 0;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .product-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 0px;
+            overflow: hidden;
+            transition: 0.4s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--text-gold);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: 0.5s;
+        }
+
+        .product-card:hover .product-img {
+            filter: grayscale(0%);
+        }
+
+        .product-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .product-category {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--text-gold);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .product-price {
+            font-size: 15px;
+            color: var(--text-silver);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .delete-btn {
+            background-color: #721c24;
+            color: #f8d7da;
+            border: none;
+            padding: 5px 10px;
+            font-size: 11px;
+            margin-top: 15px;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Premium Dynamic Admin Panel */
+        .admin-panel {
+            background-color: var(--bg-secondary);
+            border-top: 2px solid var(--text-gold);
+            padding: 5px 5%;
+            margin-top: 100px;
+        }
+
+        .admin-title {
+            font-family: 'Cinzel', serif;
+            color: var(--text-gold);
+            font-size: 22px;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .admin-box {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+        }
+
+        .admin-box h3 {
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: var(--text-silver);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .admin-box input, .admin-box select {
+            width: 100%;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        .admin-box input:focus {
+            border-color: var(--text-gold);
+            outline: none;
+        }
+
+        .admin-submit {
+            background-color: var(--text-gold);
+            color: #000;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .admin-submit:hover {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">BLACKIE</a>
+        <nav>
+            <a href="#catalog">Collection</a>
+            <a href="#admin">System Dashboard</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="heroSection">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070" id="heroMedia" class="hero-media" alt="Luxury Banner">
+        <div class="hero-content">
+            <h1 class="hero-title" id="heroTitleText">ELITE COLLECTION</h1>
+            <p class="hero-subtitle" id="heroSubText">WEAR THE VOID</p>
+            <button class="luxury-btn">Explore Now</button>
+        </div>
+    </section>
+
+    <section class="catalog-container" id="catalog">
+        <h2 class="section-title">THE LUXURY CATALOG</h2>
+        <div class="products-grid" id="productsGrid">
+            </div>
+    </section>
+
+    <section class="admin-panel" id="admin">
+        <h2 class="admin-title">⚜️ BLACKIE DYNAMIC CONTROLLER ⚜️</h2>
+        <div class="admin-grid">
+            
+            <div class="admin-box">
+                <h3>Hero Banner Controller</h3>
+                <input type="text" id="bannerMediaInput" placeholder="Image URL / .mp4 Video URL">
+                <input type="text" id="bannerTitleInput" placeholder="Main Title (e.g., ELITE COLLECTION)">
+                <input type="text" id="bannerSubInput" placeholder="Subtitle (e.g., WEAR THE VOID)">
+                <button class="admin-submit" onclick="updateBanner()">Update Live Banner</button>
+            </div>
+
+            <div class="admin-box">
+                <h3>Add New Luxury Item</h3>
+                <input type="text" id="prodCat" placeholder="Category (GENTS / LADIES / ACCESORIES)">
+                <input type="text" id="prodName" placeholder="Product Name">
+                <input type="text" id="prodPrice" placeholder="Price LKR (e.g., 4,500 LKR)">
+                <input type="text" id="prodImg" placeholder="Image Link (or images/filename.jpg)">
+                <button class="admin-submit" onclick="addProduct()">Publish Product</button>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        // LocalStorage configurations so data stays even after refresh
+        let storeData = JSON.parse(localStorage.getItem('blackie_store_db')) || {
+            banner: {
+                media: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070",
+                title: "ELITE COLLECTION",
+                subtitle: "WEAR THE VOID"
+            },
+            products: [
+                {cat: "GENTS", name: "Classic Onyx Timepiece", price: "45,000 LKR", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999"},
+                {cat: "LADIES", name: "Noir Luxury Fragrance", price: "18,500 LKR", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1004"}
+            ]
+        };
+
+        function saveData() {
+            localStorage.setItem('blackie_store_db', JSON.stringify(storeData));
+            renderSite();
+        }
+
+        function renderSite() {
+            // Render Banner
+            const mediaTag = document.getElementById('heroMedia');
+            const heroSection = document.getElementById('heroSection');
+            
+            if(storeData.banner.media.endsWith('.mp4')) {
+                heroSection.innerHTML = `<video autoplay loop muted class="hero-media" id="heroMedia"><source src="${storeData.banner.media}" type="video/mp4"></video>
+                <div class="hero-content">
+                    <h1 class="hero-title" id="heroTitleText">${storeData.banner.title}</h1>
+                    <p class="hero-subtitle" id="heroSubText">${storeData.banner.subtitle}</p>
+                    <button class="luxury-btn">Explore Now</button>
+                </div>`;
+            } else {
+                heroSection.innerHTML = `<img src="${storeData.banner.media}" id="heroMedia" class="hero-media" alt="Luxury Banner">
+                <div class="hero-content">
+                    <h1 class="hero-title" id="heroTitleText">${storeData.banner.title}</h1>
+                    <p class="hero-subtitle" id="heroSubText">${storeData.banner.subtitle}</p>
+                    <button class="luxury-btn">Explore Now</button>
+                </div>`;
+            }
+
+            // Render Products
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = "";
+            storeData.products.forEach((p, index) => {
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <img src="${p.img}" class="product-img" alt="${p.name}">
+                        <div class="product-info">
+                            <div class="product-category">${p.cat}</div>
+                            <div class="product-name">${p.name}</div>
+                            <div class="product-price">${p.price}</div>
+                            <button class="delete-btn" onclick="deleteProduct(${index})">Remove Item</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function updateBanner() {
+            const m = document.getElementById('bannerMediaInput').value;
+            const t = document.getElementById('bannerTitleInput').value;
+            const s = document.getElementById('bannerSubInput').value;
+
+            if(m) storeData.banner.media = m;
+            if(t) storeData.banner.title = t;
+            if(s) storeData.banner.subtitle = s;
+            
+            saveData();
+            alert("Banner updated inside browser cache! To make it global, push via git.");
+        }
+
+        function addProduct() {
+            const cat = document.getElementById('prodCat').value;
+            const name = document.getElementById('prodName').value;
+            const price = document.getElementById('prodPrice').value;
+            const img = document.getElementById('prodImg').value;
+
+            if(!cat || !name || !price || !img) {
+                alert("Please fill all product fields.");
+                return;
+            }
+
+            storeData.products.push({cat, name, price, img});
+            saveData();
+            
+            // Clear Inputs
+            document.getElementById('prodCat').value = "";
+            document.getElementById('prodName').value = "";
+            document.getElementById('prodPrice').value = "";
+            document.getElementById('prodImg').value = "";
+        }
+
+        function deleteProduct(index) {
+            storeData.products.splice(index, 1);
+            saveData();
+        }
+
+        // Initial Load
+        renderSite();
+    </script>
+</body>
+</html>
