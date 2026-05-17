@@ -8,12 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* --- UPDATED PREMIUM LUXURY THEME BASE --- */
-            --bg-main: #fcfcfc; /* Main background base */
-            
-            /* Add subtle luxury pattern */
-            --bg-pattern: url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M25 0 L25 50 M0 25 L50 25 M0 0 L50 50 M50 0 L0 50' stroke='%23d4af3710' stroke-width='0.5' fill='none'/%3E%3C/svg%3E");
-            
+            --bg-main: #fcfcfc;
+            /* ⚜️ Subtle luxury pattern - Light gold geometric grid */
+            --bg-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 L30 60 M0 30 L60 30 M0 0 L60 60 M60 0 L0 60' stroke='%23d4af3712' stroke-width='0.6' fill='none'/%3E%3C/svg%3E");
             --bg-card: #ffffff;
             --text-color: #111111;
             --gold: #d4af37;
@@ -29,7 +26,7 @@
         
         body { 
             background-color: var(--bg-main); 
-            background-image: var(--bg-pattern); /* Subtle Luxury Pattern */
+            background-image: var(--bg-pattern);
             color: var(--text-color); 
             overflow-x: hidden; 
         }
@@ -39,7 +36,7 @@
         .top-header span { cursor: pointer; transition: 0.3s; }
         .top-header span:hover { color: var(--gold); }
 
-        header { background: rgba(255, 255, 255, 0.95); padding: 18px 8%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); transition: 0.4s; }
+        header { background: rgba(255, 255, 255, 0.92); padding: 18px 8%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); transition: 0.4s; }
         .logo { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 700; color: var(--black); text-decoration: none; letter-spacing: 3px; }
         .logo span { color: var(--gold); }
         
@@ -59,35 +56,33 @@
         .cart-count { position: absolute; top: -10px; right: -12px; background: var(--black); color: var(--gold); font-size: 10px; padding: 2px 7px; border-radius: 50%; font-weight: 700; }
 
         /* --- ✨ LUXURY ANIMATION VIEWS LAYER --- */
-        .page-view { display: none; padding: 40px 8%; opacity: 0; transform: translateY(15px); transition: opacity 0.5s var(--ease-ios), transform 0.5s var(--ease-ios); }
+        .page-view { display: none; padding: 40px 8%; opacity: 0; transform: translateY(15px); transition: opacity 0.4s var(--ease-ios), transform 0.4s var(--ease-ios); }
         .page-view.active { display: block; opacity: 1; transform: translateY(0); }
 
         /* --- 🏠 HOME PAGE VIEW --- */
         .home-grid { display: grid; grid-template-columns: 240px 1fr; gap: 30px; margin-bottom: 50px; }
         @media(max-width: 992px) { .home-grid { grid-template-columns: 1fr; } }
 
-        .side-menu { background: var(--bg-card); border: 1px solid var(--border); padding: 20px 0; border-radius: 8px; box-shadow: var(--shadow-sm); }
+        .side-menu { background: var(--bg-card); border: 1px solid var(--border); padding: 20px 0; border-radius: 8px; box-shadow: var(--shadow-sm); height: fit-content; }
         .menu-item { padding: 14px 24px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s ease; color: #555; }
         .menu-item:hover { background: #fafafa; color: var(--gold); padding-left: 30px; }
 
-        /* ================= 6-IMAGE PREMIUM CAROUSEL SYSTEM ================= */
-        .slider-box { height: 420px; background: #000; position: relative; overflow: hidden; border-radius: 8px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
+        /* ================= 6-IMAGE AUTOMATIC CAROUSEL ================= */
+        .slider-box { height: 400px; background: #000; position: relative; overflow: hidden; border-radius: 8px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
+        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out, transform 1.2s ease-in-out; display: flex; align-items: center; justify-content: center; transform: scale(1.04); pointer-events: none; }
+        .slide.active { opacity: 1; transform: scale(1); pointer-events: auto; }
         
-        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out; display: flex; align-items: center; justify-content: center; transform: scale(1.05); }
-        .slide.active { opacity: 1; transform: scale(1); }
+        .slide-bg { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.75; }
         
-        .slide-bg { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.85; filter: grayscale(30%); transition: 1.2s ease; }
-        .slide.active .slide-bg { filter: grayscale(0%); }
-        
-        .slider-text { position: relative; z-index: 10; color: #fff; max-width: 600px; text-align: center; padding: 20px; text-shadow: 0 4px 15px rgba(0,0,0,0.6); opacity: 0; transform: translateY(20px); transition: opacity 1.2s ease 0.4s, transform 1.2s ease 0.4s; }
+        .slider-text { position: relative; z-index: 10; color: #fff; max-width: 600px; text-align: center; padding: 20px; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s; }
         .slide.active .slider-text { opacity: 1; transform: translateY(0); }
         
-        .slider-text h2 { font-family: 'Cinzel', serif; font-size: 38px; margin-bottom: 12px; letter-spacing: 3px; font-weight: 700; background: linear-gradient(135deg, #fff, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .slider-text p { font-size: 14px; color: #eee; letter-spacing: 1px; line-height: 1.6; }
+        .slider-text h2 { font-family: 'Cinzel', serif; font-size: 34px; margin-bottom: 12px; letter-spacing: 2px; font-weight: 700; color: #ffffff; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .slider-text p { font-size: 13px; color: #ddd; letter-spacing: 1px; line-height: 1.6; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
 
         .slider-controls { position: absolute; bottom: 20px; width: 100%; display: flex; justify-content: center; gap: 10px; z-index: 20; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.6); cursor: pointer; transition: 0.3s; }
-        .dot.active { background: var(--gold); border-color: var(--gold); width: 12px; height: 12px; box-shadow: 0 0 10px rgba(212,175,55,0.5); }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: 0.3s; }
+        .dot.active { background: var(--gold); width: 24px; border-radius: 4px; }
 
         .section-title { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 600; text-transform: uppercase; margin-bottom: 30px; padding-left: 15px; border-left: 3px solid var(--gold); letter-spacing: 2px; }
 
@@ -100,14 +95,54 @@
         .img-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s var(--ease-ios); }
         .product-card:hover .img-container img { transform: scale(1.06); }
 
-        .info-panel { padding: 20px; }
+        .info-panel { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .p-name { font-size: 14px; font-weight: 600; margin-bottom: 8px; height: 40px; overflow: hidden; line-height: 1.4; color: #111; letter-spacing: 0.5px; }
         .p-desc { font-size: 12px; color: #777; margin-bottom: 15px; height: 36px; overflow: hidden; line-height: 1.5; }
-        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid #f5f5f5; padding-top: 15px; }
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid #f5f5f5; padding-top: 15px; margin-bottom: 15px; }
         .p-price { font-size: 16px; font-weight: 700; color: var(--black); }
 
         .buy-btn { width: 100%; background: var(--black); color: #fff; border: 1px solid var(--black); padding: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: 0.3s; border-radius: 4px; letter-spacing: 1px; }
         .buy-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); box-shadow: 0 5px 15px rgba(212,175,55,0.2); }
+
+        /* --- 🎁 INTERACTIVE GIFT BOX CONFIGURATOR --- */
+        .gift-layout { display: grid; grid-template-columns: 1fr 420px; gap: 40px; }
+        @media(max-width: 900px) { .gift-layout { grid-template-columns: 1fr; } }
+        
+        .setup-panel { background: #fff; border: 1px solid var(--border); padding: 35px; border-radius: 8px; box-shadow: var(--shadow-sm); }
+        .setup-panel h3 { font-family: 'Cinzel', serif; font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 15px; color: #222; }
+        
+        .size-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px 0 30px; }
+        .size-btn { background: #fcfcfc; border: 1px solid var(--border); padding: 18px 5px; text-align: center; cursor: pointer; border-radius: 6px; transition: 0.3s; }
+        .size-btn.selected { background: var(--black); color: var(--gold); border-color: var(--black); font-weight: 700; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .size-btn h4 { font-size: 16px; margin-bottom: 4px; }
+        .size-btn small { font-size: 9px; display: block; color: #777; }
+        .size-btn.selected small { color: #ccc; }
+
+        .box-animation-matrix { background: linear-gradient(135deg, #111, #000); border-radius: 12px; height: 380px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; border: 1px solid #222; box-shadow: var(--shadow-lg); }
+        .virtual-box { font-size: 80px; color: var(--gold); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; z-index: 10; filter: drop-shadow(0 10px 20px rgba(212,175,55,0.2)); }
+        .virtual-box.bounce { transform: scale(1.3) rotate(6deg); }
+        
+        .flying-item { position: fixed; width: 70px; height: 70px; object-fit: cover; border-radius: 8px; border: 2px solid var(--gold); z-index: 9999; pointer-events: none; transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+
+        .box-status-tag { margin-top: 20px; color: var(--gold); font-size: 13px; font-weight: 600; letter-spacing: 2px; z-index: 10; text-transform: uppercase; }
+        .gift-items-summary { margin-top: 15px; width: 85%; max-height: 90px; overflow-y: auto; color: #888; font-size: 12px; text-align: center; line-height: 1.6; border-top: 1px solid #222; padding-top: 15px; }
+
+        /* --- 🔒 LOCK ACCESS PORTAL (ADMIN DASHBOARD) --- */
+        .admin-grid { display: grid; grid-template-columns: 360px 1fr; gap: 40px; }
+        @media(max-width: 900px) { .admin-grid { grid-template-columns: 1fr; } }
+        .admin-sidebar { background: #fff; border: 1px solid var(--border); padding: 30px; border-radius: 8px; box-shadow: var(--shadow-sm); }
+        .admin-sidebar h4 { font-family: 'Cinzel', serif; margin-bottom: 20px; font-size: 13px; color: #111; text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 8px; letter-spacing: 1px; }
+        .admin-sidebar label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: #666; display: block; margin-bottom: 6px; }
+        .admin-sidebar input, .admin-sidebar select, .admin-sidebar textarea { width: 100%; padding: 12px; background: #f9f9f9; border: 1px solid var(--border); margin-bottom: 16px; font-size: 12px; border-radius: 4px; outline: none; transition: 0.3s; }
+        .admin-sidebar input:focus { border-color: var(--gold); background: #fff; }
+        .admin-btn { width: 100%; background: var(--black); color: #fff; border: none; padding: 14px; font-size: 11px; font-weight: 600; text-transform: uppercase; cursor: pointer; letter-spacing: 2px; margin-bottom: 15px; border-radius: 4px; transition: 0.3s; }
+        .admin-btn:hover { background: var(--gold); color: #000; }
+
+        .inventory-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-sm); }
+        .inventory-table th, .inventory-table td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+        .inventory-table th { background: #f9f9f9; text-transform: uppercase; font-size: 11px; font-weight: 600; color: #666; letter-spacing: 1px; }
+        .del-row-btn { background: #fff; color: #ff5c5c; border: 1px solid #ffe5e5; padding: 6px 12px; cursor: pointer; border-radius: 4px; transition: 0.3s; }
+        .del-row-btn:hover { background: #ff5c5c; color: #fff; }
 
         /* --- 🛍️ HIGH-END MODERN APPLE-STYLE CHECKOUT DRAWER --- */
         .cart-drawer { position: fixed; top: 0; right: -100%; width: 100%; max-width: 480px; height: 100vh; background: #ffffff; z-index: 2000; box-shadow: -15px 0 40px rgba(0,0,0,0.06); transition: 0.5s var(--ease-ios); display: flex; flex-direction: column; border-left: 1px solid var(--border); }
@@ -117,13 +152,28 @@
         .drawer-body { flex: 1; overflow-y: auto; padding: 24px; background: #fdfdfd; }
         .drawer-footer { padding: 24px; border-top: 1px solid var(--border); background: #ffffff; box-shadow: 0 -4px 20px rgba(0,0,0,0.02); }
         
+        .drawer-item { display: flex; gap: 15px; align-items: center; padding: 16px 0; border-bottom: 1px solid #f5f5f5; }
+        .drawer-item img { width: 55px; height: 55px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); }
+        
+        .checkout-form { margin-top: 30px; border-top: 1px solid var(--border); padding-top: 25px; }
+        .checkout-form h4 { font-family: 'Cinzel', serif; font-size: 12px; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1px; color: #333; }
+        .checkout-form input, .checkout-form textarea { width: 100%; background: #ffffff; border: 1px solid var(--border); padding: 12px 16px; color: #000; font-size: 13px; margin-bottom: 14px; border-radius: 6px; outline: none; transition: 0.3s var(--ease-ios); }
+        .checkout-form input:focus, .checkout-form textarea:focus { border-color: var(--black); box-shadow: 0 0 0 3px rgba(0,0,0,0.04); }
+
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); backdrop-filter: blur(4px); z-index: 1500; opacity: 0; pointer-events: none; transition: 0.4s; }
         .modal-overlay.open { opacity: 1; pointer-events: auto; }
 
-        footer { background: rgba(255,255,255,0.9); border-top: 1px solid var(--border); text-align: center; padding: 30px; font-size: 12px; color: #777; margin-top: 20px; letter-spacing: 0.5px; backdrop-filter: blur(10px); }
+        /* --- 🔔 CUSTOM TOAST NOTIFICATION UI SYSTEM --- */
+        #toastContainer { position: fixed; bottom: 30px; left: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast-card { background: #111; color: #fff; padding: 15px 25px; border-radius: 6px; font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 12px; border-left: 3px solid var(--gold); transform: translateX(-150%); animation: slideToast 0.3s forwards; }
+        @keyframes slideToast { to { transform: translateX(0); } }
+
+        footer { background: rgba(255,255,255,0.9); border-top: 1px solid var(--border); text-align: center; padding: 30px; font-size: 12px; color: #777; margin-top: 20px; letter-spacing: 0.5px; }
     </style>
 </head>
 <body>
+
+    <div id="toastContainer"></div>
 
     <div class="top-header">
         <span>BLACKIE CARE HUB</span>
@@ -142,7 +192,7 @@
         <nav>
             <button class="nav-link active" id="btn-homeView" onclick="navigateToPage('homeView')">Home</button>
             <button class="nav-link" id="btn-categoryView" onclick="filterByCategoryPage('ALL')">Collections</button>
-            <button class="nav-link" id="btn-giftView" style="color:var(--gold); font-weight:700;" onclick="navigateToPage('giftView')">🎁 Create Gift Collection</button>
+            <button class="nav-link" id="btn-giftView" style="color:var(--gold); font-weight:700;" onclick="navigateToPage('giftView')">🎁 Create Gift Box</button>
         </nav>
 
         <button class="cart-icon-btn" onclick="toggleDrawer(true)">
@@ -157,74 +207,148 @@
                 <div class="menu-item" onclick="filterByCategoryPage('WATCH')">Luxury Watches <i class="fa-solid fa-chevron-right"></i></div>
                 <div class="menu-item" onclick="filterByCategoryPage('PERFUME')">Premium Perfumes <i class="fa-solid fa-chevron-right"></i></div>
                 <div class="menu-item" onclick="filterByCategoryPage('CLOTHING')">Elite Attire <i class="fa-solid fa-chevron-right"></i></div>
-                <div class="menu-item" onclick="filterByCategoryPage('GIFT')">Curated Gifts <i class="fa-solid fa-chevron-right"></i></div>
+                <div class="menu-item" onclick="filterByCategoryPage('SHOES')">Luxury Footwear <i class="fa-solid fa-chevron-right"></i></div>
             </div>
 
             <div class="slider-box" id="premiumSlider">
                 <div class="slide active">
-                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1600" class="slide-bg">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200" class="slide-bg">
                     <div class="slider-text">
                         <h2>ELEGANCE REDEFINED</h2>
                         <p>High-fidelity interfaces engineered elegantly for elite consumers globally.</p>
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1600" class="slide-bg">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1200" class="slide-bg">
                     <div class="slider-text">
                         <h2>TIMELÉSS PRECISION</h2>
                         <p>Explore the vault of curated luxury timepieces from across the globe.</p>
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1600" class="slide-bg">
+                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1200" class="slide-bg">
                     <div class="slider-text">
                         <h2>THE SCENT VAULT</h2>
                         <p>Curated rare fragrances infused with deep vanilla and dark sandalwood.</p>
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=1600" class="slide-bg">
+                    <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=1200" class="slide-bg">
                     <div class="slider-text">
                         <h2>ELITE ATTIRE</h2>
                         <p>Hand-stitched premium leather and fabrics treated for unparalleled sheen.</p>
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1509319117193-57bab727e09d?q=80&w=1600" class="slide-bg">
+                    <img src="https://images.unsplash.com/photo-1509319117193-57bab727e09d?q=80&w=1200" class="slide-bg">
                     <div class="slider-text">
-                        <h2>THE GOLD EDITION</h2>
-                        <p>Uncompromising quality and curated safely for elite Singaporean clients.</p>
+                        <h2>THE GOLD LUXURY COLLECTION</h2>
+                        <p>Uncompromising quality curated safely for high-end clients.</p>
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?q=80&w=1600" class="slide-bg">
+                    <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?q=80&w=1200" class="slide-bg">
                     <div class="slider-text">
                         <h2>MINIMALIST ARCHIVE</h2>
                         <p>Where structural design framework meets the ultimate modern aesthetic.</p>
                     </div>
                 </div>
-
-                <div class="slider-controls" id="sliderDots">
-                    </div>
+                <div class="slider-controls" id="sliderDots"></div>
             </div>
         </div>
 
-        <div class="section-title">FEATURED VAULT COLLECTION</div>
+        <div class="section-title">FEATURED STOCK COLLECTION</div>
         <div class="grid" id="homeDisplayGrid"></div>
     </main>
 
+    <main class="page-view" id="categoryView">
+        <div class="section-title" id="currentCategoryTitle">COLLECTIONS CATALOGUE</div>
+        <div class="grid" id="categoryDisplayGrid"></div>
+    </main>
+
+    <main class="page-view" id="giftView">
+        <div class="section-title">Sweet Luxury Blackie Box Customizer</div>
+        <div class="gift-layout">
+            <div class="setup-panel">
+                <h3>1. Select Box Capacity Target</h3>
+                <div class="size-grid">
+                    <div class="size-btn selected" id="sz-XS" onclick="selectBoxSize('XS', 2)"><h4>XS</h4><small>Max 2 Items</small></div>
+                    <div class="size-btn" id="sz-S" onclick="selectBoxSize('S', 4)"><h4>S</h4><small>Max 4 Items</small></div>
+                    <div class="size-btn" id="sz-M" onclick="selectBoxSize('M', 6)"><h4>M</h4><small>Max 6 Items</small></div>
+                    <div class="size-btn" id="sz-L" onclick="selectBoxSize('L', 9)"><h4>L</h4><small>Max 9 Items</small></div>
+                    <div class="size-btn" id="sz-XL" onclick="selectBoxSize('XL', 12)"><h4>XL</h4><small>Max 12 Items</small></div>
+                </div>
+                <h3 style="margin-bottom:15px;">2. Load Custom Vault Items</h3>
+                <button class="admin-btn" style="background:var(--gold); color:#000; box-shadow:0 4px 15px rgba(212,175,55,0.2);" onclick="activateGiftItemCollection()">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i> Collect Items From Store Front
+                </button>
+            </div>
+            <div class="box-animation-matrix" id="animationContainer">
+                <div class="virtual-box" id="animatedBox"><i class="fa-solid fa-gift"></i></div>
+                <div class="box-status-tag" id="boxStatusText">BOX SIZE: XS (0 / 2 FULL)</div>
+                <div class="gift-items-summary" id="giftBoxSummaryList">No items packed inside yet.</div>
+            </div>
+        </div>
+    </main>
+
+    <main class="page-view" id="adminView">
+        <div class="section-title">BLACKIE ADMIN STORAGE ENGINE</div>
+        <div class="admin-grid">
+            <div class="admin-sidebar">
+                <h4>📦 Inject New Retail Artifacts</h4>
+                <label>Inventory Storage Sector</label>
+                <select id="admProdCat">
+                    <option value="WATCH">Luxury Watches</option>
+                    <option value="PERFUME">Premium Perfumes</option>
+                    <option value="CLOTHING">Elite Attire</option>
+                    <option value="SHOES">Luxury Footwear</option>
+                </select>
+                <input type="text" id="admProdName" placeholder="Artifact Title *">
+                <input type="text" id="admProdPrice" placeholder="Value Pricing (LKR) *">
+                <input type="text" id="admProdImg" placeholder="Cloud Assets Image Link *">
+                <textarea id="admProdDesc" rows="2" placeholder="Luxury Core Descriptions Text *"></textarea>
+                <button class="admin-btn" style="background:var(--gold); color:#000;" onclick="injectProduct()">Deploy Into Vault Stock</button>
+            </div>
+            <div style="overflow-x:auto;">
+                <table class="inventory-table">
+                    <thead><tr><th>Category</th><th>Asset Blueprint</th><th>Value Cost</th><th>Purge</th></tr></thead>
+                    <tbody id="adminInventoryTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="cartOverlay" onclick="toggleDrawer(false)"></div>
+    <div class="cart-drawer" id="cartExpansionDrawer">
+        <div class="drawer-header">
+            <h3>SHOPPING REPORT LOGS</h3>
+            <span style="cursor:pointer; font-size:18px;" onclick="toggleDrawer(false)"><i class="fa-solid fa-xmark"></i></span>
+        </div>
+        <div class="drawer-body">
+            <div id="drawerItemsList"></div>
+            <div class="checkout-form">
+                <h4>Secure Logistics Cargo Dispatches</h4>
+                <input type="text" id="chkName" placeholder="Recipient Full Legal Name *">
+                <input type="text" id="chkPhone1" placeholder="Primary Contact Mobile *">
+                <input type="text" id="chkPhone2" placeholder="Alternative Backup Line">
+                <textarea id="chkAddr1" rows="2" placeholder="Primary Shipping Destination Address *"></textarea>
+            </div>
+        </div>
+        <div class="drawer-footer">
+            <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:20px; font-size:16px;">
+                <span>GRAND SUMMARY:</span>
+                <span style="color:var(--gold);"><span id="drawerGrandTotalText">0</span> LKR</span>
+            </div>
+            <button class="admin-btn" style="margin:0; background:var(--black); padding:16px;" onclick="dispatchWhatsAppOrder()">Checkout Dispatches via WhatsApp</button>
+        </div>
+    </div>
+
     <footer>
-        <p>© 2026 BLACKIE VAULT RETAILS LTD. Subtle Luxury Aesthetic Themes. High-End Structural Design.</p>
+        <p>© 2026 BLACKIE VAULT RETAILS LTD. High-End Premium Geometric Frameworks.</p>
     </footer>
 
     <script>
-        // Core Volatile Invariant Storage Data Definitions
         let baseStock = {
-            branding: {
-                banner: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1400",
-                title: "PRISTINE SILK WHITE",
-                sub: "High-fidelity interfaces engineered elegantly for elite consumers globally."
-            },
             products: [
                 {cat: "WATCH", name: "Blackie Chronograph Gold Edition", price: "45000", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=500", desc: "Solid mechanical components with calibrated gold weights."},
                 {cat: "PERFUME", name: "Onyx Essence Luxury Perfume", price: "18500", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=500", desc: "Infused with imported deep vanilla and organic dark sandalwood traces."},
@@ -233,68 +357,92 @@
             ]
         };
 
-        // ... JavaScript logic remains the same, except for the slider initialization ...
+        let db = JSON.parse(localStorage.getItem('blackie_god_db')) || baseStock;
+        localStorage.setItem('blackie_god_db', JSON.stringify(db));
+
+        let standardCart = JSON.parse(localStorage.getItem('blackie_std_cart')) || [];
         
-        function initializeCoreEngine() {
-            // JavaScript initialization logic (rendering grid, updating cart, etc.)
-            renderHomeGrid();
-            updateGlobalCartElements();
-            initializeSlider(); // Initialize the new slider
+        let giftModeActive = false;
+        let selectedBoxSizeName = "XS";
+        let maxAllowedGiftItems = 2;
+        let packedGiftItems = [];
+
+        function showPremiumToast(message) {
+            let container = document.getElementById('toastContainer');
+            let card = document.createElement('div');
+            card.className = "toast-card";
+            card.innerHTML = `<i class="fa-solid fa-crown" style="color:var(--gold)"></i> <span>${message}</span>`;
+            container.appendChild(card);
+            setTimeout(() => {
+                card.style.opacity = "0";
+                card.style.transform = "translateY(10px)";
+                setTimeout(() => card.remove(), 400);
+            }, 2500);
         }
 
-        // ================= NEW 6-IMAGE PREMIUM CAROUSEL LOGIC =================
+        function secureGatewayLogin() {
+            let token = prompt("ENTER SECRET REAR COMMAND CODES GATEWAY AUTHENTICATION KEY:");
+            if(token === "blackie123") {
+                showPremiumToast("Access Cleared! Welcome Admin.");
+                navigateToPage('adminView');
+            } else if(token !== null) {
+                showPremiumToast("Critical Code Invalid.");
+            }
+        }
+
+        function navigateToPage(pageId) {
+            let targets = document.querySelectorAll('.page-view');
+            targets.forEach(p => {
+                p.style.opacity = "0";
+                p.style.transform = "translateY(10px)";
+                p.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+            
+            let activeTarget = document.getElementById(pageId);
+            activeTarget.classList.add('active');
+            setTimeout(() => {
+                activeTarget.style.opacity = "1";
+                activeTarget.style.transform = "translateY(0)";
+            }, 50);
+
+            let navBtn = document.getElementById('btn-' + pageId);
+            if(navBtn) navBtn.classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // ================= AUTOMATIC CAROUSEL LOGIC =================
         function initializeSlider() {
             const slider = document.getElementById('premiumSlider');
+            if(!slider) return;
             const slides = slider.querySelectorAll('.slide');
             const dotsContainer = document.getElementById('sliderDots');
-            let currentSlideIndex = 0;
-            let slideInterval;
+            let currentIndex = 0;
 
-            // Generate Dots based on number of slides
-            dotsContainer.innerHTML = ''; // Clear existing
-            slides.forEach((_, index) => {
-                const dot = document.createElement('div');
-                dot.className = `dot ${index === 0 ? 'active' : ''}`;
-                dot.onclick = () => goToSlide(index);
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, idx) => {
+                let dot = document.createElement('div');
+                dot.className = `dot ${idx === 0 ? 'active' : ''}`;
+                dot.onclick = () => { currentIndex = idx; updateCarousel(); };
                 dotsContainer.appendChild(dot);
             });
 
-            const dots = dotsContainer.querySelectorAll('.dot');
-
-            function updateSlide() {
-                // Remove active class from all
+            function updateCarousel() {
                 slides.forEach(s => s.classList.remove('active'));
-                dots.forEach(d => d.classList.remove('active'));
-
-                // Add to current
-                slides[currentSlideIndex].classList.add('active');
-                dots[currentSlideIndex].classList.add('active');
+                dotsContainer.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+                slides[currentIndex].classList.add('active');
+                dotsContainer.querySelectorAll('.dot')[currentIndex].classList.add('active');
             }
 
-            function nextSlide() {
-                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-                updateSlide();
-            }
-
-            function goToSlide(index) {
-                currentSlideIndex = index;
-                updateSlide();
-                resetInterval(); // User clicked, reset timer
-            }
-
-            function resetInterval() {
-                clearInterval(slideInterval);
-                slideInterval = setInterval(nextSlide, 7000); // Máravena Speed (7 seconds)
-            }
-
-            resetInterval(); // Start initial interval
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % slides.length;
+                updateCarousel();
+            }, 5000);
         }
 
-        // ... Other views and logic ...
-
-        // Function to render standard product catalog arrays
         function renderHomeGrid(query = "") {
             let grid = document.getElementById('homeDisplayGrid');
+            if(!grid) return;
             grid.innerHTML = "";
             let items = db.products.filter(p => p.name.toLowerCase().includes(query.toLowerCase()));
 
@@ -303,21 +451,255 @@
                     <div class="product-card">
                         <div class="img-container" id="p-img-box-${idx}"><img src="${p.img}"></div>
                         <div class="info-panel">
-                            <div class="p-name">${p.name}</div>
-                            <div class="p-desc">${p.desc || 'No description assets assigned.'}</div>
-                            <div class="price-row">
-                                <span class="p-price">${parseInt(p.price).toLocaleString()} LKR</span>
+                            <div>
+                                <div class="p-name">${p.name}</div>
+                                <div class="p-desc">${p.desc || 'Exclusive Luxury Item.'}</div>
                             </div>
-                            <button class="buy-btn" onclick="routeAcquisitionRequest('${p.name}', ${p.price}, '${p.img}', 'p-img-box-${idx}')">
-                                ${giftModeActive ? '📥 Pack Inside Box' : 'Add To Cart'}
-                            </button>
+                            <div>
+                                <div class="price-row"><span class="p-price">${parseInt(p.price).toLocaleString()} LKR</span></div>
+                                <button class="buy-btn" onclick="routeAcquisitionRequest('${p.name}', ${p.price}, '${p.img}', 'p-img-box-${idx}')">
+                                    ${giftModeActive ? '📥 Pack Inside Box' : 'Add To Cart'}
+                                </button>
+                            </div>
                         </div>
                     </div>`;
             });
         }
-        
-        // Final Initialization call
-        window.onload = initializeCoreEngine;
+
+        function filterByCategoryPage(categoryName) {
+            navigateToPage('categoryView');
+            let titleBox = document.getElementById('currentCategoryTitle');
+            let grid = document.getElementById('categoryDisplayGrid');
+            grid.innerHTML = "";
+            titleBox.innerText = categoryName === "ALL" ? "COMPLETE ARCHIVE STOCKS" : `${categoryName} COLLECTIONS`;
+            
+            let filtered = db.products.filter(p => categoryName === "ALL" || p.cat === categoryName);
+            filtered.forEach((p, idx) => {
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <div class="img-container" id="p-cat-box-${idx}"><img src="${p.img}"></div>
+                        <div class="info-panel">
+                            <div>
+                                <div class="p-name">${p.name}</div>
+                                <div class="p-desc">${p.desc || ''}</div>
+                            </div>
+                            <div>
+                                <div class="price-row"><span class="p-price">${parseInt(p.price).toLocaleString()} LKR</span></div>
+                                <button class="buy-btn" onclick="routeAcquisitionRequest('${p.name}', ${p.price}, '${p.img}', 'p-cat-box-${idx}')">
+                                    ${giftModeActive ? '📥 Pack Inside Box' : 'Add To Cart'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function routeAcquisitionRequest(name, price, img, elementId) {
+            if(!giftModeActive) {
+                standardCart.push({name, price, img});
+                localStorage.setItem('blackie_std_cart', JSON.stringify(standardCart));
+                updateGlobalCartElements();
+                showPremiumToast(`${name} Added to Cart.`);
+            } else {
+                if(packedGiftItems.length >= maxAllowedGiftItems) {
+                    showPremiumToast(`Box is full! Max ${maxAllowedGiftItems} items.`);
+                    return;
+                }
+                
+                let srcEl = document.getElementById(elementId);
+                if(srcEl) {
+                    let rect = srcEl.getBoundingClientRect();
+                    let flyImg = document.createElement('img');
+                    flyImg.src = img;
+                    flyImg.className = "flying-item";
+                    flyImg.style.top = rect.top + "px";
+                    flyImg.style.left = rect.left + "px";
+                    document.body.appendChild(flyImg);
+
+                    navigateToPage('giftView');
+                    let dest = document.getElementById('animatedBox').getBoundingClientRect();
+
+                    setTimeout(() => {
+                        flyImg.style.top = (dest.top + window.scrollY) + "px";
+                        flyImg.style.left = dest.left + "px";
+                        flyImg.style.width = "20px";
+                        flyImg.style.height = "20px";
+                        flyImg.style.opacity = "0.2";
+                        setTimeout(() => {
+                            flyImg.remove();
+                            document.getElementById('animatedBox').classList.add('bounce');
+                            setTimeout(() => document.getElementById('animatedBox').classList.remove('bounce'), 400);
+                        }, 800);
+                    }, 50);
+                }
+
+                packedGiftItems.push({name, price, img});
+                updateGiftBoxMatrixDisplay();
+                updateGlobalCartElements();
+            }
+        }
+
+        function selectBoxSize(sizeName, maxLimit) {
+            selectedBoxSizeName = sizeName;
+            maxAllowedGiftItems = maxLimit;
+            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+            document.getElementById('sz-' + sizeName).classList.add('selected');
+            updateGiftBoxMatrixDisplay();
+        }
+
+        function activateGiftItemCollection() {
+            giftModeActive = true;
+            showPremiumToast("Gift Mode Active! Select items.");
+            navigateToPage('homeView');
+        }
+
+        function updateGiftBoxMatrixDisplay() {
+            document.getElementById('boxStatusText').innerText = `BOX SIZE: ${selectedBoxSizeName} (${packedGiftItems.length} / ${maxAllowedGiftItems} FULL)`;
+            let list = document.getElementById('giftBoxSummaryList');
+            list.innerText = packedGiftItems.length === 0 ? "No items packed inside yet." : "Packed: " + packedGiftItems.map(i => i.name).join(' + ');
+        }
+
+        function toggleDrawer(open) {
+            let drawer = document.getElementById('cartExpansionDrawer');
+            let overlay = document.getElementById('cartOverlay');
+            if(open) {
+                drawer.classList.add('open');
+                overlay.classList.add('open');
+                buildDrawerRows();
+            } else {
+                drawer.classList.remove('open');
+                overlay.classList.remove('open');
+            }
+        }
+
+        function updateGlobalCartElements() {
+            document.getElementById('badgeCount').innerText = standardCart.length + (packedGiftItems.length > 0 ? 1 : 0);
+        }
+
+        function buildDrawerRows() {
+            let container = document.getElementById('drawerItemsList');
+            let totBox = document.getElementById('drawerGrandTotalText');
+            container.innerHTML = "";
+            let netSum = 0;
+
+            standardCart.forEach((item, idx) => {
+                netSum += parseInt(item.price);
+                container.innerHTML += `
+                    <div class="drawer-item">
+                        <img src="${item.img}">
+                        <div style="flex:1;">
+                            <div style="font-size:12px; font-weight:600;">${item.name}</div>
+                        </div>
+                        <div style="font-size:12px; font-weight:700;">${parseInt(item.price).toLocaleString()} LKR</div>
+                        <button class="del-row-btn" onclick="removeRegularCartItem(${idx})">x</button>
+                    </div>`;
+            });
+
+            if(packedGiftItems.length > 0) {
+                let boxPrice = 3500;
+                let boxItemsSum = packedGiftItems.reduce((s, i) => s + parseInt(i.price), 0);
+                let customBoxTotal = boxPrice + boxItemsSum;
+                netSum += customBoxTotal;
+
+                container.innerHTML += `
+                    <div class="drawer-item" style="border:1px solid var(--gold); padding:12px; background:#fffdfa; border-radius:6px; margin-top:10px;">
+                        <div style="font-size:22px; color:var(--gold);"><i class="fa-solid fa-gift"></i></div>
+                        <div style="flex:1; margin-left:12px;">
+                            <div style="font-size:12px; font-weight:700;">CUSTOM GIFT BOX (${selectedBoxSizeName})</div>
+                            <small style="color:#666;">Items: ${packedGiftItems.length}</small>
+                        </div>
+                        <div style="font-size:12px; font-weight:700; color:var(--gold);">${customBoxTotal.toLocaleString()} LKR</div>
+                        <button class="del-row-btn" onclick="wipeCustomGiftContainer()">x</button>
+                    </div>`;
+            }
+            totBox.innerText = netSum.toLocaleString();
+        }
+
+        function removeRegularCartItem(idx) {
+            standardCart.splice(idx,1);
+            localStorage.setItem('blackie_std_cart', JSON.stringify(standardCart));
+            updateGlobalCartElements();
+            buildDrawerRows();
+        }
+
+        function wipeCustomGiftContainer() {
+            packedGiftItems = [];
+            giftModeActive = false;
+            updateGiftBoxMatrixDisplay();
+            updateGlobalCartElements();
+            buildDrawerRows();
+        }
+
+        function dispatchWhatsAppOrder() {
+            let name = document.getElementById('chkName').value;
+            let p1 = document.getElementById('chkPhone1').value;
+            let a1 = document.getElementById('chkAddr1').value;
+
+            if(standardCart.length === 0 && packedGiftItems.length === 0) { showPremiumToast("Cart is empty."); return; }
+            if(!name || !p1 || !a1) { showPremiumToast("Please fill all required fields."); return; }
+
+            let regularString = standardCart.map((item, i) => `  ${i+1}. ${item.name} (${parseInt(item.price).toLocaleString()} LKR)`).join('\n');
+            let giftString = packedGiftItems.map((item, i) => `  - ${item.name}`).join('\n');
+            
+            let total = standardCart.reduce((s,i) => s + parseInt(i.price), 0);
+            if(packedGiftItems.length > 0) { total += 3500 + packedGiftItems.reduce((s,i) => s + parseInt(i.price), 0); }
+
+            let msg = `⚜️ *NEW ORDER - BLACKIE STORE* ⚜️\n\n` +
+                      `*CLIENT INFO:*\n- Name: ${name}\n- Contact: ${p1}\n- Address: ${a1}\n\n` +
+                      `*ITEMS:*\n${regularString || '  None'}\n\n`;
+
+            if(packedGiftItems.length > 0) {
+                msg += `*🎁 CUSTOM GIFT BOX (${selectedBoxSizeName}):*\n${giftString}\n\n`;
+            }
+
+            msg += `*TOTAL AMOUNT:* ${total.toLocaleString()} LKR\n\n===============================`;
+            window.open(`https://api.whatsapp.com/send?phone=94771234567&text=${encodeURIComponent(msg)}`, '_blank');
+
+            standardCart = []; packedGiftItems = []; giftModeActive = false;
+            localStorage.setItem('blackie_std_cart', JSON.stringify(standardCart));
+            updateGiftBoxMatrixDisplay(); updateGlobalCartElements(); toggleDrawer(false);
+        }
+
+        function renderInventoryTable() {
+            let tbody = document.getElementById('adminInventoryTableBody');
+            if(!tbody) return; tbody.innerHTML = "";
+            db.products.forEach((p, idx) => {
+                tbody.innerHTML += `<tr><td><b>${p.cat}</b></td><td>${p.name}</td><td>${parseInt(p.price).toLocaleString()} LKR</td><td><button class="del-row-btn" onclick="purgeProduct(${idx})">Purge</button></td></tr>`;
+            });
+        }
+
+        function injectProduct() {
+            let cat = document.getElementById('admProdCat').value;
+            let name = document.getElementById('admProdName').value;
+            let price = document.getElementById('admProdPrice').value;
+            let img = document.getElementById('admProdImg').value;
+            let desc = document.getElementById('admProdDesc').value;
+            if(!name || !price || !img) { showPremiumToast("Fields cannot be empty."); return; }
+            db.products.push({cat, name, price, img, desc});
+            localStorage.setItem('blackie_god_db', JSON.stringify(db));
+            renderHomeGrid(); renderInventoryTable();
+            showPremiumToast("Product Deployed Successfully.");
+            document.getElementById('admProdName').value = ""; document.getElementById('admProdPrice').value = ""; document.getElementById('admProdImg').value = ""; document.getElementById('admProdDesc').value = "";
+        }
+
+        function purgeProduct(idx) {
+            db.products.splice(idx, 1);
+            localStorage.setItem('blackie_god_db', JSON.stringify(db));
+            renderHomeGrid(); renderInventoryTable();
+            showPremiumToast("Product Purged.");
+        }
+
+        function triggerLiveSearch() {
+            let val = document.getElementById('storeSearchBar').value;
+            renderHomeGrid(val);
+        }
+
+        window.onload = function() {
+            renderHomeGrid();
+            renderInventoryTable();
+            updateGlobalCartElements();
+            initializeSlider();
+        };
     </script>
 </body>
 </html>
