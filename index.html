@@ -3,153 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACKIE — Elegant Shopping Mall & Gift Customizer</title>
+    <title>BLACKIE — Beyond Luxury Retail Architecture</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- DYNAMIC CUSTOMIZABLE THEME SYSTEM --- */
         :root {
-            --bg-main: #f9f9f9;
+            --bg-main: #fcfcfc;
             --bg-card: #ffffff;
             --text-color: #111111;
             --gold: #d4af37;
-            --silver: #e0e0e0;
-            --border: #ececec;
+            --silver: #f0f0f0;
+            --border: #e8e8e8;
             --black: #000000;
+            --shadow-sm: 0 4px 20px rgba(0,0,0,0.03);
+            --shadow-lg: 0 20px 50px rgba(0,0,0,0.08);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-color); overflow-x: hidden; transition: 0.3s; }
+        body { background-color: var(--bg-main); color: var(--text-color); overflow-x: hidden; }
 
-        /* Navigation Strip */
-        .top-header { background: var(--black); padding: 6px 8%; display: flex; justify-content: flex-end; gap: 20px; font-size: 11px; color: #888; }
+        /* --- 🌐 TOP NAVIGATION STRIP --- */
+        .top-header { background: var(--black); padding: 8px 8%; display: flex; justify-content: flex-end; gap: 25px; font-size: 11px; color: #888; letter-spacing: 1px; }
         .top-header span { cursor: pointer; transition: 0.3s; }
         .top-header span:hover { color: var(--gold); }
 
-        header { background: #ffffff; padding: 15px 8%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
-        .logo { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 700; color: var(--black); text-decoration: none; letter-spacing: 2px; }
+        header { background: rgba(255, 255, 255, 0.95); padding: 18px 8%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); transition: 0.4s; }
+        .logo { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 700; color: var(--black); text-decoration: none; letter-spacing: 3px; }
         .logo span { color: var(--gold); }
         
-        .search-container { flex: 1; max-width: 500px; margin: 0 20px; display: flex; }
-        .search-box { width: 100%; background: #f5f5f5; border: 1px solid var(--border); padding: 12px 20px; color: #000; font-size: 13px; outline: none; }
-        .search-box:focus { border-color: var(--gold); background: #fff; }
-        .search-btn { background: var(--black); color: #fff; border: none; padding: 0 22px; cursor: pointer; }
-        .search-btn:hover { background: var(--gold); color: #000; }
+        .search-container { flex: 1; max-width: 480px; margin: 0 30px; display: flex; position: relative; }
+        .search-box { width: 100%; background: #f5f5f5; border: 1px solid transparent; padding: 12px 20px; color: #000; font-size: 13px; outline: none; border-radius: 30px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .search-box:focus { border-color: var(--gold); background: #fff; box-shadow: var(--shadow-sm); }
+        .search-btn { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #666; cursor: pointer; }
 
-        nav { display: flex; gap: 20px; align-items: center; }
-        nav button { background: none; border: none; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; color: var(--text-color); transition: 0.3s; }
+        nav { display: flex; gap: 25px; align-items: center; }
+        nav button { background: none; border: none; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; color: var(--text-color); position: relative; padding: 5px 0; transition: 0.3s; }
+        nav button::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1.5px; background: var(--gold); transition: 0.3s; }
+        nav button:hover::after, nav button.active::after { width: 100%; }
         nav button:hover, nav button.active { color: var(--gold); }
 
-        .cart-icon-btn { position: relative; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-color); }
-        .cart-count { position: absolute; top: -10px; right: -12px; background: var(--black); color: var(--gold); font-size: 10px; padding: 2px 6px; border-radius: 50%; font-weight: 700; }
+        .cart-icon-btn { position: relative; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-color); transition: 0.3s; }
+        .cart-icon-btn:hover { color: var(--gold); transform: scale(1.05); }
+        .cart-count { position: absolute; top: -10px; right: -12px; background: var(--black); color: var(--gold); font-size: 10px; padding: 2px 7px; border-radius: 50%; font-weight: 700; }
 
-        /* Pages View System */
-        .page-view { display: none; padding: 30px 8%; }
-        .page-view.active { display: block; }
+        /* --- ✨ LUXURY ANIMATION VIEWS LAYER --- */
+        .page-view { display: none; padding: 40px 8%; opacity: 0; transform: translateY(15px); transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .page-view.active { display: block; opacity: 1; transform: translateY(0); }
 
-        /* --- HOME VIEW LAYOUT --- */
-        .home-grid { display: grid; grid-template-columns: 240px 1fr; gap: 25px; margin-bottom: 40px; }
+        /* --- 🏠 HOME PAGE VIEW --- */
+        .home-grid { display: grid; grid-template-columns: 240px 1fr; gap: 30px; margin-bottom: 50px; }
         @media(max-width: 992px) { .home-grid { grid-template-columns: 1fr; } }
 
-        .side-menu { background: var(--bg-card); border: 1px solid var(--border); padding: 15px 0; border-radius: 4px; }
-        .menu-item { padding: 12px 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
-        .menu-item:hover { background: #fcfcfc; color: var(--gold); padding-left: 25px; }
+        .side-menu { background: var(--bg-card); border: 1px solid var(--border); padding: 20px 0; border-radius: 8px; box-shadow: var(--shadow-sm); }
+        .menu-item { padding: 14px 24px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s ease; color: #555; }
+        .menu-item:hover { background: #fafafa; color: var(--gold); padding-left: 30px; }
 
-        .slider-box { height: 360px; background: #000; position: relative; overflow: hidden; border-radius: 4px; }
-        .slider-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
-        .slider-text { position: absolute; bottom: 40px; left: 40px; color: #fff; max-width: 500px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        .slider-text h2 { font-family: 'Cinzel', serif; font-size: 32px; margin-bottom: 10px; }
+        .slider-box { height: 380px; background: #000; position: relative; overflow: hidden; border-radius: 8px; box-shadow: var(--shadow-sm); }
+        .slider-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transform: scale(1); transition: transform 6s; }
+        .slider-box:hover img { transform: scale(1.05); }
+        .slider-text { position: absolute; bottom: 50px; left: 50px; color: #fff; max-width: 550px; }
+        .slider-text h2 { font-family: 'Cinzel', serif; font-size: 36px; margin-bottom: 12px; letter-spacing: 2px; }
+        .slider-text p { font-size: 13px; color: #ddd; letter-spacing: 1px; line-height: 1.6; }
 
-        .section-title { font-size: 18px; font-weight: 700; text-transform: uppercase; margin-bottom: 25px; padding-left: 10px; border-left: 4px solid var(--gold); letter-spacing: 1px; }
+        .section-title { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 600; text-transform: uppercase; margin-bottom: 30px; padding-left: 15px; border-left: 3px solid var(--gold); letter-spacing: 2px; }
 
-        /* Daraz Product Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
-        .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-color: var(--gold); }
+        /* Premium Luxury Product Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 30px; }
+        .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: 0.4s cubic-bezier(0.25, 1, 0.5, 1); display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-sm); }
+        .product-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--gold); }
         
-        .img-container { width: 100%; height: 220px; background: #fff; overflow: hidden; }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .product-card:hover .img-container img { transform: scale(1.04); }
+        .img-container { width: 100%; height: 240px; background: #fff; overflow: hidden; position: relative; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .product-card:hover .img-container img { transform: scale(1.06); }
 
-        .info-panel { padding: 15px; }
-        .p-name { font-size: 13px; font-weight: 500; margin-bottom: 8px; height: 36px; overflow: hidden; line-height: 1.4; color: #333; }
-        .p-desc { font-size: 11px; color: #777; margin-bottom: 10px; height: 32px; overflow: hidden; }
-        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-        .p-price { font-size: 15px; font-weight: 700; color: var(--black); }
+        .info-panel { padding: 20px; }
+        .p-name { font-size: 14px; font-weight: 600; margin-bottom: 8px; height: 40px; overflow: hidden; line-height: 1.4; color: #111; letter-spacing: 0.5px; }
+        .p-desc { font-size: 12px; color: #777; margin-bottom: 15px; height: 36px; overflow: hidden; line-height: 1.5; }
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid #f5f5f5; padding-top: 15px; }
+        .p-price { font-size: 16px; font-weight: 700; color: var(--black); }
 
-        .buy-btn { width: 100%; background: var(--black); color: #fff; border: none; padding: 10px; font-size: 11px; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: 0.3s; margin-top: 10px; border-radius: 2px; }
-        .buy-btn:hover { background: var(--gold); color: #000; }
+        .buy-btn { width: 100%; background: var(--black); color: #fff; border: 1px solid var(--black); padding: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: 0.3s; border-radius: 4px; letter-spacing: 1px; }
+        .buy-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); box-shadow: 0 5px 15px rgba(212,175,55,0.2); }
 
-        /* --- GIFT CUSTOMIZER VIEW --- */
-        .gift-layout { display: grid; grid-template-columns: 1fr 400px; gap: 40px; }
+        /* --- 🎁 INTERACTIVE GIFT BOX CONFIGURATOR --- */
+        .gift-layout { display: grid; grid-template-columns: 1fr 420px; gap: 40px; }
         @media(max-width: 900px) { .gift-layout { grid-template-columns: 1fr; } }
         
-        .setup-panel { background: #fff; border: 1px solid var(--border); padding: 30px; border-radius: 4px; }
-        .size-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 15px 0 25px; }
-        .size-btn { background: #f5f5f5; border: 1px solid var(--border); padding: 15px 5px; text-align: center; cursor: pointer; border-radius: 4px; transition: 0.3s; }
-        .size-btn.selected { background: var(--black); color: var(--gold); border-color: var(--black); font-weight: 700; }
-        .size-btn h4 { font-size: 16px; margin-bottom: 4px; }
-        .size-btn small { font-size: 9px; display: block; color: #666; }
-        .size-btn.selected small { color: #aaa; }
-
-        /* Live Box Animation Matrix */
-        .box-animation-matrix { background: #111; border-radius: 8px; height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; border: 4px solid var(--gold); }
-        .virtual-box { font-size: 70px; color: var(--gold); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; z-index: 10; }
-        .virtual-box.bounce { transform: scale(1.3) rotate(5deg); }
+        .setup-panel { background: #fff; border: 1px solid var(--border); padding: 35px; border-radius: 8px; box-shadow: var(--shadow-sm); }
+        .setup-panel h3 { font-family: 'Cinzel', serif; font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 15px; color: #222; }
         
-        /* Particle fly-in effect */
-        .flying-item { position: absolute; width: 30px; height: 30px; object-fit: cover; border-radius: 50%; border: 2px solid var(--gold); z-index: 5; animation: flyIntoBox 0.8s ease-in forwards; }
-        @keyframes flyIntoBox {
-            0% { transform: translate(200px, -150px) scale(1.5); opacity: 1; }
-            100% { transform: translate(0, 0) scale(0.1); opacity: 0; }
-        }
+        .size-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px 0 30px; }
+        .size-btn { background: #fcfcfc; border: 1px solid var(--border); padding: 18px 5px; text-align: center; cursor: pointer; border-radius: 6px; transition: 0.3s; }
+        .size-btn.selected { background: var(--black); color: var(--gold); border-color: var(--black); font-weight: 700; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .size-btn h4 { font-size: 16px; margin-bottom: 4px; }
+        .size-btn small { font-size: 9px; display: block; color: #777; }
+        .size-btn.selected small { color: #ccc; }
 
-        .box-status-tag { margin-top: 15px; color: #fff; font-size: 14px; font-weight: 500; letter-spacing: 1px; z-index: 10; text-transform: uppercase; }
-        .gift-items-summary { margin-top: 20px; width: 80%; max-height: 100px; overflow-y: auto; color: #888; font-size: 11px; text-align: center; }
+        /* Premium Visual Box Animation Theatre */
+        .box-animation-matrix { background: linear-gradient(135deg, #111, #000); border-radius: 12px; height: 380px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; border: 1px solid #222; box-shadow: var(--shadow-lg); }
+        .virtual-box { font-size: 80px; color: var(--gold); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; z-index: 10; filter: drop-shadow(0 10px 20px rgba(212,175,55,0.2)); }
+        .virtual-box.bounce { transform: scale(1.4) rotate(8deg); }
+        
+        /* Fly-in Flying Particle Custom CSS Engine */
+        .flying-item { position: fixed; width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 2px solid var(--gold); z-index: 9999; pointer-events: none; transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
 
-        /* --- ADMIN CONTROLLER VIEW (GOD MODE) --- */
-        .admin-grid { display: grid; grid-template-columns: 350px 1fr; gap: 30px; }
+        .box-status-tag { margin-top: 20px; color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 2px; z-index: 10; text-transform: uppercase; color: var(--gold); }
+        .gift-items-summary { margin-top: 15px; width: 85%; max-height: 90px; overflow-y: auto; color: #888; font-size: 12px; text-align: center; line-height: 1.6; border-top: 1px solid #222; padding-top: 15px; }
+
+        /* --- 🔒 LOCK ACCESS PORTAL (ADMIN DASHBOARD) --- */
+        .admin-grid { display: grid; grid-template-columns: 360px 1fr; gap: 40px; }
         @media(max-width: 900px) { .admin-grid { grid-template-columns: 1fr; } }
-        .admin-sidebar { background: #fff; border: 1px solid var(--border); padding: 25px; border-radius: 4px; height: fit-content; }
-        .admin-sidebar h4 { margin-bottom: 15px; font-size: 14px; color: var(--gold); text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
-        .admin-sidebar input, .admin-sidebar select, .admin-sidebar textarea { width: 100%; padding: 10px; background: #f9f9f9; border: 1px solid var(--border); margin-bottom: 12px; font-size: 12px; outline: none; }
-        .admin-sidebar input:focus { border-color: var(--gold); }
-        .admin-btn { width: 100%; background: var(--black); color: #fff; border: none; padding: 12px; font-size: 12px; font-weight: 600; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; margin-bottom: 15px; }
+        .admin-sidebar { background: #fff; border: 1px solid var(--border); padding: 30px; border-radius: 8px; box-shadow: var(--shadow-sm); }
+        .admin-sidebar h4 { font-family: 'Cinzel', serif; margin-bottom: 20px; font-size: 13px; color: #111; text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 8px; letter-spacing: 1px; }
+        .admin-sidebar label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: #666; display: block; margin-bottom: 6px; }
+        .admin-sidebar input, .admin-sidebar select, .admin-sidebar textarea { width: 100%; padding: 12px; background: #f9f9f9; border: 1px solid var(--border); margin-bottom: 16px; font-size: 12px; border-radius: 4px; outline: none; transition: 0.3s; }
+        .admin-sidebar input:focus { border-color: var(--gold); background: #fff; }
+        .admin-btn { width: 100%; background: var(--black); color: #fff; border: none; padding: 14px; font-size: 11px; font-weight: 600; text-transform: uppercase; cursor: pointer; letter-spacing: 2px; margin-bottom: 15px; border-radius: 4px; transition: 0.3s; }
         .admin-btn:hover { background: var(--gold); color: #000; }
 
-        .inventory-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--border); }
-        .inventory-table th, .inventory-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 12px; }
-        .inventory-table th { background: #f5f5f5; text-transform: uppercase; font-size: 11px; }
-        .del-row-btn { background: #ff5c5c; color: #fff; border: none; padding: 4px 10px; cursor: pointer; border-radius: 2px; }
+        .inventory-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-sm); }
+        .inventory-table th, .inventory-table td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+        .inventory-table th { background: #f9f9f9; text-transform: uppercase; font-size: 11px; font-weight: 600; color: #666; letter-spacing: 1px; }
+        .del-row-btn { background: #fff; color: #ff5c5c; border: 1px solid #ffe5e5; padding: 6px 12px; cursor: pointer; border-radius: 4px; transition: 0.3s; }
+        .del-row-btn:hover { background: #ff5c5c; color: #fff; }
 
-        /* --- CART SIDE EXPANSION DRAWER --- */
-        .cart-drawer { position: fixed; top: 0; right: -100%; width: 100%; max-width: 460px; height: 100vh; background: #ffffff; z-index: 2000; box-shadow: -10px 0 30px rgba(0,0,0,0.05); transition: 0.4s cubic-bezier(0.7,0,0.3,1); display: flex; flex-direction: column; border-left: 1px solid var(--border); }
+        /* --- 🛍️ HIGH-END MODERN APPLE-STYLE CHECKOUT DRAWER --- */
+        .cart-drawer { position: fixed; top: 0; right: -100%; width: 100%; max-width: 480px; height: 100vh; background: #ffffff; z-index: 2000; box-shadow: -15px 0 40px rgba(0,0,0,0.06); transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; border-left: 1px solid var(--border); }
         .cart-drawer.open { right: 0; }
-        .drawer-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .drawer-header h3 { font-family: 'Cinzel', serif; font-size: 16px; color: var(--black); }
-        .drawer-body { flex: 1; overflow-y: auto; padding: 20px; }
-        .drawer-footer { padding: 20px; border-top: 1px solid var(--border); background: #fafafa; }
+        .drawer-header { padding: 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: #fff; }
+        .drawer-header h3 { font-family: 'Cinzel', serif; font-size: 16px; color: var(--black); letter-spacing: 1.5px; }
+        .drawer-body { flex: 1; overflow-y: auto; padding: 24px; background: #fdfdfd; }
+        .drawer-footer { padding: 24px; border-top: 1px solid var(--border); background: #ffffff; box-shadow: 0 -4px 20px rgba(0,0,0,0.02); }
         
-        .drawer-item { display: flex; gap: 15px; align-items: center; padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
-        .drawer-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 2px; }
+        .drawer-item { display: flex; gap: 15px; align-items: center; padding: 16px 0; border-bottom: 1px solid #f9f9f9; }
+        .drawer-item img { width: 55px; height: 55px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); }
         
-        /* Footer Strip */
-        footer { background: #ffffff; border-top: 1px solid var(--border); text-align: center; padding: 25px; font-size: 12px; color: #777; margin-top: 5px; }
+        /* Clean Quality Checkout Panel Design Inputs */
+        .checkout-form { margin-top: 30px; border-top: 1px solid var(--border); padding-top: 25px; }
+        .checkout-form h4 { font-family: 'Cinzel', serif; font-size: 12px; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1px; color: #333; }
+        .checkout-form input, .checkout-form textarea { width: 100%; background: #ffffff; border: 1px solid var(--border); padding: 12px 16px; color: #000; font-size: 13px; margin-bottom: 14px; border-radius: 6px; outline: none; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .checkout-form input:focus, .checkout-form textarea:focus { border-color: var(--black); box-shadow: 0 0 0 3px rgba(0,0,0,0.04); }
+
+        /* Overlay blur block */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); backdrop-filter: blur(4px); z-index: 1500; opacity: 0; pointer-events: none; transition: 0.4s; }
+        .modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+        /* --- 🔔 CUSTOM TOAST NOTIFICATION UI SYSTEM --- */
+        #toastContainer { position: fixed; bottom: 30px; left: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast-card { background: #111; color: #fff; padding: 15px 25px; border-radius: 6px; font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 12px; border-left: 3px solid var(--gold); transform: translateX(-150%); animation: slideToast 0.3s forwards; }
+        @keyframes slideToast { to { transform: translateX(0); } }
+
+        footer { background: #ffffff; border-top: 1px solid var(--border); text-align: center; padding: 30px; font-size: 12px; color: #777; margin-top: 20px; letter-spacing: 0.5px; }
     </style>
 </head>
 <body>
 
+    <div id="toastContainer"></div>
+
     <div class="top-header">
         <span>BLACKIE CARE HUB</span>
         <span>EXECUTIVE LOGISTICS</span>
-        <span onclick="navigateToPage('adminView')">⚙️ GOD-MODE DASHBOARD</span>
+        <span onclick="secureGatewayLogin()">⚙️ CENTRAL ADMIN DESK</span>
     </div>
 
-    <header>
+    <header id="mainHeader">
         <a href="#" class="logo" onclick="navigateToPage('homeView')">BLACK<span>IE</span></a>
         
         <div class="search-container">
-            <input type="text" id="storeSearchBar" class="search-box" placeholder="Search anything in the custom architecture..." oninput="triggerLiveSearch()">
+            <input type="text" id="storeSearchBar" class="search-box" placeholder="Filter through store architecture..." oninput="triggerLiveSearch()">
             <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
 
@@ -176,13 +197,13 @@
             <div class="slider-box">
                 <img id="domHeroBanner" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1400">
                 <div class="slider-text">
-                    <h2 id="domHeroTitle">ELEGANCE DEFINED</h2>
-                    <p id="domHeroSub">Premium White Theme Architecture with Gold Highlights.</p>
+                    <h2 id="domHeroTitle">PRISTINE SILK WHITE</h2>
+                    <p id="domHeroSub">High-fidelity interfaces engineered elegantly for elite consumers globally.</p>
                 </div>
             </div>
         </div>
 
-        <div class="section-title">FEATURED VAULT ARTIFACTS</div>
+        <div class="section-title">FEATURED STOCK COLLECTION</div>
         <div class="grid" id="homeDisplayGrid"></div>
     </main>
 
@@ -192,11 +213,11 @@
     </main>
 
     <main class="page-view" id="giftView">
-        <div class="section-title">Sweet Luxury Blackie Box Builder</div>
+        <div class="section-title">Sweet Luxury Blackie Box Customizer</div>
         
         <div class="gift-layout">
             <div class="setup-panel">
-                <h3>1. Choose Your Gift Box Size</h3>
+                <h3>1. Select Box Capacity Target</h3>
                 <div class="size-grid">
                     <div class="size-btn selected" id="sz-XS" onclick="selectBoxSize('XS', 2)"><h4>XS</h4><small>Max 2 Items</small></div>
                     <div class="size-btn" id="sz-S" onclick="selectBoxSize('S', 4)"><h4>S</h4><small>Max 4 Items</small></div>
@@ -205,18 +226,17 @@
                     <div class="size-btn" id="sz-XL" onclick="selectBoxSize('XL', 12)"><h4>XL</h4><small>Max 12 Items</small></div>
                 </div>
 
-                <h3 style="margin-bottom:15px;">2. Load Box Inventory Matrix</h3>
-                <button class="admin-btn" style="background:var(--gold); color:#000;" onclick="activateGiftItemCollection()">
-                    <i class="fa-solid fa-plus-circle"></i> Collect Your Items From Store
+                <h3 style="margin-bottom:15px;">2. Load Custom Vault Items</h3>
+                <button class="admin-btn" style="background:var(--gold); color:#000; box-shadow:0 4px 15px rgba(212,175,55,0.2);" onclick="activateGiftItemCollection()">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i> Collect Items From Store Front
                 </button>
-                
-                <p style="font-size:12px; color:#666; line-height:1.6;">
-                    *Note: After clicking "Collect Items", you can choose any item from the store. If you are inside the gift creation phase, items will be dynamically routed into your animated box container instead of the standard cart.
+                <p style="font-size:12px; color:#777; line-height:1.6; margin-top:15px;">
+                    *Process Info: Activating the custom matrix routes item acquisitions directly straight inside your virtual luxury chest module listed on the right panel.
                 </p>
             </div>
 
             <div class="box-animation-matrix" id="animationContainer">
-                <div class="virtual-box" id="animatedBox"><i class="fa-solid fa-box-tissue"></i></div>
+                <div class="virtual-box" id="animatedBox"><i class="fa-solid fa-gift"></i></div>
                 <div class="box-status-tag" id="boxStatusText">BOX SIZE: XS (0 / 2 FULL)</div>
                 <div class="gift-items-summary" id="giftBoxSummaryList">No items packed inside yet.</div>
             </div>
@@ -224,41 +244,37 @@
     </main>
 
     <main class="page-view" id="adminView">
-        <div class="section-title">BLACKIE GOD-MODE ARCHITECTURE INTERFACE</div>
+        <div class="section-title">BLACKIE GOD-MODE RETAILED PIPELINES</div>
         
         <div class="admin-grid">
             <div class="admin-sidebar">
-                <h4>🎨 General Branding Variables</h4>
-                <label>Website Primary Theme Base</label>
-                <select id="admThemeSelect" onchange="applyAdminThemeConfig()">
-                    <option value="WHITE">Premium Pristine White (Current)</option>
-                    <option value="BLACK">The Absolute Void Black</option>
-                </select>
-                <label>Main Showcase Advertisement Banner</label>
+                <h4>🎨 Brand Display Configurations</h4>
+                <label>Main Slides Advertisement Image Assets</label>
                 <input type="text" id="admBannerUrl" placeholder="Image URL">
-                <input type="text" id="admBannerTitle" placeholder="Title Text">
-                <input type="text" id="admBannerSub" placeholder="Subtitle Text">
-                <button class="admin-btn" onclick="saveGlobalBranding()">Update Global Layout</button>
+                <input type="text" id="admBannerTitle" placeholder="Header Text Line">
+                <input type="text" id="admBannerSub" placeholder="Detailed Subtitle Description">
+                <button class="admin-btn" onclick="saveGlobalBranding()">Save Visual Layout</button>
 
-                <h4>📦 Injection Portal (Add New Items)</h4>
+                <h4>📦 Inject New Retail Artifacts</h4>
+                <label>Inventory Storage Core Sector</label>
                 <select id="admProdCat">
                     <option value="WATCH">Luxury Watches</option>
                     <option value="PERFUME">Premium Perfumes</option>
                     <option value="CLOTHING">Elite Attire</option>
                     <option value="GIFT">Pre-made Gifts</option>
                 </select>
-                <input type="text" id="admProdName" placeholder="Artifact/Product Title *">
-                <input type="text" id="admProdPrice" placeholder="Price (Numbers Only, e.g. 25000) *">
-                <input type="text" id="admProdImg" placeholder="Image Assets Link/URL *">
-                <textarea id="admProdDesc" rows="2" placeholder="Brief Luxury Description *"></textarea>
-                <button class="admin-btn" style="background:var(--gold); color:#000;" onclick="injectProduct()">Publish To Live Vault</button>
+                <input type="text" id="admProdName" placeholder="Artifact Title *">
+                <input type="text" id="admProdPrice" placeholder="Value Pricing (LKR, e.g. 48000) *">
+                <input type="text" id="admProdImg" placeholder="Cloud Assets Image Link *">
+                <textarea id="admProdDesc" rows="2" placeholder="Luxury Core Descriptions Text *"></textarea>
+                <button class="admin-btn" style="background:var(--gold); color:#000;" onclick="injectProduct()">Deploy Into Vault Stock</button>
             </div>
 
             <div style="overflow-x:auto;">
-                <h3 style="margin-bottom:15px; font-size:14px; letter-spacing:1px;">LIVE SYSTEM CENTRAL INVENTORY STOCK CONTROL</h3>
+                <h3 style="margin-bottom:15px; font-size:13px; letter-spacing:1px; text-transform:uppercase;">Central Live Database Control</h3>
                 <table class="inventory-table">
                     <thead>
-                        <tr><th>Category</th><th>Item Details</th><th>Price Assets</th><th>Management Control</th></tr>
+                        <tr><th>Category</th><th>Asset Blueprint</th><th>Value Cost</th><th>Purge Terminal</th></tr>
                     </thead>
                     <tbody id="adminInventoryTableBody"></tbody>
                 </table>
@@ -266,44 +282,44 @@
         </div>
     </main>
 
+    <div class="modal-overlay" id="cartOverlay" onclick="toggleDrawer(false)"></div>
     <div class="cart-drawer" id="cartExpansionDrawer">
         <div class="drawer-header">
-            <h3>SHOPPING REPORT LIST</h3>
-            <span style="cursor:pointer;" onclick="toggleDrawer(false)"><i class="fa-solid fa-xmark"></i></span>
+            <h3>SHOPPING REPORT LOGS</h3>
+            <span style="cursor:pointer; font-size:18px;" onclick="toggleDrawer(false)"><i class="fa-solid fa-xmark"></i></span>
         </div>
         <div class="drawer-body">
             <div id="drawerItemsList"></div>
             
-            <div class="checkout-form" style="margin-top:20px; border-top:1px dashed #ddd; padding-top:20px;">
-                <h4 style="font-size:12px; margin-bottom:12px; text-transform:uppercase;">Secure Logistics Verification</h4>
-                <input type="text" id="chkName" placeholder="Client Full Name *">
-                <input type="text" id="chkPhone1" placeholder="Primary Cellular Line *">
-                <input type="text" id="chkPhone2" placeholder="Secondary Emergency Line *">
-                <textarea id="chkAddr1" rows="2" placeholder="Primary Destination Address *"></textarea>
-                <textarea id="chkAddr2" rows="2" placeholder="Secondary Backup Address *"></textarea>
+            <div class="checkout-form">
+                <h4>Secure Logistics Cargo Dispatches</h4>
+                <input type="text" id="chkName" placeholder="Recipient Full Legal Name *">
+                <input type="text" id="chkPhone1" placeholder="Primary Contact Mobile String *">
+                <input type="text" id="chkPhone2" placeholder="Alternative Backup Contact Line *">
+                <textarea id="chkAddr1" rows="2" placeholder="Primary Shipping Destination (Home/Office Address) *"></textarea>
+                <textarea id="chkAddr2" rows="2" placeholder="Secondary Delivery Coordinates (Optional)"></textarea>
             </div>
         </div>
         <div class="drawer-footer">
-            <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:15px; font-size:15px;">
-                <span>GRAND TOTAL:</span>
+            <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:20px; font-size:16px;">
+                <span>GRAND SUMMARY VALUE:</span>
                 <span style="color:var(--gold);"><span id="drawerGrandTotalText">0</span> LKR</span>
             </div>
-            <button class="admin-btn" style="margin:0;" onclick="dispatchWhatsAppOrder()">Secure Orders Checkout via WhatsApp</button>
+            <button class="admin-btn" style="margin:0; background:var(--black); padding:16px;" onclick="dispatchWhatsAppOrder()">Checkout Dispatches via WhatsApp</button>
         </div>
     </div>
 
     <footer>
-        <p>© 2026 BLACKIE VAULT INTERNATIONAL. Optimized via God-Mode Controls.</p>
+        <p>© 2026 BLACKIE VAULT RETAILS LTD. High-End Premium Structural Design Frameworks.</p>
     </footer>
 
     <script>
-        // Default Storage Data Matrix
+        // Core Volatile Invariant Storage Data Definitions
         let baseStock = {
             branding: {
-                theme: "WHITE",
                 banner: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1400",
-                title: "ELEGANCE DEFINED",
-                sub: "Premium White Theme Architecture with Gold Highlights."
+                title: "PRISTINE SILK WHITE",
+                sub: "High-fidelity interfaces engineered elegantly for elite consumers globally."
             },
             products: [
                 {cat: "WATCH", name: "Blackie Chronograph Gold Edition", price: "45000", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=500", desc: "Solid mechanical components with calibrated gold weights."},
@@ -318,42 +334,64 @@
 
         let standardCart = JSON.parse(localStorage.getItem('blackie_std_cart')) || [];
         
-        // Gift Customization Modes State Variables
+        // Custom Box Builder System Configuration State Flags
         let giftModeActive = false;
         let selectedBoxSizeName = "XS";
         let maxAllowedGiftItems = 2;
         let packedGiftItems = [];
 
-        // Dynamic Router Control
-        function navigateToPage(pageId) {
-            document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+        // Dynamic Native Alert Replacements Engine (Toasts UI Layout)
+        function showPremiumToast(message) {
+            let container = document.getElementById('toastContainer');
+            let card = document.createElement('div');
+            card.className = "toast-card";
+            card.innerHTML = `<i class="fa-solid fa-crown" style="color:var(--gold)"></i> <span>${message}</span>`;
+            container.appendChild(card);
             
-            document.getElementById(pageId).classList.add('active');
-            let navBtn = document.getElementById('btn-' + pageId);
-            if(navBtn) navBtn.classList.add('active');
-            window.scrollTo(0,0);
+            setTimeout(() => {
+                card.style.opacity = "0";
+                card.style.transform = "translateY(10px)";
+                setTimeout(() => card.remove(), 400);
+            }, 2500);
         }
 
-        // Live Application Initialization System
-        function initializeCoreEngine() {
-            // Apply theme configuration
-            let root = document.documentElement;
-            if(db.branding.theme === "BLACK") {
-                root.style.setProperty('--bg-main', '#0a0a0a');
-                root.style.setProperty('--bg-card', '#121212');
-                root.style.setProperty('--text-color', '#ffffff');
-                root.style.setProperty('--border', '#222');
-                root.style.setProperty('--black', '#ffffff');
-            } else {
-                root.style.setProperty('--bg-main', '#f9f9f9');
-                root.style.setProperty('--bg-card', '#ffffff');
-                root.style.setProperty('--text-color', '#111111');
-                root.style.setProperty('--border', '#ececec');
-                root.style.setProperty('--black', '#000000');
+        // Secure Gateway Password Protection Handler
+        function secureGatewayLogin() {
+            let token = prompt("ENTER SECRET REAR COMMAND CODES GATEWAY AUTHENTICATION KEY:");
+            if(token === "blackie123") {
+                showPremiumToast("Access Cleared! Welcome to Command Central Dashboard.");
+                navigateToPage('adminView');
+            } else if(token !== null) {
+                showPremiumToast("Security Warning: Critical Key Code Invalid.");
             }
+        }
 
-            // Sync Banner Elements
+        // Animated Screen Transitions View Coordinator
+        function navigateToPage(pageId) {
+            let targets = document.querySelectorAll('.page-view');
+            targets.forEach(p => {
+                p.style.opacity = "0";
+                p.style.transform = "translateY(10px)";
+                p.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+            
+            let activeTarget = document.getElementById(pageId);
+            activeTarget.classList.add('active');
+            
+            // Trigger layout micro animations sequences delays loop frame
+            setTimeout(() => {
+                activeTarget.style.opacity = "1";
+                activeTarget.style.transform = "translateY(0)";
+            }, 50);
+
+            let navBtn = document.getElementById('btn-' + pageId);
+            if(navBtn) navBtn.classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function initializeCoreEngine() {
             document.getElementById('domHeroBanner').src = db.branding.banner;
             document.getElementById('domHeroTitle').innerText = db.branding.title;
             document.getElementById('domHeroSub').innerText = db.branding.sub;
@@ -363,7 +401,6 @@
             updateGlobalCartElements();
         }
 
-        // Render standard product catalog arrays
         function renderHomeGrid(query = "") {
             let grid = document.getElementById('homeDisplayGrid');
             grid.innerHTML = "";
@@ -372,46 +409,45 @@
             items.forEach((p, idx) => {
                 grid.innerHTML += `
                     <div class="product-card">
-                        <div class="img-container"><img src="${p.img}"></div>
+                        <div class="img-container" id="p-img-box-${idx}"><img src="${p.img}"></div>
                         <div class="info-panel">
                             <div class="p-name">${p.name}</div>
-                            <div class="p-desc">${p.desc || 'No description asset supplied.'}</div>
+                            <div class="p-desc">${p.desc || 'No description assets assigned.'}</div>
                             <div class="price-row">
                                 <span class="p-price">${parseInt(p.price).toLocaleString()} LKR</span>
                             </div>
-                            <button class="buy-btn" onclick="routeAcquisitionRequest('${p.name}', ${p.price}, '${p.img}')">
-                                ${giftModeActive ? '📥 Pack Into Gift Box' : 'Add To Cart'}
+                            <button class="buy-btn" onclick="routeAcquisitionRequest('${p.name}', ${p.price}, '${p.img}', 'p-img-box-${idx}')">
+                                ${giftModeActive ? '📥 Pack Inside Box' : 'Add To Cart'}
                             </button>
                         </div>
                     </div>`;
             });
         }
 
-        // Render separate standalone dynamic category page views
         function filterByCategoryPage(categoryName) {
             navigateToPage('categoryView');
             let titleBox = document.getElementById('currentCategoryTitle');
             let grid = document.getElementById('categoryDisplayGrid');
             grid.innerHTML = "";
 
-            titleBox.innerText = categoryName === "ALL" ? "COMPLETE VAULT COLLECTIONS" : `${categoryName} COLLECTION PIPELINE`;
+            titleBox.innerText = categoryName === "ALL" ? "COMPLETE ARCHIVE STOCKS" : `${categoryName} PIPELINES`;
             
             let filtered = db.products.filter(p => categoryName === "ALL" || p.cat === categoryName);
             if(filtered.length === 0) {
-                grid.innerHTML = `<p style="grid-column:1/-1; padding:40px; text-align:center; color:#888;">No stock available inside this asset sector.</p>`;
+                grid.innerHTML = `<p style="grid-column:1/-1; padding:40px; text-align:center; color:#999; font-size:12px;">No active products assigned inside this category node.</p>`;
                 return;
             }
 
-            filtered.forEach(p => {
+            filtered.forEach((p, idx) => {
                 grid.innerHTML += `
                     <div class="product-card">
-                        <div class="img-container"><img src="${p.img}"></div>
+                        <div class="img-container" id="p-cat-box-${idx}"><img src="${p.img}"></div>
                         <div class="info-panel">
                             <div class="p-name">${p.name}</div>
                             <div class="p-desc">${p.desc || ''}</div>
                             <div class="price-row"><span class="p-price">${parseInt(p.price).toLocaleString()} LKR</span></div>
-                            <button class="buy-btn" onclick="routeAcquisitionRequest('${p.name}', ${p.price}, '${p.img}')">
-                                ${giftModeActive ? '📥 Pack Into Gift Box' : 'Add To Cart'}
+                            <button class="buy-btn" onclick="routeAcquisitionRequest('${p.name}', ${p.price}, '${p.img}', 'p-cat-box-${idx}')">
+                                ${giftModeActive ? '📥 Pack Inside Box' : 'Add To Cart'}
                             </button>
                         </div>
                     </div>`;
@@ -428,81 +464,92 @@
             }
         }
 
-        // Universal handler determining standard cart load vs box insertion matrix mapping
-        function routeAcquisitionRequest(name, price, img) {
+        // Highly Advanced Coordinates Mapping Flying Particles Custom Box Engine Animations
+        function routeAcquisitionRequest(name, price, img, elementId) {
             if(!giftModeActive) {
-                // Add to standard regular cart array
-                standardCart.push({name, price, img, type:"REGULAR"});
+                standardCart.push({name, price, img});
                 localStorage.setItem('blackie_std_cart', JSON.stringify(standardCart));
                 updateGlobalCartElements();
-                alert(`${name} securely attached to shopping lines.`);
+                showPremiumToast(`${name} Attached to Regular Logs.`);
             } else {
-                // Pack into the customized container setup
                 if(packedGiftItems.length >= maxAllowedGiftItems) {
-                    alert(`Box capacity error! Size ${selectedBoxSizeName} only handles a limit of ${maxAllowedGiftItems} unique items.`);
+                    showPremiumToast(`Capacity Warning! Selected package size limits data allocation to ${maxAllowedGiftItems} vectors.`);
                     return;
                 }
                 
-                // Fire Visual Drop Particle Animation
-                executeVisualPackingAnimation(img);
+                // EXECUTE DYNAMIC FLIGHT PARTICLE ANIMATION CALCULATION FRAME
+                let clickedContainer = document.getElementById(elementId);
+                if(clickedContainer) {
+                    let rect = clickedContainer.getBoundingClientRect();
+                    
+                    let flyImg = document.createElement('img');
+                    flyImg.src = img;
+                    flyImg.className = "flying-item";
+                    flyImg.style.top = rect.top + "px";
+                    flyImg.style.left = rect.left + "px";
+                    flyImg.style.width = rect.width + "px";
+                    flyImg.style.height = rect.height + "px";
+                    document.body.appendChild(flyImg);
+
+                    // Move interface viewport view seamlessly straight down onto configuration layout maps
+                    navigateToPage('giftView');
+                    
+                    let destinationBox = document.getElementById('animatedBox');
+                    let destRect = destinationBox.getBoundingClientRect();
+
+                    // Animate transformation loop coordinates vectors properties
+                    setTimeout(() => {
+                        flyImg.style.top = (destRect.top + window.scrollY) + "px";
+                        flyImg.style.left = destRect.left + "px";
+                        flyImg.style.width = "20px";
+                        flyImg.style.height = "20px";
+                        flyImg.style.opacity = "0.1";
+                        
+                        setTimeout(() => {
+                            flyImg.remove();
+                            destinationBox.classList.add('bounce');
+                            setTimeout(() => destinationBox.classList.remove('bounce'), 400);
+                        }, 800);
+                    }, 50);
+                }
 
                 packedGiftItems.push({name, price, img});
                 updateGiftBoxMatrixDisplay();
+                updateGlobalCartElements();
             }
         }
 
-        // Dynamic Animation Particle Injection Logic
-        function executeVisualPackingAnimation(imgSrc) {
-            let container = document.getElementById('animationContainer');
-            let imgParticle = document.createElement('img');
-            imgParticle.src = imgSrc;
-            imgParticle.className = "flying-item";
-            container.appendChild(imgParticle);
-
-            let mainBox = document.getElementById('animatedBox');
-            mainBox.classList.add('bounce');
-
-            setTimeout(() => {
-                imgParticle.remove();
-                mainBox.classList.remove('bounce');
-            }, 800);
-        }
-
-        // Gift Size Configuration Selector
         function selectBoxSize(sizeName, maxLimit) {
             selectedBoxSizeName = sizeName;
             maxAllowedGiftItems = maxLimit;
-            
             document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
             document.getElementById('sz-' + sizeName).classList.add('selected');
-            
             updateGiftBoxMatrixDisplay();
         }
 
         function activateGiftItemCollection() {
             giftModeActive = true;
-            alert("✨ GIFT ENGINE PIPELINE ENGAGED! Now routing you to vault grid. Select items to see them fly into your custom black box container.");
+            showPremiumToast("Gift Engineering Channels Triggered. Select elements inside catalog.");
             navigateToPage('homeView');
         }
 
         function updateGiftBoxMatrixDisplay() {
             document.getElementById('boxStatusText').innerText = `BOX SIZE: ${selectedBoxSizeName} (${packedGiftItems.length} / ${maxAllowedGiftItems} FULL)`;
             let list = document.getElementById('giftBoxSummaryList');
-            if(packedGiftItems.length === 0) {
-                list.innerText = "No items packed inside yet.";
-            } else {
-                list.innerText = "Packed Payload: " + packedGiftItems.map(i => i.name).join(' + ');
-            }
+            list.innerText = packedGiftItems.length === 0 ? "No items packed inside yet." : "Packed Cargo: " + packedGiftItems.map(i => i.name).join(' + ');
         }
 
-        // --- CART OVERLAY DRAWER MANAGEMENT ---
+        // --- SLIDE PANEL CONTROLLER MATRIX ---
         function toggleDrawer(open) {
-            let d = document.getElementById('cartExpansionDrawer');
+            let drawer = document.getElementById('cartExpansionDrawer');
+            let overlay = document.getElementById('cartOverlay');
             if(open) {
-                d.classList.add('open');
+                drawer.classList.add('open');
+                overlay.classList.add('open');
                 buildDrawerRows();
             } else {
-                d.classList.remove('open');
+                drawer.classList.remove('open');
+                overlay.classList.remove('open');
             }
         }
 
@@ -517,7 +564,6 @@
             container.innerHTML = "";
             let netSum = 0;
 
-            // Load regular objects inside cart list
             standardCart.forEach((item, idx) => {
                 netSum += parseInt(item.price);
                 container.innerHTML += `
@@ -525,26 +571,25 @@
                         <img src="${item.img}">
                         <div style="flex:1;">
                             <div style="font-size:12px; font-weight:600;">${item.name}</div>
-                            <small style="color:var(--gold);">Standard Acquisition</small>
+                            <small style="color:var(--gold);">Standard Delivery Stock</small>
                         </div>
                         <div style="font-size:12px; font-weight:700;">${parseInt(item.price).toLocaleString()} LKR</div>
                         <button class="del-row-btn" style="padding:2px 6px;" onclick="removeRegularCartItem(${idx})">x</button>
                     </div>`;
             });
 
-            // Injection load of custom custom luxury packaging if defined
             if(packedGiftItems.length > 0) {
-                let boxPrice = 3500; // Premium Box Charge Asset
+                let boxPrice = 3500;
                 let boxItemsSum = packedGiftItems.reduce((s, i) => s + parseInt(i.price), 0);
                 let customBoxTotal = boxPrice + boxItemsSum;
                 netSum += customBoxTotal;
 
                 container.innerHTML += `
-                    <div class="drawer-item" style="border: 1px solid var(--gold); padding:10px; background:#fffdf5;">
-                        <div style="font-size:24px; color:var(--gold);"><i class="fa-solid fa-gift"></i></div>
-                        <div style="flex:1; margin-left:10px;">
-                            <div style="font-size:12px; font-weight:700; color:#000;">SWEET LUXURY CUSTOM BOX (${selectedBoxSizeName})</div>
-                            <small style="color:#666; font-size:10px;">Contains: ${packedGiftItems.length} custom modules</small>
+                    <div class="drawer-item" style="border: 1px solid var(--gold); padding:12px; background:#fffdfa; border-radius:6px; margin-top:10px;">
+                        <div style="font-size:22px; color:var(--gold);"><i class="fa-solid fa-gift"></i></div>
+                        <div style="flex:1; margin-left:12px;">
+                            <div style="font-size:12px; font-weight:700; color:#000;">CUSTOM PREMIUM CHEST (${selectedBoxSizeName})</div>
+                            <small style="color:#666; font-size:11px;">Modules loaded: ${packedGiftItems.length} elements</small>
                         </div>
                         <div style="font-size:12px; font-weight:700; color:var(--gold);">${customBoxTotal.toLocaleString()} LKR</div>
                         <button class="del-row-btn" style="padding:2px 6px;" onclick="wipeCustomGiftContainer()">x</button>
@@ -568,7 +613,6 @@
             buildDrawerRows();
         }
 
-        // --- EXPORT PACKAGES SHIPPED OUT STRAIGHT TO WHATSAPP DESK ---
         function dispatchWhatsAppOrder() {
             let name = document.getElementById('chkName').value;
             let p1 = document.getElementById('chkPhone1').value;
@@ -576,11 +620,11 @@
             let a1 = document.getElementById('chkAddr1').value;
             let a2 = document.getElementById('chkAddr2').value;
 
-            if(standardCart.length === 0 && packedGiftItems.length === 0) { alert("Acquisition log empty."); return; }
-            if(!name || !p1 || !a1) { alert("Name, Contact, and Address 1 items are critically core variables."); return; }
+            if(standardCart.length === 0 && packedGiftItems.length === 0) { showPremiumToast("Error: No values mapped inside shipping fields."); return; }
+            if(!name || !p1 || !a1) { showPremiumToast("Required parameters missed inside form submission layers."); return; }
 
             let regularString = standardCart.map((item, i) => `  ${i+1}. ${item.name} (${parseInt(item.price).toLocaleString()} LKR)`).join('\n');
-            let giftString = packedGiftItems.map((item, i) => `  - Inside Module: ${item.name}`).join('\n');
+            let giftString = packedGiftItems.map((item, i) => `  - Packed Payload Item: ${item.name}`).join('\n');
             
             let total = standardCart.reduce((s,i) => s + parseInt(i.price), 0);
             if(packedGiftItems.length > 0) {
@@ -588,22 +632,21 @@
             }
 
             let msg = `⚜️ *BLACKIE CENTRAL COMMAND MATRIX ORDER* ⚜️\n\n` +
-                      `*CLIENT MASTER DATA:*\n- Name: ${name}\n- Main Line: ${p1}\n- Alt Line: ${p2 || 'N/A'}\n\n` +
-                      `*LOGISTICS ROUTING:*\n- Address 1: ${a1}\n- Address 2: ${a2 || 'N/A'}\n\n` +
-                      `*STANDARD ARTIFACT PAYLOADS:*\n${regularString || '  None'}\n\n`;
+                      `*CLIENT MASTER DATA:*\n- Recipient Name: ${name}\n- Line 01: ${p1}\n- Line 02: ${p2 || 'N/A'}\n\n` +
+                      `*LOGISTICS ROUTING:*\n- Destination 01: ${a1}\n- Destination 02: ${a2 || 'N/A'}\n\n` +
+                      `*REGULAR STOCK ITEMS:* \n${regularString || '  None'}\n\n`;
 
             if(packedGiftItems.length > 0) {
-                msg += `*🎁 SWEET LUXURY GIFT CONTAINER BUNDLE (${selectedBoxSizeName}):*\n` +
-                       `${giftString}\n- Secure Box Integration Costing included.\n\n`;
+                msg += `*🎁 CUSTOM LUXURY BOX ARCHITECTURE (${selectedBoxSizeName}):*\n` +
+                       `${giftString}\n- Premium Structural Protection Charges applied.\n\n`;
             }
 
-            msg += `*NET CALCULATED PAYLOAD VALUE:* ${total.toLocaleString()} LKR\n\n` +
+            msg += `*GRAND NET SETTLEMENT ESTIMATE:* ${total.toLocaleString()} LKR\n\n` +
                    `===============================`;
 
             let link = `https://api.whatsapp.com/send?phone=94771234567&text=${encodeURIComponent(msg)}`;
             window.open(link, '_blank');
 
-            // Wipe out temporary logs safely
             standardCart = [];
             packedGiftItems = [];
             giftModeActive = false;
@@ -613,7 +656,7 @@
             toggleDrawer(false);
         }
 
-        // --- GOD-MODE DASHBOARD EXECUTION MANAGEMENT ENGINE ---
+        // --- BACKEND WAREHOUSE DATA INJECTIONS MATRIX ---
         function renderInventoryTable() {
             let tbody = document.getElementById('adminInventoryTableBody');
             tbody.innerHTML = "";
@@ -623,10 +666,10 @@
                         <td style="color:var(--gold); font-weight:600;">${p.cat}</td>
                         <td>
                             <div style="font-weight:600;">${p.name}</div>
-                            <small style="color:#777; display:block; max-width:300px; overflow:hidden;">${p.desc || ''}</small>
+                            <small style="color:#777;">${p.desc || ''}</small>
                         </td>
                         <td><b>${parseInt(p.price).toLocaleString()} LKR</b></td>
-                        <td><button class="del-row-btn" onclick="purgeProduct(${index})">Purge Asset</button></td>
+                        <td><button class="del-row-btn" onclick="purgeProduct(${index})">Purge</button></td>
                     </tr>`;
             });
         }
@@ -638,13 +681,12 @@
             let img = document.getElementById('admProdImg').value;
             let desc = document.getElementById('admProdDesc').value;
 
-            if(!name || !price || !img || !desc) { alert("Core components require valid strings."); return; }
+            if(!name || !price || !img || !desc) { showPremiumToast("Processing error: Fields cannot validate null strings."); return; }
 
             db.products.push({cat, name, price, img, desc});
             localStorage.setItem('blackie_god_db', JSON.stringify(db));
-            
             initializeCoreEngine();
-            alert("New inventory variable safely updated and deployed to pipeline.");
+            showPremiumToast("Asset Injected Safely into Runtime Cluster.");
             
             document.getElementById('admProdName').value = "";
             document.getElementById('admProdPrice').value = "";
@@ -656,29 +698,23 @@
             db.products.splice(index, 1);
             localStorage.setItem('blackie_god_db', JSON.stringify(db));
             initializeCoreEngine();
+            showPremiumToast("Item successfully purged from local memory database banks.");
         }
 
         function saveGlobalBranding() {
-            let theme = document.getElementById('admThemeSelect').value;
             let banner = document.getElementById('admBannerUrl').value;
             let title = document.getElementById('admBannerTitle').value;
             let sub = document.getElementById('admBannerSub').value;
 
-            if(theme) db.branding.theme = theme;
             if(banner) db.branding.banner = banner;
             if(title) db.branding.title = title;
             if(sub) db.branding.sub = sub;
 
             localStorage.setItem('blackie_god_db', JSON.stringify(db));
             initializeCoreEngine();
-            alert("Global system core definitions compiled and updated live.");
+            showPremiumToast("System central display modules updated live.");
         }
 
-        function applyAdminThemeConfig() {
-            // Live preview response hook inside admin select inputs
-        }
-
-        // Initialize execution on runtime loop load
         initializeCoreEngine();
     </script>
 </body>
