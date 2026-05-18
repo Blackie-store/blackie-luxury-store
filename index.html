@@ -3,954 +3,733 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACKIE — Beyond Luxury Retail Architecture</title>
+    <title>BLACKIE — High-End Fashion Architecture</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #fcfcfc;
-            --bg-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 L30 60 M0 30 L60 30 M0 0 L60 60 M60 0 L0 60' stroke='%23d4af3712' stroke-width='0.6' fill='none'/%3E%3C/svg%3E");
+            --bg-main: #fafafa;
             --bg-card: #ffffff;
             --text-color: #111111;
             --gold: #d4af37;
-            --silver: #f0f0f0;
-            --border: #e8e8e8;
+            --neon-gold: #ffdf78;
+            --border: #eaeaea;
             --black: #000000;
             --shadow-sm: 0 4px 20px rgba(0,0,0,0.02);
-            --shadow-lg: 0 20px 50px rgba(0,0,0,0.06);
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.08);
             --ease-ios: cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        
-        body { 
-            background-color: var(--bg-main); 
-            background-image: var(--bg-pattern);
-            color: var(--text-color); 
-            overflow-x: hidden; 
-            padding-bottom: 70px; /* Space for bottom navigation bar */
-        }
+        body { background-color: var(--bg-main); color: var(--text-color); overflow-x: hidden; padding-bottom: 80px; }
 
-        /* --- 🌐 TOP NAVIGATION STRIP --- */
-        .top-header { background: var(--black); padding: 8px 8%; display: flex; justify-content: flex-end; gap: 25px; font-size: 11px; color: #888; letter-spacing: 1px; }
-        .top-header span { cursor: pointer; transition: 0.3s; }
-        .top-header span:hover { color: var(--gold); }
-
-        header { background: rgba(255, 255, 255, 0.92); padding: 18px 8%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); transition: 0.4s; }
-        .logo { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 700; color: var(--black); text-decoration: none; letter-spacing: 3px; flex-shrink: 0; }
+        /* HEADER & NAVIGATION */
+        .top-header { background: var(--black); padding: 8px 8%; display: flex; justify-content: flex-end; gap: 25px; font-size: 11px; color: #777; letter-spacing: 1px; }
+        header { background: rgba(255, 255, 255, 0.95); padding: 18px 8%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); }
+        .logo { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 700; color: var(--black); text-decoration: none; letter-spacing: 3px; }
         .logo span { color: var(--gold); }
         
-        .search-container { flex: 1; max-width: 480px; margin: 0 30px; display: flex; position: relative; }
-        .search-box { width: 100%; background: #f5f5f5; border: 1px solid transparent; padding: 12px 20px; color: #000; font-size: 13px; outline: none; border-radius: 30px; transition: 0.3s var(--ease-ios); }
+        .search-container { flex: 1; max-width: 450px; margin: 0 30px; display: flex; position: relative; }
+        .search-box { width: 100%; background: #f2f2f2; border: 1px solid transparent; padding: 12px 20px; color: #000; font-size: 13px; outline: none; border-radius: 30px; transition: 0.3s; }
         .search-box:focus { border-color: var(--gold); background: #fff; box-shadow: var(--shadow-sm); }
         .search-btn { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #666; cursor: pointer; }
 
-        nav { display: flex; gap: 25px; align-items: center; }
-        nav button { background: none; border: none; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; color: var(--text-color); position: relative; padding: 5px 0; transition: 0.3s; }
-        nav button::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1.5px; background: var(--gold); transition: 0.3s; }
-        nav button:hover::after, nav button.active::after { width: 100%; }
-        nav button:hover, nav button.active { color: var(--gold); }
+        nav { display: flex; gap: 25px; }
+        nav button { background: none; border: none; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; color: var(--text-color); position: relative; padding: 5px 0; }
+        nav button.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1.5px; background: var(--gold); }
 
-        .cart-icon-btn { position: relative; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-color); transition: 0.3s; flex-shrink: 0; }
-        .cart-icon-btn:hover { color: var(--gold); transform: scale(1.05); }
+        .cart-icon-btn { position: relative; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-color); }
         .cart-count { position: absolute; top: -10px; right: -12px; background: var(--black); color: var(--gold); font-size: 10px; padding: 2px 7px; border-radius: 50%; font-weight: 700; }
 
-        /* --- ✨ LUXURY ANIMATION VIEWS LAYER --- */
-        .page-view { display: none; padding: 40px 8%; opacity: 0; transform: translateY(15px); transition: opacity 0.4s var(--ease-ios), transform 0.4s var(--ease-ios); }
-        .page-view.active { display: block; opacity: 1; transform: translateY(0); }
+        /* VIEWS MANAGEMENT */
+        .page-view { display: none; padding: 40px 8%; }
+        .page-view.active { display: block; }
 
-        /* --- 🏠 HOME PAGE VIEW --- */
-        .home-grid { display: grid; grid-template-columns: 280px 1fr; gap: 30px; margin-bottom: 50px; }
-
-        .side-menu { background: var(--bg-card); border: 1px solid var(--border); padding: 15px 0; border-radius: 8px; box-shadow: var(--shadow-sm); height: 400px; overflow-y: auto; }
-        .side-menu h3 { font-family: 'Cinzel', serif; font-size: 12px; padding: 10px 24px; color: var(--gold); letter-spacing: 1px; border-bottom: 1px solid var(--border); margin-bottom: 10px; }
-        .menu-item { padding: 10px 24px; font-size: 12px; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s ease; color: #555; }
-        .menu-item:hover { background: #fafafa; color: var(--gold); padding-left: 30px; }
-
-        /* --- 👑 BLACKIE SPECIAL ARCHITECTURE --- */
-        .special-section { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 30px; margin-bottom: 50px; box-shadow: var(--shadow-sm); }
-        .special-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; border-bottom: 2px solid var(--black); padding-bottom: 15px; }
-        .special-header h2 { font-family: 'Cinzel', serif; font-size: 22px; letter-spacing: 2px; color: var(--black); }
-        .special-header h2 span { color: var(--gold); }
-        .nested-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; }
-        .nested-btn { background: #f9f9f9; border: 1px solid var(--border); padding: 10px 20px; font-size: 11px; font-weight: 600; text-transform: uppercase; border-radius: 30px; cursor: pointer; transition: 0.3s; letter-spacing: 1px; }
-        .nested-btn:hover, .nested-btn.active { background: var(--black); color: var(--gold); border-color: var(--black); }
+        /* DARAZ-STYLE ARCHITECTURE FOR MAIN STORE */
+        .daraz-layout { display: grid; grid-template-columns: 260px 1fr; gap: 30px; margin-bottom: 40px; }
+        .daraz-sidebar { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 15px 0; box-shadow: var(--shadow-sm); }
+        .sidebar-section-title { font-family: 'Cinzel', serif; font-size: 12px; padding: 10px 20px; color: var(--gold); letter-spacing: 1px; font-weight: 700; border-bottom: 1px solid var(--border); }
         
-        .sub-category-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; background: #f5f5f5; padding: 8px; border-radius: 8px; }
-        .sub-tab-btn { background: transparent; border: none; padding: 8px 16px; font-size: 11px; font-weight: 500; cursor: pointer; border-radius: 6px; transition: 0.3s; }
-        .sub-tab-btn.active, .sub-tab-btn:hover { background: #fff; color: var(--black); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-
-        /* ================= AUTOMATIC CAROUSEL ================= */
-        .slider-box { height: 400px; background: #000; position: relative; overflow: hidden; border-radius: 8px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
-        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out, transform 1.2s ease-in-out; display: flex; align-items: center; justify-content: center; transform: scale(1.04); pointer-events: none; }
-        .slide.active { opacity: 1; transform: scale(1); pointer-events: auto; }
-        .slide-bg { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.75; }
-        .slider-text { position: relative; z-index: 10; color: #fff; max-width: 600px; text-align: center; padding: 20px; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s; }
-        .slide.active .slider-text { opacity: 1; transform: translateY(0); }
-        .slider-text h2 { font-family: 'Cinzel', serif; font-size: 34px; margin-bottom: 12px; letter-spacing: 2px; font-weight: 700; color: #ffffff; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        .slider-text p { font-size: 13px; color: #ddd; letter-spacing: 1px; line-height: 1.6; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
-        .slider-controls { position: absolute; bottom: 20px; width: 100%; display: flex; justify-content: center; gap: 10px; z-index: 20; }
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: 0.3s; }
-        .dot.active { background: var(--gold); width: 24px; border-radius: 4px; }
-
-        .section-title { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 600; text-transform: uppercase; margin-bottom: 30px; padding-left: 15px; border-left: 3px solid var(--gold); letter-spacing: 2px; }
-
-        /* Premium Luxury Product Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 30px; }
-        .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: 0.4s var(--ease-ios); display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-sm); position: relative; }
-        .product-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--gold); }
-        .img-container { width: 100%; height: 240px; background: #fff; overflow: hidden; position: relative; }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s var(--ease-ios); }
-        .product-card:hover .img-container img { transform: scale(1.06); }
+        .main-sec-btn { width: 100%; text-align: left; padding: 12px 20px; background: none; border: none; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: #333; }
+        .main-sec-btn:hover, .main-sec-btn.active { background: #fcfcfc; color: var(--gold); }
         
-        .badge-special { position: absolute; top: 12px; left: 12px; background: var(--black); color: var(--gold); font-size: 9px; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 1px; border: 1px solid var(--gold); z-index: 2; }
+        .sub-cat-list { padding-left: 15px; display: none; background: #fafafa; }
+        .sub-cat-list.open { display: block; }
+        .sub-cat-btn { width: 100%; text-align: left; padding: 8px 20px; background: none; border: none; font-size: 12px; color: #666; cursor: pointer; transition: 0.2s; }
+        .sub-cat-btn:hover, .sub-cat-btn.active { color: #000; font-weight: 600; padding-left: 25px; }
 
-        .info-panel { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .p-name { font-size: 14px; font-weight: 600; margin-bottom: 8px; height: 40px; overflow: hidden; line-height: 1.4; color: #111; letter-spacing: 0.5px; }
-        .p-desc { font-size: 12px; color: #777; margin-bottom: 15px; height: 36px; overflow: hidden; line-height: 1.5; }
-        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid #f5f5f5; padding-top: 15px; margin-bottom: 15px; }
-        .p-price { font-size: 16px; font-weight: 700; color: var(--black); }
-        .buy-btn { width: 100%; background: var(--black); color: #fff; border: 1px solid var(--black); padding: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: 0.3s; border-radius: 4px; letter-spacing: 1px; }
-        .buy-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); box-shadow: 0 5px 15px rgba(212,175,55,0.2); }
+        /* HERO SLIDER */
+        .slider-box { height: 380px; background: #000; position: relative; overflow: hidden; border-radius: 8px; }
+        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease; display: flex; align-items: center; justify-content: center; }
+        .slide.active { opacity: 1; }
+        .slide img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+        .slide-text { position: relative; z-index: 10; color: #fff; text-align: center; }
+        .slide-text h2 { font-family: 'Cinzel', serif; font-size: 36px; letter-spacing: 3px; }
 
-        /* --- 🎁 3D REAL CARTOON LUXURY GIFT BOX CONFIGURATOR --- */
-        .gift-layout { display: grid; grid-template-columns: 1fr 440px; gap: 40px; }
-        .setup-panel { background: #fff; border: 1px solid var(--border); padding: 35px; border-radius: 8px; box-shadow: var(--shadow-sm); }
-        .setup-panel h3 { font-family: 'Cinzel', serif; font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 15px; color: #222; }
-        .size-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px 0 30px; }
-        .size-btn { background: #fcfcfc; border: 1px solid var(--border); padding: 18px 5px; text-align: center; cursor: pointer; border-radius: 6px; transition: 0.3s; }
-        .size-btn.selected { background: var(--black); color: var(--gold); border-color: var(--black); font-weight: 700; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-        .size-btn h4 { font-size: 16px; margin-bottom: 4px; }
-        .size-btn small { font-size: 9px; display: block; color: #777; }
-        .size-btn.selected small { color: #ccc; }
-
-        .box-animation-matrix { background: radial-gradient(circle, #252525 0%, #080808 100%); border-radius: 16px; height: 420px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; border: 2px solid #333; box-shadow: var(--shadow-lg); perspective: 1200px; }
-        .cartoon-box-wrapper { position: relative; width: 170px; height: 160px; transform-style: preserve-3d; transition: transform 0.5s ease; margin-bottom: 15px; }
-        .box-lid { position: absolute; width: 182px; height: 42px; background: #1f1f1f; border: 4px solid var(--gold); border-radius: 8px 8px 4px 4px; top: -22px; left: -6px; z-index: 5; transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-origin: bottom right; box-shadow: 0 10px 20px rgba(0,0,0,0.6), inset 0 3px 0 rgba(255,255,255,0.15); }
-        .cartoon-box-wrapper.lid-open .box-lid { transform: translateY(-55px) rotateZ(40deg) rotateX(-15px) scale(0.95); }
-        .box-body { position: absolute; width: 170px; height: 135px; background: #121212; border: 5px solid #222; border-radius: 0 0 16px 16px; bottom: 0; box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 -12px 0 rgba(0,0,0,0.7), inset 0 0 20px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .box-body::before { content: ''; position: absolute; width: 34px; height: 100%; background: linear-gradient(90deg, #b89326 0%, var(--gold) 50%, #b89326 100%); box-shadow: 0 0 12px rgba(212,175,55,0.4); }
-        .box-body::after { content: ''; position: absolute; height: 34px; width: 100%; background: linear-gradient(180deg, #b89326 0%, var(--gold) 50%, #b89326 100%); box-shadow: 0 0 12px rgba(212,175,55,0.4); }
-        .embroidered-label { position: absolute; background: #080808; border: 2px solid var(--gold); padding: 5px 16px; border-radius: 6px; z-index: 6; color: var(--gold); font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); box-shadow: 0 6px 15px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.1); text-transform: uppercase; transform: translateZ(10px); top: 55px; }
-
-        .cartoon-box-wrapper.bounce-shake { animation: cartoonShake 0.65s cubic-bezier(.36,.07,.19,.97) both; }
-        @keyframes cartoonShake {
-            10%, 90% { transform: translate3d(-3px, 0, 0) scale(1.04) rotate(-4deg); }
-            20%, 80% { transform: translate3d(5px, -6px, 0) scale(1.08) rotate(5deg); }
-            30%, 50%, 70% { transform: translate3d(-7px, 3px, 0) scale(0.96) rotate(-6deg); }
-            40%, 60% { transform: translate3d(7px, -9px, 0) scale(1.12) rotate(7deg); }
+        /* 👑 BLACKIE SPECIAL MASTER ARCHITECTURE (ULTRA LUXURY VISUALS) */
+        .blackie-special-container {
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 35px;
+            margin: 40px 0;
+            box-shadow: 0 15px 40px rgba(212,175,55,0.15);
+            position: relative;
+            overflow: hidden;
         }
+        .blackie-special-container::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .special-title-area { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 15px; }
+        .special-title-area h2 { font-family: 'Cinzel', serif; font-size: 24px; color: #fff; letter-spacing: 3px; }
+        .special-title-area h2 span { color: var(--gold); text-shadow: 0 0 10px rgba(212,175,55,0.4); }
+        
+        .special-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; }
+        .spec-tab-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.3); color: #ccc; padding: 10px 20px; font-size: 11px; font-weight: 600; text-transform: uppercase; border-radius: 30px; cursor: pointer; transition: 0.3s; letter-spacing: 1px; }
+        .spec-tab-btn:hover, .spec-tab-btn.active { background: var(--gold); color: #000; font-weight: 700; box-shadow: 0 0 15px var(--gold); border-color: var(--gold); }
 
-        .flying-item { position: fixed; width: 75px; height: 75px; object-fit: cover; border-radius: 12px; border: 3px solid var(--gold); z-index: 9999; pointer-events: none; transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        .box-status-tag { margin-top: 15px; color: var(--gold); font-size: 13px; font-weight: 600; letter-spacing: 2px; z-index: 10; text-transform: uppercase; }
-        .gift-items-summary { margin-top: 15px; width: 85%; max-height: 90px; overflow-y: auto; color: #888; font-size: 12px; text-align: center; line-height: 1.6; border-top: 1px solid #222; padding-top: 15px; }
+        /* PRODUCT CARDS MATRIX */
+        .section-title { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 600; margin-bottom: 25px; padding-left: 15px; border-left: 4px solid var(--gold); letter-spacing: 2px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
+        .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: 0.3s var(--ease-ios); display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+        .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--gold); }
+        
+        .img-box { width: 100%; height: 230px; background: #fff; overflow: hidden; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .product-card:hover .img-box img { transform: scale(1.05); }
+        
+        .badge-vip { position: absolute; top: 12px; left: 12px; background: var(--black); color: var(--gold); font-size: 9px; font-weight: 700; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--gold); box-shadow: 0 0 10px rgba(212,175,55,0.4); }
 
-        /* --- 🔒 ADMIN COMMAND GATEWAY --- */
-        .admin-grid { display: grid; grid-template-columns: 360px 1fr; gap: 40px; }
-        .admin-sidebar { background: #fff; border: 1px solid var(--border); padding: 30px; border-radius: 8px; box-shadow: var(--shadow-sm); }
-        .admin-sidebar h4 { font-family: 'Cinzel', serif; margin-bottom: 20px; font-size: 13px; color: #111; text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 8px; letter-spacing: 1px; }
-        .admin-sidebar label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: #666; display: block; margin-bottom: 6px; }
-        .admin-sidebar input, .admin-sidebar select, .admin-sidebar textarea { width: 100%; padding: 12px; background: #f9f9f9; border: 1px solid var(--border); margin-bottom: 16px; font-size: 12px; border-radius: 4px; outline: none; transition: 0.3s; }
-        .admin-btn { width: 100%; background: var(--black); color: #fff; border: none; padding: 14px; font-size: 11px; font-weight: 600; text-transform: uppercase; cursor: pointer; letter-spacing: 2px; margin-bottom: 15px; border-radius: 4px; transition: 0.3s; }
-        .admin-btn:hover { background: var(--gold); color: #000; }
+        .info-box { padding: 18px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .p-title { font-size: 13px; font-weight: 600; color: #111; margin-bottom: 6px; height: 36px; overflow: hidden; line-height: 1.4; }
+        .p-price { font-size: 15px; font-weight: 700; color: var(--black); margin-bottom: 12px; }
+        .add-btn { width: 100%; background: var(--black); color: #fff; border: none; padding: 11px; font-size: 11px; font-weight: 600; text-transform: uppercase; cursor: pointer; border-radius: 4px; letter-spacing: 1px; transition: 0.3s; }
+        .add-btn:hover { background: var(--gold); color: #000; }
 
-        .inventory-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-sm); }
-        .inventory-table th, .inventory-table td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
-        .inventory-table th { background: #f9f9f9; text-transform: uppercase; font-size: 11px; font-weight: 600; color: #666; letter-spacing: 1px; }
-        .del-row-btn { background: #fff; color: #ff5c5c; border: 1px solid #ffe5e5; padding: 6px 12px; cursor: pointer; border-radius: 4px; transition: 0.3s; }
-        .del-row-btn:hover { background: #ff5c5c; color: #fff; }
+        /* INTERACTIVE 3D GIFT BOX DESIGN */
+        .gift-grid { display: grid; grid-template-columns: 1fr 400px; gap: 30px; }
+        .gift-panel { background: #fff; border: 1px solid var(--border); padding: 30px; border-radius: 8px; }
+        .size-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+        .size-card { border: 1px solid var(--border); padding: 15px; text-align: center; cursor: pointer; border-radius: 6px; }
+        .size-card.active { background: var(--black); color: var(--gold); border-color: var(--black); font-weight: 700; }
+        
+        .box-container-3d { background: radial-gradient(circle, #222 0%, #050505 100%); height: 380px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--gold); perspective: 1000px; position: relative; }
+        .box-wrapper { width: 140px; height: 130px; position: relative; transform-style: preserve-3d; transition: 0.5s; }
+        .lid { position: absolute; width: 150px; height: 35px; background: #1c1c1c; border: 3px solid var(--gold); top: -20px; left: -5px; z-index: 5; transition: 0.5s; transform-origin: bottom right; }
+        .box-wrapper.open .lid { transform: translateY(-40px) rotateZ(30deg); }
+        .body-box { position: absolute; width: 140px; height: 110px; background: #111; border: 3px solid #222; bottom: 0; display: flex; align-items: center; justify-content: center; font-family: 'Cinzel', serif; font-size: 12px; font-weight: 700; letter-spacing: 1px; }
+        .body-box::before { content: ''; position: absolute; width: 25px; height: 100%; background: var(--gold); }
+        .body-box::after { content: ''; position: absolute; height: 25px; width: 100%; background: var(--gold); }
+        .flying-img { position: fixed; width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 2px solid var(--gold); z-index: 9999; transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1); }
 
-        /* --- 🛍️ CHECKOUT DRAWER --- */
-        .cart-drawer { position: fixed; top: 0; right: -100%; width: 100%; max-width: 480px; height: 100vh; background: #ffffff; z-index: 2000; box-shadow: -15px 0 40px rgba(0,0,0,0.06); transition: 0.5s var(--ease-ios); display: flex; flex-direction: column; border-left: 1px solid var(--border); }
+        /* SHOPPING DRAWER */
+        .cart-drawer { position: fixed; top: 0; right: -100%; width: 100%; max-width: 440px; height: 100vh; background: #fff; z-index: 2000; box-shadow: -10px 0 30px rgba(0,0,0,0.05); transition: 0.4s var(--ease-ios); display: flex; flex-direction: column; }
         .cart-drawer.open { right: 0; }
-        .drawer-header { padding: 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: #fff; }
-        .drawer-header h3 { font-family: 'Cinzel', serif; font-size: 16px; color: var(--black); letter-spacing: 1.5px; }
-        .drawer-body { flex: 1; overflow-y: auto; padding: 24px; background: #fdfdfd; }
-        .drawer-footer { padding: 24px; border-top: 1px solid var(--border); background: #ffffff; box-shadow: 0 -4px 20px rgba(0,0,0,0.02); }
-        .drawer-item { display: flex; gap: 15px; align-items: center; padding: 16px 0; border-bottom: 1px solid #f5f5f5; }
-        .drawer-item img { width: 55px; height: 55px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); }
-        
-        .checkout-form { margin-top: 30px; border-top: 1px solid var(--border); padding-top: 25px; }
-        .checkout-form h4 { font-family: 'Cinzel', serif; font-size: 12px; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1px; color: #333; }
-        .checkout-form input, .checkout-form textarea { width: 100%; background: #ffffff; border: 1px solid var(--border); padding: 12px 16px; color: #000; font-size: 13px; margin-bottom: 14px; border-radius: 6px; outline: none; transition: 0.3s var(--ease-ios); }
+        .drawer-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .drawer-body { flex: 1; overflow-y: auto; padding: 20px; }
+        .drawer-footer { padding: 20px; border-top: 1px solid var(--border); }
+        .drawer-item { display: flex; gap: 15px; align-items: center; padding: 12px 0; border-bottom: 1px solid #f9f9f9; }
+        .drawer-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
+        .chk-input { width: 100%; padding: 12px; border: 1px solid var(--border); margin-bottom: 12px; border-radius: 4px; outline: none; font-size: 13px; }
 
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); backdrop-filter: blur(4px); z-index: 1500; opacity: 0; pointer-events: none; transition: 0.4s; }
-        .modal-overlay.open { opacity: 1; pointer-events: auto; }
-
-        /* --- 📱 SMART PREMIUM MOBILE STICKY BOTTOM NAVIGATION BAR --- */
-        .bottom-sticky-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%; height: 64px;
-            background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        /* SMART MOBILE STICKY BOTTOM NAV BAR */
+        .bottom-sticky-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 65px;
+            background: rgba(0, 0, 0, 0.96); backdrop-filter: blur(15px);
             display: flex; justify-content: space-around; align-items: center;
-            z-index: 1400; padding: 0 10px; box-shadow: 0 -8px 30px rgba(0,0,0,0.3);
+            z-index: 1500; border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .bottom-nav-item {
+        .bottom-bar-item {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: #888; background: none; border: none; font-size: 20px; cursor: pointer;
-            transition: 0.3s; text-decoration: none; position: relative; flex: 1;
+            color: #888; background: none; border: none; font-size: 18px; cursor: pointer; transition: 0.3s; flex: 1; text-decoration: none; position: relative;
         }
-        .bottom-nav-item span { font-size: 10px; font-weight: 500; margin-top: 4px; font-family: 'Montserrat', sans-serif; letter-spacing: 0.5px; }
-        .bottom-nav-item:hover, .bottom-nav-item.active { color: var(--gold); }
-        .bottom-nav-item .mobile-badge {
-            position: absolute; top: 2px; right: 25%; background: var(--gold); color: #000;
-            font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 50%;
-        }
+        .bottom-bar-item span { font-size: 10px; margin-top: 4px; font-weight: 500; }
+        .bottom-bar-item:hover, .bottom-bar-item.active { color: var(--gold); }
+        .bottom-bar-item .m-badge { position: absolute; top: 2px; right: 28%; background: var(--gold); color: #000; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 50%; }
 
-        /* --- 🔔 TOAST NOTIFICATION UI SYSTEM --- */
-        #toastContainer { position: fixed; bottom: 80px; left: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-        .toast-card { background: #111; color: #fff; padding: 15px 25px; border-radius: 6px; font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 12px; border-left: 3px solid var(--gold); transform: translateX(-150%); animation: slideToast 0.3s forwards; }
-        @keyframes slideToast { to { transform: translateX(0); } }
+        /* TOAST SYSTEM */
+        #toastArea { position: fixed; bottom: 85px; left: 25px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+        .toast { background: #111; color: #fff; padding: 12px 20px; border-radius: 4px; font-size: 12px; font-weight: 600; border-left: 3px solid var(--gold); animation: slideIn 0.3s forwards; }
+        @keyframes slideIn { from { transform: translateX(-120%); } to { transform: translateX(0); } }
 
-        footer { background: rgba(255,255,255,0.9); border-top: 1px solid var(--border); text-align: center; padding: 30px; font-size: 12px; color: #777; margin-top: 20px; letter-spacing: 0.5px; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); backdrop-filter: blur(3px); z-index: 1800; display: none; }
+        .overlay.open { display: block; }
+        footer { text-align: center; padding: 25px; font-size: 12px; color: #777; background: #fff; border-top: 1px solid var(--border); }
 
-        /* --- 📱 RESPONSIVENESS ARCHITECTURE --- */
-        @media(max-width: 992px) {
-            .home-grid { grid-template-columns: 1fr; gap: 20px; }
-            .slider-box { height: 320px; }
-            .gift-layout { grid-template-columns: 1fr; gap: 25px; }
-            .admin-grid { grid-template-columns: 1fr; gap: 25px; }
-        }
-
+        /* RESPONSIVE LAYOUT FOR MOBILE DEVICES */
         @media(max-width: 768px) {
-            header { padding: 14px 4%; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
-            .logo { font-size: 24px; order: 1; }
-            .cart-icon-btn { order: 2; }
-            .search-container { order: 3; min-width: 100%; margin: 5px 0 0 0; max-width: 100%; }
-            header nav { display: none; } /* Hidden on mobile in favor of the beautiful sticky bottom nav */
-            
-            .top-header { padding: 8px 4%; justify-content: center; gap: 15px; font-size: 10px; }
-            .page-view { padding: 25px 4%; }
-            .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-            .img-container { height: 170px; }
-            .info-panel { padding: 12px; }
-            .p-name { font-size: 12px; height: 34px; }
-            .p-price { font-size: 14px; }
-            
-            .side-menu { display: flex; overflow-x: auto; padding: 10px; gap: 10px; background: transparent; border: none; box-shadow: none; width: 100%; height: auto; }
-            .side-menu h3 { display: none; }
-            .menu-item { padding: 10px 18px; font-size: 11px; background: #fff; border: 1px solid var(--border); border-radius: 20px; white-space: nowrap; flex-shrink: 0; box-shadow: var(--shadow-sm); }
-            .menu-item i { display: none; }
-            
-            .size-grid { grid-template-columns: repeat(3, 1fr); }
-            .cart-drawer { max-width: 100%; }
+            header { padding: 15px 4%; }
+            nav { display: none; }
+            .search-container { max-width: 100%; margin: 10px 0 0 0; min-width: 100%; order: 3; }
+            header { flex-wrap: wrap; }
+            .daraz-layout, .gift-grid { grid-template-columns: 1fr; gap: 20px; }
+            .daraz-sidebar { display: flex; overflow-x: auto; padding: 10px; gap: 10px; }
+            .sidebar-section-title { display: none; }
+            .main-sec-btn { width: auto; background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 8px 15px; font-size: 12px; white-space: nowrap; }
+            .main-sec-btn i { display: none; }
+            .sub-cat-list { position: absolute; z-index: 100; background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--shadow-lg); margin-top: 40px; }
+            .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+            .img-box { height: 160px; }
+            .page-view { padding: 20px 4%; }
         }
     </style>
 </head>
 <body>
 
-    <div id="toastContainer"></div>
+    <div id="toastArea"></div>
+    <div class="overlay" id="uiOverlay" onclick="closeCartDrawer()"></div>
 
     <div class="top-header">
-        <span>BLACKIE CARE HUB</span>
-        <span>EXECUTIVE LOGISTICS</span>
-        <span onclick="secureGatewayLogin()">⚙️ CENTRAL ADMIN DESK</span>
+        <span>BLACKIE CARE LOGISTICS</span>
+        <span style="cursor:pointer;" onclick="adminGate()">⚙️ VAULT LOGIN</span>
     </div>
 
-    <header id="mainHeader">
-        <a href="#" class="logo" onclick="navigateToPage('homeView')">BLACK<span>IE</span></a>
-        
+    <header>
+        <a href="#" class="logo" onclick="showPage('homeView')">BLACK<span>IE</span></a>
         <div class="search-container">
-            <input type="text" id="storeSearchBar" class="search-box" placeholder="Filter through 800+ luxury artifacts..." oninput="triggerLiveSearch()">
+            <input type="text" id="mainSearchInput" class="search-box" placeholder="Search unique designs..." oninput="liveSearch()">
             <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
-
         <nav>
-            <button class="nav-link active" id="btn-homeView" onclick="navigateToPage('homeView')">Home</button>
-            <button class="nav-link" id="btn-categoryView" onclick="filterByCategoryPage('Watches Sector')">Collections</button>
-            <button class="nav-link" id="btn-giftView" style="color:var(--gold); font-weight:700;" onclick="navigateToPage('giftView')">🎁 Gift Box</button>
+            <button class="nav-b active" id="nb-homeView" onclick="showPage('homeView')">Home</button>
+            <button class="nav-b" id="nb-giftView" onclick="showPage('giftView')" style="color:var(--gold); font-weight:700;">🎁 Gift Box</button>
         </nav>
-
-        <button class="cart-icon-btn" onclick="toggleDrawer(true)">
+        <button class="cart-icon-btn" onclick="openCartDrawer()">
             <i class="fa-solid fa-bag-shopping"></i>
-            <span class="cart-count" id="badgeCount">0</span>
+            <span class="cart-count" id="cartBadge">0</span>
         </button>
     </header>
 
     <main class="page-view active" id="homeView">
-        <div class="home-grid">
-            <div>
-                <div class="side-menu" id="dynamicSideMenuContainer">
-                    </div>
-            </div>
-
-            <div class="slider-box" id="premiumSlider">
-                <div class="slide active">
-                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200" class="slide-bg">
-                    <div class="slider-text">
-                        <h2>ELEGANCE REDEFINED</h2>
-                        <p>High-fidelity interfaces engineered elegantly for elite consumers globally.</p>
-                    </div>
+        <div class="daraz-layout">
+            <div class="daraz-sidebar" id="sidebarContainer">
                 </div>
-                <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1200" class="slide-bg">
-                    <div class="slider-text">
-                        <h2>TIMELÉSS PRECISION</h2>
-                        <p>Explore the vault of curated luxury timepieces from across the globe.</p>
-                    </div>
-                </div>
-                <div class="slider-controls" id="sliderDots"></div>
-            </div>
-        </div>
-
-        <div class="special-section">
-            <div class="special-header">
-                <i class="fa-solid fa-crown" style="color:var(--gold); font-size:24px;"></i>
-                <h2>BLACKIE <span>SPECIAL ARCHIVE</span></h2>
-            </div>
             
-            <div class="nested-nav">
-                <button class="nested-btn active" id="nb-Womens" onclick="switchSpecialMainSector('Womens')">👩 Womens Luxury</button>
-                <button class="nested-btn" id="nb-Mens" onclick="switchSpecialMainSector('Mens')">👨 Mens Premium</button>
-                <button class="nested-btn" id="nb-Accessories" onclick="switchSpecialMainSector('Accessories')">💎 Elite Accessories</button>
-                <button class="nested-btn" id="nb-Boys" onclick="switchSpecialMainSector('Boys')">👦 Boys Vault</button>
-                <button class="nested-btn" id="nb-Girls" onclick="switchSpecialMainSector('Girls')">👧 Girls Vault</button>
+            <div class="slider-box">
+                <div class="slide active"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1000"><div class="slide-text"><h2>SUMMER ARCHIVE 2026</h2></div></div>
+                <div class="slide"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1000"><div class="slide-text"><h2>PREMIUM UNIQUE PATTERNS</h2></div></div>
             </div>
-
-            <div class="sub-category-tabs" id="specialSubTabsContainer">
-                </div>
-
-            <div class="grid" id="specialProductsDisplayGrid"></div>
         </div>
 
-        <div class="section-title">TRENDING RELEASES FOR YOU</div>
-        <div class="grid" id="homeDisplayGrid"></div>
-    </main>
+        <div class="blackie-special-container">
+            <div class="special-title-area">
+                <i class="fa-solid fa-crown" style="color:var(--gold); font-size:26px;"></i>
+                <h2>BLACKIE <span>SPECIAL VAULT</span></h2>
+            </div>
+            <div class="special-tabs" id="specialTabsHeader">
+                </div>
+            <div class="grid" id="specialProductsGrid"></div>
+        </div>
 
-    <main class="page-view" id="categoryView">
-        <div class="section-title" id="currentCategoryTitle">COLLECTIONS CATALOGUE</div>
-        <div class="grid" id="categoryDisplayGrid"></div>
+        <div class="section-title" id="exploreGridTitle">EXPLORE POPULAR COLLECTIONS</div>
+        <div class="grid" id="mainStoreGrid"></div>
     </main>
 
     <main class="page-view" id="giftView">
-        <div class="section-title">Sweet Luxury Blackie Box Customizer</div>
-        <div class="gift-layout">
-            <div class="setup-panel">
-                <h3>1. Select Box Capacity Target</h3>
-                <div class="size-grid">
-                    <div class="size-btn selected" id="sz-XS" onclick="selectBoxSize('XS', 2)"><h4>XS</h4><small>Max 2 Items</small></div>
-                    <div class="size-btn" id="sz-S" onclick="selectBoxSize('S', 4)"><h4>S</h4><small>Max 4 Items</small></div>
-                    <div class="size-btn" id="sz-M" onclick="selectBoxSize('M', 6)"><h4>M</h4><small>Max 6 Items</small></div>
-                    <div class="size-btn" id="sz-L" onclick="selectBoxSize('L', 9)"><h4>L</h4><small>Max 9 Items</small></div>
-                    <div class="size-btn" id="sz-XL" onclick="selectBoxSize('XL', 12)"><h4>XL</h4><small>Max 12 Items</small></div>
+        <div class="section-title">Configure Custom Blackie Gift Box</div>
+        <div class="gift-grid">
+            <div class="gift-panel">
+                <h3>Select Target Box Scale</h3>
+                <div class="size-selector">
+                    <div class="size-card active" id="sc-3" onclick="setBoxConfig(3)"><h4>Tier-A</h4><small>Max 3 Items</small></div>
+                    <div class="size-card" id="sc-6" onclick="setBoxConfig(6)"><h4>Tier-B</h4><small>Max 6 Items</small></div>
+                    <div class="size-card" id="sc-10" onclick="setBoxConfig(10)"><h4>Tier-Luxury</h4><small>Max 10 Items</small></div>
                 </div>
-                <h3 style="margin-bottom:15px;">2. Load Custom Vault Items</h3>
-                <button class="admin-btn" style="background:var(--gold); color:#000; box-shadow:0 4px 15px rgba(212,175,55,0.2);" onclick="activateGiftItemCollection()">
-                    <i class="fa-solid fa-arrow-right-to-bracket"></i> Collect Items From Store Front
+                <button class="add-btn" style="background:var(--gold); color:#000; font-weight:700;" onclick="turnOnGiftPackingMode()">
+                    <i class="fa-solid fa-box-open"></i> Collect Items From Store Front
                 </button>
             </div>
-            
-            <div class="box-animation-matrix" id="animationContainer">
-                <div class="cartoon-box-wrapper" id="cartoonBox3D">
-                    <div class="box-lid"></div>
-                    <div class="box-body"></div>
-                    <div class="embroidered-label">BLACKIE</div>
+            <div class="box-container-3d" id="box3DContainer">
+                <div class="box-wrapper" id="box3DElement">
+                    <div class="lid"></div>
+                    <div class="body-box">BLACKIE</div>
                 </div>
-                <div class="box-status-tag" id="boxStatusText">BOX SIZE: XS (0 / 2 FULL)</div>
-                <div class="gift-items-summary" id="giftBoxSummaryList">No items packed inside yet.</div>
+                <p style="margin-top:20px; font-weight:600; letter-spacing:1px;" id="boxStatusText">BOX CAPACITY: 0 / 3 FILLED</p>
+                <div style="font-size:11px; color:#aaa; margin-top:10px; text-align:center; max-height:60px; overflow-y:auto;" id="boxSummaryText">Box is empty.</div>
             </div>
         </div>
     </main>
 
-    <main class="page-view" id="adminView">
-        <div class="section-title">BLACKIE ADMIN STORAGE ENGINE</div>
-        <div class="admin-grid">
-            <div class="admin-sidebar">
-                <h4>📦 Inject New Retail Artifacts</h4>
-                <label>Inventory Storage Sector</label>
-                <select id="admProdCat"></select>
-                <input type="text" id="admProdName" placeholder="Artifact Title *">
-                <input type="text" id="admProdPrice" placeholder="Value Pricing (LKR) *">
-                <input type="text" id="admProdImg" placeholder="Cloud Assets Image Link *">
-                <textarea id="admProdDesc" rows="2" placeholder="Luxury Core Descriptions Text *"></textarea>
-                <button class="admin-btn" style="background:var(--gold); color:#000;" onclick="injectProduct()">Deploy Into Vault Stock</button>
-            </div>
-            <div style="overflow-x:auto;">
-                <table class="inventory-table">
-                    <thead><tr><th>Category</th><th>Asset Blueprint</th><th>Value Cost</th><th>Purge</th></tr></thead>
-                    <tbody id="adminInventoryTableBody"></tbody>
-                </table>
-            </div>
-        </div>
-    </main>
-
-    <div class="bottom-sticky-nav">
-        <button class="bottom-nav-item active" id="mbtn-homeView" onclick="navigateToPage('homeView')">
-            <i class="fa-solid fa-house"></i><span>Home</span>
-        </button>
-        <button class="bottom-nav-item" id="mbtn-categoryView" onclick="filterByCategoryPage('Watches Sector')">
-            <i class="fa-solid fa-border-all"></i><span>Explore</span>
-        </button>
-        <button class="bottom-nav-item" id="mbtn-giftView" onclick="navigateToPage('giftView')">
-            <i class="fa-solid fa-gift" style="color:var(--gold);"></i><span style="color:var(--gold);">Gift Box</span>
-        </button>
-        <button class="bottom-nav-item" onclick="secureGatewayLogin()">
-            <i class="fa-solid fa-user-gear"></i><span>Admin</span>
-        </button>
-        <button class="bottom-nav-item" onclick="toggleDrawer(true)">
-            <i class="fa-solid fa-cart-shopping"></i><span>Cart</span>
-            <span class="mobile-badge" id="mobileBadgeCount">0</span>
-        </button>
+    <div class="bottom-sticky-bar">
+        <button class="bottom-bar-item active" id="mb-homeView" onclick="showPage('homeView')"><i class="fa-solid fa-house"></i><span>Home</span></button>
+        <button class="bottom-bar-item" id="mb-giftView" onclick="showPage('giftView')"><i class="fa-solid fa-gift" style="color:var(--gold);"></i><span style="color:var(--gold);">Gift Box</span></button>
+        <button class="bottom-bar-item" onclick="adminGate()"><i class="fa-solid fa-user-shield"></i><span>Admin</span></button>
+        <button class="bottom-bar-item" onclick="openCartDrawer()"><i class="fa-solid fa-cart-shopping"></i><span>Cart</span><span class="m-badge" id="mobileCartBadge">0</span></button>
     </div>
 
-    <div class="modal-overlay" id="cartOverlay" onclick="toggleDrawer(false)"></div>
-    <div class="cart-drawer" id="cartExpansionDrawer">
+    <div class="cart-drawer" id="cartDrawerPanel">
         <div class="drawer-header">
-            <h3>SHOPPING REPORT LOGS</h3>
-            <span style="cursor:pointer; font-size:18px;" onclick="toggleDrawer(false)"><i class="fa-solid fa-xmark"></i></span>
+            <h3 style="font-family:'Cinzel'; font-size:15px;">SECURE CHECKOUT CONTAINER</h3>
+            <span style="cursor:pointer;" onclick="closeCartDrawer()"><i class="fa-solid fa-xmark"></i></span>
         </div>
         <div class="drawer-body">
-            <div id="drawerItemsList"></div>
-            <div class="checkout-form">
-                <h4>Secure Logistics Cargo Dispatches</h4>
-                <input type="text" id="chkName" placeholder="Recipient Full Legal Name *">
-                <input type="text" id="chkPhone1" placeholder="Primary Contact Mobile *">
-                <input type="text" id="chkPhone2" placeholder="Alternative Backup Line">
-                <textarea id="chkAddr1" rows="2" placeholder="Primary Shipping Destination Address *"></textarea>
+            <div id="cartItemsContainer"></div>
+            <div style="margin-top:25px; border-top:1px solid var(--border); padding-top:20px;">
+                <input type="text" class="chk-input" id="cName" placeholder="Customer Name *">
+                <input type="text" class="chk-input" id="cPhone" placeholder="Mobile Number *">
+                <textarea class="chk-input" id="cAddress" rows="2" placeholder="Delivery Address *"></textarea>
             </div>
         </div>
         <div class="drawer-footer">
-            <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:20px; font-size:16px;">
-                <span>GRAND SUMMARY:</span>
-                <span style="color:var(--gold);"><span id="drawerGrandTotalText">0</span> LKR</span>
+            <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:15px;">
+                <span>NET TOTAL AMOUNT:</span>
+                <span style="color:var(--gold);"><span id="cartTotalText">0</span> LKR</span>
             </div>
-            <button class="admin-btn" style="margin:0; background:var(--black); padding:16px;" onclick="dispatchWhatsAppOrder()">Checkout Dispatches via WhatsApp</button>
+            <button class="add-btn" style="padding:15px;" onclick="submitOrderViaWhatsApp()">Dispatch Order via WhatsApp</button>
         </div>
     </div>
 
-    <footer>
-        <p>© 2026 BLACKIE VAULT RETAILS LTD. High-End Premium Geometric Frameworks.</p>
-    </footer>
+    <footer><p>© 2026 BLACKIE VAULT RETAILS. All Unique Assets Safeguarded Successfully.</p></footer>
 
     <script>
-        // --- 📊 MASSIVE DATA ENGINE AUTOMATION ARCHITECTURE (DARAZ SCALE) ---
-        const MAIN_CATEGORIES_LIST = [
-            "Watches Sector", "Perfumes Vault", "Elite Attire", "Luxury Footwear", "Smart Electronics",
-            "Eyewear Archive", "Leather Goods", "Jewelry Matrix", "Cosmetics Aura", "Travel Luggage",
-            "Premium Belts", "Headwear Caps", "Audio Systems", "Office Artifacts", "Decor Art",
-            "Fitness Gear", "Grooming Kits", "Socks Coziness", "Wallets Compact", "Innerwear Elite",
-            "Tech Accessories", "Snapple Drinks", "Lounge Wear", "Gold Sovereigns", "Elite Collectibles"
-        ];
-
-        const SPECIAL_NESTED_MAP = {
-            Womens: ["T-Shirts", "Frocks", "Saree", "Shoes Layout"],
-            Mens: ["Shirts Pack", "Pants Denim", "Suits Tuxedo", "T-Shirts Casual"],
-            Accessories: ["Bracelets Gold", "Rings Luxury", "Necklaces Pure"],
-            Boys: ["Shirts Active", "Shorts Summer"],
-            Girls: ["Dresses Cute", "Hair Ornaments"]
+        // --- 📊 GENERATION LOGIC: METICULOUSLY POPULATED UNIQUE ITEMS SECTORS ---
+        const IMAGE_POOLS = {
+            Womens: {
+                "T-Shirts": ["1539572691-61245b759533", "1503342217505-b0a15ec3261c", "1515886657613-9f3515b0c78f", "1554412933-514a872033c8", "1562157873-818bc0726f68"],
+                "Frocks": ["1595777457511-b61c4c825d50", "1572804013309-b7e884e1231f", "1618932260503-7cd427543165", "1612336307429-8a898d10e223", "1609357605151-a57ab9d5def1"],
+                "Sarees": ["1583391733956-4447240114a3", "1610030469983-164551c3e504", "1605784189665-381be4a6ef9e", "1617627143721-cc6f1311b5ff", "1599407421112-c9fa4b08d2b2"],
+                "Shoes": ["1543163521114-171445b888c5", "1560343090-5e67bd3573c3", "1595950653106-6c9ebd614d3a", "1535043934142-f04f934a1ac0", "1600185365483-264aa7142b9a"],
+                "Skirts": ["1582142333534-1100b5aa6f5d", "1585487000160-c9fa6a9386d7", "1605559132565-df048bf81db9", "1576127110188-75f85ff296e8", "1551160567-47c37e90db72"]
+            },
+            Mens: {
+                "Shirts": ["1602810318383-a5c93a57f44a", "1596755094514-41d46a4a48cd", "1620012253702-c175f0a0a817", "1598033129183-c4031a547faf", "1561715276022-d306b8af0e62"],
+                "Denim Jeans": ["1542272604648-dd6097c26b64", "1541099649105-0309dd084ba7", "1582552575214-7290bc983d5f", "1541560052-11162bcb6525", "1604176354204-92687378243e"],
+                "Suits": ["1594938298715-dd011b233a56", "1593030103781-93a07771233b", "1598805981024-c0185c16e423", "1507679799987-416297315a51", "1519741497674-c2a09f48aba1"],
+                "T-Shirts": ["1521572267360-ee0c2909d518", "1583743814035-7edd237c6259", "1564564321-df5b8d2cf3d3", "1479064555543-aefc5b4008af", "1553440567406-fc6c9e0ff3aa"],
+                "Jackets": ["1551028719-00167b16eac5", "1551488831-7eec264c27ff", "1544441890-a57a6e12019a", "1578587018451-40b4070a74d6", "1483985988355-763728e1935b"]
+            },
+            Boys: {
+                "Polo Shirts": ["1603415514173-0960bfc934ed", "1617137968426-ef84a79df3f5", "1519457431307-a6e51f8452f1", "1594938298451-24da73d421da", "1614251441315-9c9dc76d0ea8"],
+                "Shorts": ["1591195853733-2a212ec9537f", "1503341455253-b23c555c42a1", "1593030703123-01bd7a7711d5", "1607574512411-da4482ba25c1", "1554552431114-f5ff4a77a944"],
+                "Caps": ["1534215748451-b0031f4089a7", "1572424273030-cf226b3a0a50", "1588850567012-7da412bb456c", "1622352737344-93e17cf6f2e8", "1534955355451-ffbd25e0bc0a"],
+                "Watches": ["1523275335684-37898b6baf30", "1612817288483-4f114d52140c", "1542496658056-07a8b321a44c", "1508685096483-a0e23d17a83d", "1547996160-c5a452145e12"],
+                "Sneakers": ["1549298916-c4193f774cc9", "1606107557111-da53fb0d7fb4", "1556906200-24da831a2bcb", "1608231387023-3802315fa411", "1529810314-b15c48b7b25e"]
+            },
+            Girls: {
+                "Dresses": ["1601050853541-ef12be98cfb6", "1608752251142-ffde4256eb0d", "1621245353112-a16da0fc24db", "1518831959646-91629fbf4d44", "1560965355-6bcf26dd05ab"],
+                "Frocks Cute": ["1515662705234-9ca25e6dd197", "1603561567012-7da35cb74bc1", "1596485012351-9db7bba662bd", "1604051411351-9c8e8ea6f2ea", "1572421445-6cfbd144bdff"],
+                "Hair Bands": ["1576243257010-dfbc56653ea1", "1615553106114-cfd12ff87bca", "1626245311012-9cbbffda4e6c", "1599424214-9fdba6672cfa", "1588145214-7da48ba242bb"],
+                "Shoes Bow": ["1562274431-7eed42bcb63d", "1594938214351-b0dbb12bb4da", "1620011412355-ca0fa35ea0bd", "1576241155-9dbfba7da4da", "1551160355-aefda7bda5df"],
+                "Bags": ["1566150905451-b2cf5f5d3d44", "1584917865442-c89df96b5c92", "1598414412-9dfbb5ea6cba", "1607514111-da4bda5ca7da", "1572411551-7fdbaa6ca8fa"]
+            },
+            Sports: {
+                "Jerseys": ["1580087114141-a8d011ed039e", "1517462964551-b40b12bc12ff", "1587280567011-da3bca6fa8ca", "1595151441-9fcda5ba2da7", "1560415141-cf3dfa7ca2db"],
+                "Track Pants": ["1515438040175-40a1b501535a", "1551854551-c0a7f2e15da3", "1605515112-da34bb7d86f9", "1574515111-9fbbdd6a7bca", "1584215111-7fdba6a8fa7d"],
+                "Running Shoes": ["1542291026-7eec264c27ff", "1608231387023-3802315fa411", "1460355974673-a0d540264b7c", "1595950653106-6c9ebd614d3a", "1539185441-9fbcd7fa8ba4"],
+                "Water Bottles": ["1602143407483-33ce3a0078d5", "1574243273-df26fb774da3", "1592352737-ca0fa27ba2dd", "1589215141-9fbd37ca2da8", "1554115111-7fdba5a1ba2e"],
+                "Gym Gloves": ["1517838277535-c3f25c7772fa", "1599524214-da23ca77fa4d", "1602352411-cfbd7e89ab2d", "1584215111-9fbcda789bfa", "1564214111-7da35bbfa214"]
+            },
+            BlackieSpecial: {
+                "VIP Wear": ["1492562080074-2c7de02c2e17", "1539093900888-eb8347feefc8", "1488161628810-7aa5dd47d3ae", "1496345875631-c03565e31c14", "1507679799987-416297315a51"],
+                "VIP Jewelry": ["1599643478513-40f4e0c4b8b6", "1535632066927-ab7c9ab60908", "1617038260814-411a0b7a844a", "1605100804763-a28b18f3d82a", "1515562141-9fcda2da35ba"],
+                "VIP Scent": ["1541643600914-78b084683601", "1592945403241-58e17c0c3a6d", "1528740567011-cf23ba6fa7ba", "1594035612-9fdba5ba7bca", "1574514111-7fdba2ca15ba"],
+                "VIP Shades": ["1572635196237-14b3f281503f", "1511499767154-557c7a5f4a6e", "1591076241-da3bfa5ca3da", "1582415111-9fdbb2ca14ea", "1562415111-7da3bbfa14da"]
+            }
         };
 
-        const DESIGN_STOCK_PHOTOS = [
-            "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=500",
-            "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=500",
-            "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=500",
-            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=500",
-            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=500",
-            "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=500",
-            "https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=500",
-            "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=500"
-        ];
+        // GLOBAL ENGINE STATE
+        let db = { products: [] };
+        let activeMainSection = "Womens";
+        let activeSubCategory = "T-Shirts";
+        let activeSpecialCategory = "VIP Wear";
+        let cart = JSON.parse(localStorage.getItem('b_vault_cart')) || [];
+        let packingMode = false;
+        let maxBoxCapacity = 3;
+        let packedItemsList = [];
 
-        let db = JSON.parse(localStorage.getItem('blackie_god_db'));
-
-        if (!db || !db.products || db.products.length < 500) {
-            db = { products: [] };
+        // --- CORE ALGORITHM: GENERATE UNIQUE REAL DARAZ-SCALE ARCHITECTURE ---
+        function generateUniqueStoreDatabase() {
+            db.products = [];
             
-            // Generate Main Categories (25 Categories * 35 Items = 875 Items)
-            MAIN_CATEGORIES_LIST.forEach((cat) => {
-                let initialBasePrice = 4500 + Math.floor(Math.random() * 25000);
-                for(let i = 1; i <= 35; i++) {
-                    let photoSeed = (cat.charCodeAt(0) + i) % DESIGN_STOCK_PHOTOS.length;
-                    db.products.push({
-                        cat: cat,
-                        name: `${cat.split(' ')[0]} Premium Replica Specimen-${100 + i}`,
-                        price: String(initialBasePrice + (i * 250)),
-                        img: DESIGN_STOCK_PHOTOS[photoSeed],
-                        desc: `High-fidelity item registered securely inside the automated ${cat} architecture system.`,
-                        isSpecial: false
-                    });
-                }
-            });
-
-            // Generate Blackie Special Deep Nested Data
-            for (let mainSec in SPECIAL_NESTED_MAP) {
-                SPECIAL_NESTED_MAP[mainSec].forEach((subCat) => {
-                    let initialBasePrice = 6500 + Math.floor(Math.random() * 15000);
-                    for(let i = 1; i <= 35; i++) {
-                        let photoSeed = (subCat.charCodeAt(0) + i) % DESIGN_STOCK_PHOTOS.length;
+            // Loop Main Sections (Womens, Mens, Boys, Girls, Sports)
+            for (let section in IMAGE_POOLS) {
+                if (section === "BlackieSpecial") continue;
+                
+                for (let category in IMAGE_POOLS[section]) {
+                    let images = IMAGE_POOLS[section][category];
+                    
+                    // Generate exactly 35-40 strictly unique artifacts per sub-category
+                    for (let i = 1; i <= 36; i++) {
+                        let imgSeed = images[(i - 1) % images.length];
+                        let uniquePrice = 2800 + (i * 220) + (category.charCodeAt(0) * 5);
+                        
                         db.products.push({
-                            cat: `SPECIAL_${mainSec}_${subCat}`,
-                            name: `Blackie Elite ${subCat.replace(' Layout','').replace(' Pack','')} Luxury Variant-${500 + i}`,
-                            price: String(initialBasePrice + (i * 300)),
-                            img: DESIGN_STOCK_PHOTOS[photoSeed],
-                            desc: `Exclusive Special Capsule designed strictly for Blackie ${mainSec} Portfolio. High quality build guaranteed.`,
-                            isSpecial: true,
-                            mainSector: mainSec,
-                            subSector: subCat
+                            id: `PROD-${section.substring(0,2).toUpperCase()}-${category.substring(0,2).toUpperCase()}-${100 + i}`,
+                            section: section,
+                            category: category,
+                            name: `Blackie Elite ${section} Unique ${category.replace(' Layout','')} Design Variant-${100 + i}`,
+                            price: uniquePrice,
+                            img: `https://images.unsplash.com/photo-${imgSeed}?q=80&w=500`,
+                            isSpecial: false
                         });
                     }
-                });
-            }
-            localStorage.setItem('blackie_god_db', JSON.stringify(db));
-        }
-
-        let standardCart = JSON.parse(localStorage.getItem('blackie_std_cart')) || [];
-        let giftModeActive = false;
-        let selectedBoxSizeName = "XS";
-        let maxAllowedGiftItems = 2;
-        let packedGiftItems = [];
-        
-        let activeSpecialMainSector = "Womens";
-        let activeSpecialSubSector = "T-Shirts";
-        let lastSelectedPageId = 'homeView';
-        let lastScrollCoordinateY = 0;
-
-        function showPremiumToast(message) {
-            let container = document.getElementById('toastContainer');
-            let card = document.createElement('div');
-            card.className = "toast-card";
-            card.innerHTML = `<i class="fa-solid fa-crown" style="color:var(--gold)"></i> <span>${message}</span>`;
-            container.appendChild(card);
-            setTimeout(() => {
-                card.style.opacity = "0";
-                card.style.transform = "translateY(10px)";
-                setTimeout(() => card.remove(), 400);
-            }, 2500);
-        }
-
-        function secureGatewayLogin() {
-            let token = prompt("ENTER SECRET REAR COMMAND CODES GATEWAY AUTHENTICATION KEY:");
-            if(token === "blackie123") {
-                showPremiumToast("Access Cleared! Welcome Admin.");
-                navigateToPage('adminView');
-            } else if(token !== null) {
-                showPremiumToast("Critical Code Invalid.");
-            }
-        }
-
-        function navigateToPage(pageId) {
-            let targets = document.querySelectorAll('.page-view');
-            targets.forEach(p => {
-                p.style.opacity = "0";
-                p.style.transform = "translateY(15px)";
-                p.style.display = "none";
-            });
-            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-            document.querySelectorAll('.bottom-nav-item').forEach(m => m.classList.remove('active'));
-            
-            let activeTarget = document.getElementById(pageId);
-            activeTarget.style.display = "block";
-            setTimeout(() => {
-                activeTarget.style.opacity = "1";
-                activeTarget.style.transform = "translateY(0)";
-            }, 50);
-
-            let navBtn = document.getElementById('btn-' + pageId);
-            if(navBtn) navBtn.classList.add('active');
-
-            let mobBtn = document.getElementById('mbtn-' + pageId);
-            if(mobBtn) mobBtn.classList.add('active');
-        }
-
-        function initializeSlider() {
-            const slider = document.getElementById('premiumSlider');
-            if(!slider) return;
-            const slides = slider.querySelectorAll('.slide');
-            const dotsContainer = document.getElementById('sliderDots');
-            let currentIndex = 0;
-
-            dotsContainer.innerHTML = '';
-            slides.forEach((_, idx) => {
-                let dot = document.createElement('div');
-                dot.className = `dot ${idx === 0 ? 'active' : ''}`;
-                dot.onclick = () => { currentIndex = idx; updateCarousel(); };
-                dotsContainer.appendChild(dot);
-            });
-
-            function updateCarousel() {
-                slides.forEach(s => s.classList.remove('active'));
-                dotsContainer.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
-                slides[currentIndex].classList.add('active');
-                dotsContainer.querySelectorAll('.dot')[currentIndex].classList.add('active');
-            }
-
-            setInterval(() => {
-                if(document.getElementById('homeView').style.display !== "none") {
-                    currentIndex = (currentIndex + 1) % slides.length;
-                    updateCarousel();
                 }
-            }, 5000);
+            }
+
+            // Generate Blackie Special Exclusive Category Items (Strictly Unique)
+            for (let specCat in IMAGE_POOLS.BlackieSpecial) {
+                let images = IMAGE_POOLS.BlackieSpecial[specCat];
+                for (let i = 1; i <= 35; i++) {
+                    let imgSeed = images[(i - 1) % images.length];
+                    let uniquePrice = 12000 + (i * 450);
+                    
+                    db.products.push({
+                        id: `SPEC-VIP-${specCat.substring(4,6).toUpperCase()}-${500 + i}`,
+                        section: "BlackieSpecial",
+                        category: specCat,
+                        name: `BLACKIE VIP LUXURY — Limited ${specCat} Edition-${500 + i}`,
+                        price: uniquePrice,
+                        img: `https://images.unsplash.com/photo-${imgSeed}?q=80&w=500`,
+                        isSpecial: true
+                    });
+                }
+            }
         }
 
-        function renderSideMenu() {
-            let menu = document.getElementById('dynamicSideMenuContainer');
-            menu.innerHTML = "<h3>STORE DEPARTMENTS</h3>";
-            MAIN_CATEGORIES_LIST.forEach(cat => {
-                menu.innerHTML += `<div class="menu-item" onclick="filterByCategoryPage('${cat}')">${cat} <i class="fa-solid fa-chevron-right"></i></div>`;
-            });
-
-            let selectAdm = document.getElementById('admProdCat');
-            selectAdm.innerHTML = "";
-            MAIN_CATEGORIES_LIST.forEach(cat => {
-                selectAdm.innerHTML += `<option value="${cat}">${cat}</option>`;
-            });
-        }
-
-        function renderHomeGrid(query = "") {
-            let grid = document.getElementById('homeDisplayGrid');
-            if(!grid) return; grid.innerHTML = "";
+        // --- UI DRAW ENGINE ---
+        function renderSidebarStructure() {
+            let container = document.getElementById('sidebarContainer');
+            container.innerHTML = "<div class='sidebar-section-title'>DEPARTMENTS</div>";
             
-            // Pull a sample of 16 items for home default display
-            let items = db.products.filter(p => !p.isSpecial && p.name.toLowerCase().includes(query.toLowerCase())).slice(0, 16);
+            let targetSections = ["Womens", "Mens", "Boys", "Girls", "Sports"];
+            targetSections.forEach(sec => {
+                let isActive = (sec === activeMainSection) ? "active" : "";
+                let subCats = Object.keys(IMAGE_POOLS[sec]);
+                
+                let subHtml = `<div class="sub-cat-list ${sec === activeMainSection ? 'open' : ''}" id="sc-list-${sec}">`;
+                subCats.forEach(sub => {
+                    let isSubActive = (sub === activeSubCategory && sec === activeMainSection) ? "active" : "";
+                    subHtml += `<button class="sub-cat-btn ${isSubActive}" onclick="selectCategory('https://images.unsplash.com/photo-1542291026-7eec264c27ff', '${sec}', '${sub}')">${sub}</button>`;
+                });
+                subHtml += `</div>`;
 
-            items.forEach((p, idx) => {
-                grid.innerHTML += `
-                    <div class="product-card">
-                        <div class="img-container" id="p-img-box-${idx}"><img src="${p.img}"></div>
-                        <div class="info-panel">
-                            <div>
-                                <div class="p-name">${p.name}</div>
-                                <div class="p-desc">${p.desc || 'Exclusive Luxury Item.'}</div>
-                            </div>
-                            <div>
-                                <div class="price-row"><span class="p-price">${parseInt(p.price).toLocaleString()} LKR</span></div>
-                                <button class="buy-btn" onclick="routeAcquisitionRequest('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.img}', 'p-img-box-${idx}', 'homeView')">
-                                    ${giftModeActive ? '📥 Pack Inside Box' : 'Add To Cart'}
-                                </button>
-                            </div>
-                        </div>
-                    </div>`;
+                container.innerHTML += `
+                    <button class="main-sec-btn ${isActive}" onclick="toggleSidebarSection('${sec}')">
+                        <span>${sec.toUpperCase()}</span> <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    ${subHtml}
+                `;
             });
         }
 
-        // --- 👑 SPECIAL DEEP ARCHITECTURE COMPONENT RENDERING ---
-        function switchSpecialMainSector(mainSec) {
-            activeSpecialMainSector = mainSec;
-            document.querySelectorAll('.nested-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('nb-' + mainSec).classList.add('active');
-            
-            // Auto switch subtab
-            activeSpecialSubSector = SPECIAL_NESTED_MAP[mainSec][0];
-            renderSpecialSubTabs();
-            renderSpecialProductsGrid();
+        function toggleSidebarSection(sec) {
+            activeMainSection = sec;
+            activeSubCategory = Object.keys(IMAGE_POOLS[sec])[0];
+            renderSidebarStructure();
+            renderMainStoreGrid();
         }
 
-        function renderSpecialSubTabs() {
-            let container = document.getElementById('specialSubTabsContainer');
-            container.innerHTML = "";
-            let subList = SPECIAL_NESTED_MAP[activeSpecialMainSector];
-            
-            subList.forEach(sub => {
-                let activeClass = (sub === activeSpecialSubSector) ? 'active' : '';
-                container.innerHTML += `<button class="sub-tab-btn ${activeClass}" onclick="switchSpecialSubSector('${sub}')">${sub.toUpperCase()}</button>`;
-            });
+        function selectCategory(_, sec, sub) {
+            activeMainSection = sec;
+            activeSubCategory = sub;
+            renderSidebarStructure();
+            renderMainStoreGrid();
+            document.getElementById('exploreGridTitle').innerText = `${sec.toUpperCase()} — ${sub.toUpperCase()} CATALOGUE`;
+            window.scrollTo({top: 550, behavior: 'smooth'});
         }
 
-        function switchSpecialSubSector(subSec) {
-            activeSpecialSubSector = subSec;
-            renderSpecialSubTabs();
-            renderSpecialProductsGrid();
-        }
-
-        function renderSpecialProductsGrid() {
-            let grid = document.getElementById('specialProductsDisplayGrid');
+        function renderMainStoreGrid(searchQuery = "") {
+            let grid = document.getElementById('mainStoreGrid');
             grid.innerHTML = "";
-            let targetCategoryKey = `SPECIAL_${activeSpecialMainSector}_${activeSpecialSubSector}`;
             
-            let filtered = db.products.filter(p => p.cat === targetCategoryKey);
+            let filtered = db.products.filter(p => !p.isSpecial && p.section === activeMainSection && p.category === activeSubCategory);
             
-            filtered.forEach((p, idx) => {
+            if(searchQuery !== "") {
+                filtered = db.products.filter(p => !p.isSpecial && p.name.toLowerCase().includes(searchQuery.toLowerCase()));
+                document.getElementById('exploreGridTitle').innerText = `SEARCH ARCHIVE RESULTS ("${searchQuery}")`;
+            }
+
+            filtered.forEach((p, index) => {
                 grid.innerHTML += `
                     <div class="product-card">
-                        <span class="badge-special">BLACKIE SPEC</span>
-                        <div class="img-container" id="p-spec-box-${idx}"><img src="${p.img}"></div>
-                        <div class="info-panel">
+                        <div class="img-box" id="p-img-${p.id}"><img src="${p.img}"></div>
+                        <div class="info-box">
                             <div>
-                                <div class="p-name">${p.name}</div>
-                                <div class="p-desc">${p.desc}</div>
+                                <div class="p-title">${p.name}</div>
                             </div>
                             <div>
-                                <div class="price-row"><span class="p-price">${parseInt(p.price).toLocaleString()} LKR</span></div>
-                                <button class="buy-btn" onclick="routeAcquisitionRequest('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.img}', 'p-spec-box-${idx}', 'homeView')">
-                                    ${giftModeActive ? '📥 Pack Inside Box' : 'Add To Cart'}
+                                <div class="p-price">${p.price.toLocaleString()} LKR</div>
+                                <button class="add-btn" onclick="handleAcquisition('${p.id}', '${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.img}', 'p-img-${p.id}')">
+                                    ${packingMode ? '📥 Pack In Box' : 'Add To Cart'}
                                 </button>
                             </div>
                         </div>
-                    </div>`;
+                    </div>
+                `;
             });
         }
 
-        function filterByCategoryPage(categoryName) {
-            navigateToPage('categoryView');
-            let titleBox = document.getElementById('currentCategoryTitle');
-            let grid = document.getElementById('categoryDisplayGrid');
+        // --- 👑 BLACKIE SPECIAL INTERFACE GENERATOR ---
+        function renderBlackieSpecialSection() {
+            let tabsContainer = document.getElementById('specialTabsHeader');
+            tabsContainer.innerHTML = "";
+            
+            let specCats = Object.keys(IMAGE_POOLS.BlackieSpecial);
+            specCats.forEach(sc => {
+                let isActive = (sc === activeSpecialCategory) ? "active" : "";
+                tabsContainer.innerHTML += `<button class="spec-tab-btn ${isActive}" onclick="switchSpecialCategory('${sc}')">👑 ${sc}</button>`;
+            });
+
+            let grid = document.getElementById('specialProductsGrid');
             grid.innerHTML = "";
-            titleBox.innerText = `${categoryName.toUpperCase()}`;
+            let filtered = db.products.filter(p => p.isSpecial && p.category === activeSpecialCategory);
             
-            let filtered = db.products.filter(p => p.cat === categoryName);
-            filtered.forEach((p, idx) => {
+            filtered.forEach(p => {
                 grid.innerHTML += `
-                    <div class="product-card">
-                        <div class="img-container" id="p-cat-box-${idx}"><img src="${p.img}"></div>
-                        <div class="info-panel">
+                    <div class="product-card" style="background:#181818; border-color: rgba(212,175,55,0.2);">
+                        <span class="badge-vip">EXCLUSIVE VIP</span>
+                        <div class="img-box" id="p-img-${p.id}"><img src="${p.img}"></div>
+                        <div class="info-box">
                             <div>
-                                <div class="p-name">${p.name}</div>
-                                <div class="p-desc">${p.desc || ''}</div>
+                                <div class="p-title" style="color:#fff;">${p.name}</div>
                             </div>
                             <div>
-                                <div class="price-row"><span class="p-price">${parseInt(p.price).toLocaleString()} LKR</span></div>
-                                <button class="buy-btn" onclick="routeAcquisitionRequest('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.img}', 'p-cat-box-${idx}', 'categoryView')">
-                                    ${giftModeActive ? '📥 Pack Inside Box' : 'Add To Cart'}
+                                <div class="p-price" style="color:var(--gold);">${p.price.toLocaleString()} LKR</div>
+                                <button class="add-btn" style="background:var(--gold); color:#000; font-weight:700;" onclick="handleAcquisition('${p.id}', '${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.img}', 'p-img-${p.id}')">
+                                    ${packingMode ? '📥 Pack In Box' : 'Add To Cart'}
                                 </button>
                             </div>
                         </div>
-                    </div>`;
+                    </div>
+                `;
             });
         }
 
-        function routeAcquisitionRequest(name, price, img, elementId, sourcePageId) {
-            if(!giftModeActive) {
-                standardCart.push({name, price, img});
-                localStorage.setItem('blackie_std_cart', JSON.stringify(standardCart));
-                updateGlobalCartElements();
-                showPremiumToast(`${name} Added to Cart.`);
+        function switchSpecialCategory(sc) {
+            activeSpecialCategory = sc;
+            renderBlackieSpecialSection();
+        }
+
+        // --- INTERACTIVE ACQUISITION PIPELINE ---
+        function handleAcquisition(id, name, price, img, elementId) {
+            if(!packingMode) {
+                cart.push({id, name, price, img});
+                localStorage.setItem('b_vault_cart', JSON.stringify(cart));
+                updateCartBadges();
+                showToast(`${name} added to secure cart.`);
             } else {
-                if(packedGiftItems.length >= maxAllowedGiftItems) {
-                    showPremiumToast(`Box is full! Max ${maxAllowedGiftItems} items.`);
+                if(packedItemsList.length >= maxBoxCapacity) {
+                    showToast(`Capacity alert! Current Luxury Box holds maximum ${maxBoxCapacity} items.`);
                     return;
                 }
                 
-                lastSelectedPageId = sourcePageId;
-                lastScrollCoordinateY = window.scrollY;
+                let el = document.getElementById(elementId);
+                if(el) {
+                    let r = el.getBoundingClientRect();
+                    let fly = document.createElement('img');
+                    fly.src = img; fly.className = "flying-img";
+                    fly.style.top = r.top + "px"; fly.style.left = r.left + "px";
+                    document.body.appendChild(fly);
 
-                let srcEl = document.getElementById(elementId);
-                if(srcEl) {
-                    let rect = srcEl.getBoundingClientRect();
-                    let flyImg = document.createElement('img');
-                    flyImg.src = img;
-                    flyImg.className = "flying-item";
-                    flyImg.style.top = rect.top + "px";
-                    flyImg.style.left = rect.left + "px";
-                    document.body.appendChild(flyImg);
-
-                    navigateToPage('giftView');
-                    window.scrollTo({top: 0, behavior: 'smooth'});
-                    
-                    let boxWrapper = document.getElementById('cartoonBox3D');
-                    let dest = boxWrapper.getBoundingClientRect();
+                    showPage('giftView');
+                    let targetBox = document.getElementById('box3DElement');
+                    let targetRect = targetBox.getBoundingClientRect();
 
                     setTimeout(() => {
-                        boxWrapper.classList.add('lid-open');
-                        
-                        flyImg.style.top = (dest.top + window.scrollY + 40) + "px";
-                        flyImg.style.left = (dest.left + 40) + "px";
-                        flyImg.style.width = "40px";
-                        flyImg.style.height = "40px";
-                        flyImg.style.opacity = "0.6";
+                        targetBox.classList.add('open');
+                        fly.style.top = (targetRect.top + window.scrollY + 30) + "px";
+                        fly.style.left = (targetRect.left + 30) + "px";
+                        fly.style.width = "30px"; fly.style.height = "30px"; fly.style.opacity = "0.3";
                         
                         setTimeout(() => {
-                            flyImg.remove();
-                            boxWrapper.classList.remove('lid-open');
-                            boxWrapper.classList.add('bounce-shake');
-                            
-                            setTimeout(() => {
-                                boxWrapper.classList.remove('bounce-shake');
-                                
-                                setTimeout(() => {
-                                    navigateToPage(lastSelectedPageId);
-                                    window.scrollTo({ top: lastScrollCoordinateY, behavior: 'smooth' });
-                                    showPremiumToast(`${name} Packed Inside Box.`);
-                                }, 600);
-
-                            }, 600);
-                        }, 900);
-                    }, 150);
+                            fly.remove();
+                            targetBox.classList.remove('open');
+                            showToast(`${name} enclosed inside box.`);
+                            showPage('homeView');
+                        }, 800);
+                    }, 100);
                 }
 
-                packedGiftItems.push({name, price, img});
-                updateGiftBoxMatrixDisplay();
-                updateGlobalCartElements();
+                packedItemsList.push({id, name, price, img});
+                updateGiftBoxUIState();
+                updateCartBadges();
             }
         }
 
-        function selectBoxSize(sizeName, maxLimit) {
-            selectedBoxSizeName = sizeName;
-            maxAllowedGiftItems = maxLimit;
-            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
-            document.getElementById('sz-' + sizeName).classList.add('selected');
-            updateGiftBoxMatrixDisplay();
+        function setBoxConfig(cap) {
+            maxBoxCapacity = cap;
+            document.querySelectorAll('.size-card').forEach(c => c.classList.remove('active'));
+            document.getElementById('sc-' + cap).classList.add('active');
+            updateGiftBoxUIState();
         }
 
-        function activateGiftItemCollection() {
-            giftModeActive = true;
-            showPremiumToast("Gift Mode Active! Select items.");
-            navigateToPage('homeView');
+        function turnOnGiftPackingMode() {
+            packingMode = true;
+            showToast("Gift Packing Mode Enabled! Choose items.");
+            showPage('homeView');
             window.scrollTo({top: 500, behavior: 'smooth'});
         }
 
-        function updateGiftBoxMatrixDisplay() {
-            document.getElementById('boxStatusText').innerText = `BOX SIZE: ${selectedBoxSizeName} (${packedGiftItems.length} / ${maxAllowedGiftItems} FULL)`;
-            let list = document.getElementById('giftBoxSummaryList');
-            list.innerText = packedGiftItems.length === 0 ? "No items packed inside yet." : "Packed: " + packedGiftItems.map(i => i.name).join(' + ');
+        function updateGiftBoxUIState() {
+            document.getElementById('boxStatusText').innerText = `BOX CAPACITY: ${packedItemsList.length} / ${maxBoxCapacity} FILLED`;
+            let summary = document.getElementById('boxSummaryText');
+            summary.innerText = packedItemsList.length === 0 ? "Box is empty." : "Packed artifacts: " + packedItemsList.map(i => i.name).join(' + ');
         }
 
-        function toggleDrawer(open) {
-            let drawer = document.getElementById('cartExpansionDrawer');
-            let overlay = document.getElementById('cartOverlay');
-            if(open) {
-                drawer.classList.add('open');
-                overlay.classList.add('open');
-                buildDrawerRows();
-            } else {
-                drawer.classList.remove('open');
-                overlay.classList.remove('open');
-            }
+        // --- SHOPPING DRAWER EXECUTION ---
+        function openCartDrawer() {
+            document.getElementById('cartDrawerPanel').classList.add('open');
+            document.getElementById('uiOverlay').classList.add('open');
+            buildCartRows();
         }
 
-        function updateGlobalCartElements() {
-            let totalItemsCount = standardCart.length + (packedGiftItems.length > 0 ? 1 : 0);
-            document.getElementById('badgeCount').innerText = totalItemsCount;
-            document.getElementById('mobileBadgeCount').innerText = totalItemsCount;
+        function closeCartDrawer() {
+            document.getElementById('cartDrawerPanel').classList.remove('open');
+            document.getElementById('uiOverlay').classList.remove('open');
         }
 
-        function buildDrawerRows() {
-            let container = document.getElementById('drawerItemsList');
-            let totBox = document.getElementById('drawerGrandTotalText');
-            container.innerHTML = ""; let netSum = 0;
+        function buildCartRows() {
+            let container = document.getElementById('cartItemsContainer');
+            container.innerHTML = "";
+            let netSum = 0;
 
-            standardCart.forEach((item, idx) => {
-                netSum += parseInt(item.price);
+            cart.forEach((item, idx) => {
+                netSum += item.price;
                 container.innerHTML += `
                     <div class="drawer-item">
                         <img src="${item.img}">
                         <div style="flex:1;"><div style="font-size:12px; font-weight:600;">${item.name}</div></div>
-                        <div style="font-size:12px; font-weight:700;">${parseInt(item.price).toLocaleString()} LKR</div>
-                        <button class="del-row-btn" onclick="removeRegularCartItem(${idx})">x</button>
-                    </div>`;
+                        <div style="font-size:12px; font-weight:700;">${item.price.toLocaleString()} LKR</div>
+                        <button style="background:none; border:none; color:red; cursor:pointer;" onclick="removeCartItem(${idx})"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                `;
             });
 
-            if(packedGiftItems.length > 0) {
-                let boxPrice = 3500;
-                let boxItemsSum = packedGiftItems.reduce((s, i) => s + parseInt(i.price), 0);
-                let customBoxTotal = boxPrice + boxItemsSum;
-                netSum += customBoxTotal;
+            if(packedItemsList.length > 0) {
+                let boxBaseCharge = 3000;
+                let itemsCharge = packedItemsList.reduce((acc, i) => acc + i.price, 0);
+                let aggregatedBoxTotal = boxBaseCharge + itemsCharge;
+                netSum += aggregatedBoxTotal;
 
                 container.innerHTML += `
-                    <div class="drawer-item" style="border:1px solid var(--gold); padding:12px; background:#fffdfa; border-radius:6px; margin-top:10px;">
-                        <div style="font-size:22px; color:var(--gold);"><i class="fa-solid fa-gift"></i></div>
-                        <div style="flex:1; margin-left:12px;">
-                            <div style="font-size:12px; font-weight:700;">CUSTOM GIFT BOX (${selectedBoxSizeName})</div>
-                            <small style="color:#666;">Items: ${packedGiftItems.length}</small>
+                    <div class="drawer-item" style="border:1.5px solid var(--gold); background:#fffdf5; padding:12px; border-radius:6px; margin-top:10px;">
+                        <i class="fa-solid fa-gift" style="font-size:20px; color:var(--gold);"></i>
+                        <div style="flex:1;">
+                            <div style="font-size:12px; font-weight:700;">CUSTOM PREMIUM GIFT BOX</div>
+                            <small style="color:#666;">Enclosed Objects Count: ${packedItemsList.length}</small>
                         </div>
-                        <div style="font-size:12px; font-weight:700; color:var(--gold);">${customBoxTotal.toLocaleString()} LKR</div>
-                        <button class="del-row-btn" onclick="wipeCustomGiftContainer()">x</button>
-                    </div>`;
+                        <div style="font-size:12px; font-weight:700; color:var(--gold);">${aggregatedBoxTotal.toLocaleString()} LKR</div>
+                        <button style="background:none; border:none; color:red; cursor:pointer;" onclick="purgeGiftBox()"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                `;
             }
-            totBox.innerText = netSum.toLocaleString();
+            document.getElementById('cartTotalText').innerText = netSum.toLocaleString();
         }
 
-        function removeRegularCartItem(idx) {
-            standardCart.splice(idx,1);
-            localStorage.setItem('blackie_std_cart', JSON.stringify(standardCart));
-            updateGlobalCartElements(); buildDrawerRows();
+        function removeCartItem(idx) {
+            cart.splice(idx, 1);
+            localStorage.setItem('b_vault_cart', JSON.stringify(cart));
+            updateCartBadges(); buildCartRows();
         }
 
-        function wipeCustomGiftContainer() {
-            packedGiftItems = []; giftModeActive = false;
-            updateGiftBoxMatrixDisplay(); updateGlobalCartElements(); buildDrawerRows();
+        function purgeGiftBox() {
+            packedItemsList = []; packingMode = false;
+            updateGiftBoxUIState(); updateCartBadges(); buildCartRows();
         }
 
-        function dispatchWhatsAppOrder() {
-            let name = document.getElementById('chkName').value;
-            let p1 = document.getElementById('chkPhone1').value;
-            let a1 = document.getElementById('chkAddr1').value;
+        function updateCartBadges() {
+            let count = cart.length + (packedItemsList.length > 0 ? 1 : 0);
+            document.getElementById('cartBadge').innerText = count;
+            document.getElementById('mobileCartBadge').innerText = count;
+        }
 
-            if(standardCart.length === 0 && packedGiftItems.length === 0) { showPremiumToast("Cart is empty."); return; }
-            if(!name || !p1 || !a1) { showPremiumToast("Please fill all required fields."); return; }
+        function showToast(msg) {
+            let a = document.getElementById('toastArea');
+            let t = document.createElement('div'); t.className = "toast"; t.innerText = msg;
+            a.appendChild(t);
+            setTimeout(() => { t.style.opacity = "0"; setTimeout(() => t.remove(), 300); }, 2500);
+        }
 
-            // 🔗 AUTOMATED REAL-TIME DYNAMIC SEARCH URL LINK GENERATION FOR EACH STOCK ELEMENT
-            let regularString = standardCart.map((item, i) => {
-                let trackingLink = `${window.location.origin}${window.location.pathname}?search=${encodeURIComponent(item.name)}`;
-                return `  ${i+1}. ${item.name} (${parseInt(item.price).toLocaleString()} LKR)\n     🔗 Item Link: ${trackingLink}`;
+        function showPage(pageId) {
+            document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.nav-b').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.bottom-bar-item').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            if(document.getElementById('nb-' + pageId)) document.getElementById('nb-' + pageId).classList.add('active');
+            if(document.getElementById('mb-' + pageId)) document.getElementById('mb-' + pageId).classList.add('active');
+        }
+
+        function liveSearch() {
+            let val = document.getElementById('mainSearchInput').value;
+            renderMainStoreGrid(val);
+        }
+
+        function adminGate() {
+            let k = prompt("ENTER SYSTEM CENTRAL COMMAND ACCESS KEY:");
+            if(k === "blackie123") { showToast("Authentication Cleared."); }
+        }
+
+        // --- 🔗 DYNAMIC SINGLE-ARTIFACT URL TRACKING GENERATOR FOR WHATSAPP ---
+        function submitOrderViaWhatsApp() {
+            let name = document.getElementById('cName').value;
+            let phone = document.getElementById('cPhone').value;
+            let addr = document.getElementById('cAddress').value;
+
+            if(cart.length === 0 && packedItemsList.length === 0) { showToast("Cart container is empty."); return; }
+            if(!name || !phone || !addr) { showToast("Required parameters missing."); return; }
+
+            // Dynamic Search Parameter URL injection architecture for every unique product item
+            let regularItemsText = cart.map((item, i) => {
+                let deepLink = `${window.location.origin}${window.location.pathname}?search=${encodeURIComponent(item.name)}`;
+                return `  ${i+1}. ${item.name} (${item.price.toLocaleString()} LKR)\n     🔗 Product URL: ${deepLink}`;
             }).join('\n\n');
 
-            let giftString = packedGiftItems.map((item, i) => {
-                let trackingLink = `${window.location.origin}${window.location.pathname}?search=${encodeURIComponent(item.name)}`;
-                return `  - ${item.name}\n    🔗 Item Link: ${trackingLink}`;
+            let giftItemsText = packedItemsList.map((item) => {
+                let deepLink = `${window.location.origin}${window.location.pathname}?search=${encodeURIComponent(item.name)}`;
+                return `  - ${item.name}\n    🔗 Product URL: ${deepLink}`;
             }).join('\n');
-            
-            let total = standardCart.reduce((s,i) => s + parseInt(i.price), 0);
-            if(packedGiftItems.length > 0) { total += 3500 + packedGiftItems.reduce((s,i) => s + parseInt(i.price), 0); }
 
-            let msg = `⚜️ *NEW ORDER - BLACKIE STORE* ⚜️\n\n` +
-                      `*CLIENT INFO:*\n- Name: ${name}\n- Contact: ${p1}\n- Address: ${a1}\n\n` +
-                      `*ITEMS ORDERED:*\n${regularString || '  None'}\n\n`;
+            let grandTotal = cart.reduce((acc, i) => acc + i.price, 0);
+            if(packedItemsList.length > 0) { grandTotal += 3000 + packedItemsList.reduce((acc, i) => acc + i.price, 0); }
 
-            if(packedGiftItems.length > 0) {
-                msg += `*🎁 CUSTOM GIFT BOX (${selectedBoxSizeName}):*\n${giftString}\n\n`;
+            let template = `⚜️ *NEW SECURE INBOUND ORDER — BLACKIE* ⚜️\n\n` +
+                           `*DISPATCH SHIPPING METRICS:*\n- Customer Name: ${name}\n- Contact Number: ${phone}\n- Destination: ${addr}\n\n` +
+                           `*CARGO MANIFEST ARTICLES:*\n${regularItemsText || '  None'}\n\n`;
+
+            if(packedItemsList.length > 0) {
+                template += `*🎁 BOX DISPATCH CONTAINS:*\n${giftItemsText}\n\n`;
             }
 
-            msg += `*TOTAL GRAND AMOUNT:* ${total.toLocaleString()} LKR\n\n===============================`;
+            template += `*GRAND SUMMARY INVOICE:* ${grandTotal.toLocaleString()} LKR\n\n===============================`;
+
+            window.open(`https://api.whatsapp.com/send?phone=94741155984&text=${encodeURIComponent(template)}`, '_blank');
             
-            window.open(`https://api.whatsapp.com/send?phone=94741155984&text=${encodeURIComponent(msg)}`, '_blank');
-
-            standardCart = []; packedGiftItems = []; giftModeActive = false;
-            localStorage.setItem('blackie_std_cart', JSON.stringify(standardCart));
-            updateGiftBoxMatrixDisplay(); updateGlobalCartElements(); toggleDrawer(false);
+            cart = []; packedItemsList = []; packingMode = false;
+            localStorage.setItem('b_vault_cart', JSON.stringify(cart));
+            updateGiftBoxUIState(); updateCartBadges(); closeCartDrawer();
         }
 
-        function renderInventoryTable() {
-            let tbody = document.getElementById('adminInventoryTableBody');
-            if(!tbody) return; tbody.innerHTML = "";
-            db.products.slice(0, 100).forEach((p, idx) => { // Display first 100 on admin panel to protect DOM performance
-                tbody.innerHTML += `<tr><td><b>${p.cat}</b></td><td>${p.name}</td><td>${parseInt(p.price).toLocaleString()} LKR</td><td><button class="del-row-btn" onclick="purgeProduct(${idx})">Purge</button></td></tr>`;
-            });
-        }
-
-        function injectProduct() {
-            let cat = document.getElementById('admProdCat').value;
-            let name = document.getElementById('admProdName').value;
-            let price = document.getElementById('admProdPrice').value;
-            let img = document.getElementById('admProdImg').value;
-            let desc = document.getElementById('admProdDesc').value;
-            if(!name || !price || !img) { showPremiumToast("Fields cannot be empty."); return; }
-            db.products.unshift({cat, name, price, img, desc, isSpecial: false});
-            localStorage.setItem('blackie_god_db', JSON.stringify(db));
-            renderHomeGrid(); renderInventoryTable();
-            showPremiumToast("Product Deployed Successfully.");
-            document.getElementById('admProdName').value = ""; document.getElementById('admProdPrice').value = ""; document.getElementById('admProdImg').value = ""; document.getElementById('admProdDesc').value = "";
-        }
-
-        function purgeProduct(idx) {
-            db.products.splice(idx, 1);
-            localStorage.setItem('blackie_god_db', JSON.stringify(db));
-            renderHomeGrid(); renderInventoryTable(); showPremiumToast("Product Purged.");
-        }
-
-        function triggerLiveSearch() {
-            let val = document.getElementById('storeSearchBar').value;
-            renderHomeGrid(val);
-        }
-
-        // Catch incoming product links instantly on load if provided
-        function parseUrlDeepLinkParameters() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const searchItem = urlParams.get('search');
-            if(searchItem) {
-                document.getElementById('storeSearchBar').value = searchItem;
-                renderHomeGrid(searchItem);
-                window.scrollTo({top: 400, behavior: 'smooth'});
+        // Catch deep-links via parameters instantly on initialization
+        function processDeepLinks() {
+            let params = new URLSearchParams(window.location.search);
+            let searchKeyword = params.get('search');
+            if(searchKeyword) {
+                document.getElementById('mainSearchInput').value = searchKeyword;
+                renderMainStoreGrid(searchKeyword);
+                window.scrollTo({top: 550, behavior: 'smooth'});
             }
         }
 
         window.onload = function() {
-            renderSideMenu();
-            renderHomeGrid();
-            switchSpecialMainSector('Womens');
-            renderInventoryTable();
-            updateGlobalCartElements();
-            initializeSlider();
-            parseUrlDeepLinkParameters();
+            generateUniqueStoreDatabase();
+            renderSidebarStructure();
+            renderMainStoreGrid();
+            renderBlackieSpecialSection();
+            updateCartBadges();
+            processDeepLinks();
+            
+            // Carousel Automator
+            setInterval(() => {
+                let slides = document.querySelectorAll('.slide');
+                let active = document.querySelector('.slide.active');
+                active.classList.remove('active');
+                let next = active.nextElementSibling || slides[0];
+                if(next.classList.contains('slide')) next.classList.add('active');
+                else slides[0].classList.add('active');
+            }, 4000);
         };
     </script>
 </body>
